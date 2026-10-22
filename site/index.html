@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="모르는 것은 그날 찾아보고, 만들어서 확인하는 하태형의 포트폴리오" />
+<title>하태형 포트폴리오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #e3eadb;          /* 창 바깥 바탕 */
+    --win: #fbfbf8;         /* 창 */
+    --side: #f3f4ef;
+    --line: #dfe2d8;
+    --text: #23272b;
+    --muted: #6b7178;
+    --dim: #a5abb1;
+    --path: #7c4dcc;        /* 경로(보라) */
+    --accent: #1f6feb;
+    --pick: #d9edc8;        /* 선택 막대(연두) */
+    --c1: #d6336c; --c2: #e8590c; --c3: #7048e8; --c4: #2b8a3e;
+    --mono: "JetBrains Mono", "IBM Plex Sans KR", Consolas, monospace;
+    --sans: "IBM Plex Sans KR", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); display: grid; place-items: center; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  a { color: inherit; }
+
+  /* ── 창 ── */
+  .win { width: min(1240px, calc(100vw - 64px)); height: min(780px, calc(100vh - 64px)); display: grid; grid-template-columns: 270px minmax(0, 1fr); background: var(--win); border: 1px solid #cdd3c4; border-radius: 10px; overflow: hidden; box-shadow: 0 24px 60px rgba(40, 60, 30, 0.16), 0 2px 6px rgba(40, 60, 30, 0.08); }
+
+  /* 왼쪽: 파일 트리 + 고정 연락처 */
+  .side { display: flex; flex-direction: column; min-height: 0; background: var(--side); border-right: 1px solid var(--line); font: 13px/1 var(--mono); }
+  .side-head { display: flex; align-items: center; gap: 8px; padding: 14px 14px 10px; color: var(--path); font-weight: 600; }
+  .side-head svg { width: 16px; height: 16px; }
+  .tree { flex: 1; overflow: auto; list-style: none; margin: 0; padding: 0 0 10px; }
+  .tree ul { list-style: none; margin: 0; padding: 0; }
+  .it { display: flex; align-items: center; gap: 8px; width: 100%; height: 25px; padding: 0 12px 0 calc(14px + var(--d, 0) * 16px); text-align: left; white-space: nowrap; color: #3b4046; }
+  .it:hover { background: #e8ebe2; }
+  .it.on { background: var(--pick); color: #1d2a12; }
+  .it:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+  .it:disabled { color: var(--dim); cursor: default; }
+  .it:disabled:hover { background: none; }
+  .it svg { width: 14px; height: 14px; flex: none; }
+  .ic-dir { color: #8a8f73; } .ic-doc { color: #6b7178; } .ic-home { color: var(--path); } .ic-grid { color: var(--accent); }
+  .it .lbl { overflow: hidden; text-overflow: ellipsis; }
+  .pin { border-top: 1px solid var(--line); padding: 6px 0 10px; }
+  .pin .it { color: #3b4046; text-decoration: none; }
+  .pin .cap { padding: 8px 14px 6px; font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+
+  /* 오른쪽: 화면 */
+  .main { position: relative; display: grid; grid-template-rows: 30px minmax(0, 1fr) 26px; min-width: 0; min-height: 0; }
+  .bar { display: flex; align-items: center; padding: 0 14px; font: 12px var(--mono); color: var(--muted); border-bottom: 1px solid var(--line); }
+  .bar .buf { margin: 0 auto; color: var(--text); }
+  .bar .fps { min-width: 64px; text-align: right; }
+  .burger { display: none; width: 26px; height: 22px; font-size: 15px; margin-right: 6px; }
+  .view { position: relative; overflow: auto; }
+  .foot { display: flex; align-items: center; gap: 14px; padding: 0 14px; font: 11.5px var(--mono); color: var(--muted); border-top: 1px solid var(--line); white-space: nowrap; overflow: hidden; }
+  .foot .mode { padding: 2px 8px; border-radius: 3px; background: var(--pick); color: #1d2a12; font-weight: 600; }
+  .foot .r { margin-left: auto; }
+
+  /* 줄 번호 + Vim의 빈 줄(~) */
+  .gut { position: absolute; left: 0; top: 0; bottom: 0; width: 54px; padding-top: 14px; text-align: right; font: 13px/24px var(--mono); color: #b9bec3; pointer-events: none; user-select: none; overflow: hidden; }
+
+  /* ── 홈 ── */
+  .home { position: relative; min-height: 100%; padding-top: 14px; overflow: hidden; }
+  #art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hero { position: relative; z-index: 1; margin: 0 0 0 70px; padding: 0 28px 22px 4px; width: min(560px, calc(100% - 100px)); background: linear-gradient(90deg, var(--win) 82%, rgba(251,251,248,0)); }
+  .hero .ln { font: 13px/24px var(--mono); color: var(--muted); }
+  .hero .ln .k { color: var(--c3); }
+  .hero h1 { margin: 2px 0 6px; font-size: 44px; line-height: 1.2; letter-spacing: -0.01em; }
+  .hero .one { margin: 0 0 8px; font-size: 19px; font-weight: 600; line-height: 1.55; word-break: keep-all; }
+  .hero .sub { margin: 0 0 18px; font-size: 14.5px; line-height: 1.8; color: #50565c; word-break: keep-all; }
+  .go { display: flex; flex-wrap: wrap; gap: 8px; }
+  .go button, .go a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px; font: 600 13px var(--sans); text-decoration: none; border: 1px solid #cfd4ca; background: #fff; }
+  .go .pri { background: var(--text); color: #fff; border-color: var(--text); }
+  .go button:hover, .go a:hover { border-color: var(--accent); }
+  .go .pri:hover { background: #000; }
+  .mail { position: absolute; z-index: 1; left: 50%; bottom: 56px; transform: translateX(-30%); display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px; font: 13.5px var(--mono); background: #ecefe6; border: 1px solid #d7dccf; border-radius: 4px; color: var(--text); text-decoration: none; white-space: nowrap; }
+  .mail:hover { border-color: var(--accent); }
+  .tip { position: absolute; z-index: 1; right: 16px; bottom: 12px; font: 11.5px var(--mono); color: var(--dim); }
+
+  /* ── 목록 페이지 ── */
+  .page { padding: 28px 36px 48px 70px; max-width: 1060px; }
+  .page .kick { font: 600 12.5px var(--mono); color: var(--path); }
+  .page h1 { margin: 6px 0 8px; font-size: 32px; line-height: 1.3; word-break: keep-all; }
+  .page .intro { margin: 0 0 22px; max-width: 720px; font-size: 14.5px; line-height: 1.85; color: #50565c; word-break: keep-all; }
+  .page h2 { margin: 30px 0 12px; font: 600 12.5px var(--mono); color: var(--muted); letter-spacing: 0.02em; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
+  .card { width: 100%; height: 100%; display: flex; flex-direction: column; text-align: left; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; }
+  button.card:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(40, 60, 30, 0.12); border-color: #b9c2ad; }
+  .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .card:disabled { cursor: default; }
+  .thumb { aspect-ratio: 16 / 9; background: #eef0ea; border-bottom: 1px solid #e6e8e1; overflow: hidden; display: grid; place-items: center; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .thumb pre { margin: 0; font: 11px/1.25 var(--mono); color: #8d949a; }
+  .thumb pre b { color: var(--c2); font-weight: 600; } .thumb pre i { color: var(--c3); font-style: normal; }
+  .cb { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px; flex: 1; }
+  .cb .top { display: flex; align-items: center; gap: 8px; font: 600 12px var(--mono); color: var(--path); }
+  .cb .tag { margin-left: auto; font: 500 11px var(--mono); padding: 1px 8px; border-radius: 999px; background: #eef2fb; color: var(--accent); }
+  .cb .tag.g { background: #f0f0ed; color: #868b90; }
+  .cb b { font-size: 16.5px; line-height: 1.4; word-break: keep-all; }
+  .cb p { margin: 0; font-size: 13.5px; line-height: 1.7; color: #5a6066; word-break: keep-all; }
+  .cb .more { margin-top: auto; padding-top: 6px; font: 12px var(--mono); color: var(--accent); }
+  .cb .more.g { color: var(--dim); }
+  .card.plan { border-style: dashed; background: transparent; }
+  .steps { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; padding: 0; margin: 0; font-size: 13px; color: #50565c; }
+  .steps b { font: 600 11.5px var(--mono); color: var(--c3); margin-right: 6px; }
+  .note { margin: 14px 0 0; padding: 14px 16px; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; font-size: 14px; line-height: 1.85; color: #444; word-break: keep-all; max-width: 860px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
+  .pills li { font-size: 12.5px; padding: 3px 10px; border-radius: 999px; background: #fff; border: 1px solid #d5dacd; color: #444; }
+  .tbl { width: 100%; max-width: 760px; border-collapse: collapse; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; overflow: hidden; font-size: 14px; }
+  .tbl th, .tbl td { text-align: left; padding: 11px 16px; border-bottom: 1px solid #eef0ea; }
+  .tbl tr:last-child > * { border-bottom: 0; }
+  .tbl th { width: 44%; font-weight: 600; }
+  .tbl td { color: #5a6066; }
+
+  /* ── 세부 문서(.md) ── */
+  .doc { padding: 14px 36px 48px 70px; max-width: 900px; }
+  .doc .md { font-family: var(--mono); color: var(--dim); font-weight: 400; margin-right: 8px; }
+  .doc h1 { margin: 0 0 10px; font-size: 30px; line-height: 1.35; }
+  .doc h2 { margin: 26px 0 8px; font-size: 18px; }
+  .doc p { margin: 0 0 12px; font-size: 15px; line-height: 1.85; word-break: keep-all; }
+  .fm { margin: 4px 0 16px; padding: 10px 14px; background: #f4f5f0; border: 1px solid #e3e6dc; border-radius: 6px; font: 12.5px/1.9 var(--mono); }
+  .fm .dl { color: var(--dim); } .fm .key { color: var(--c3); } .fm .val { color: #3d4a2f; }
+  .fm .val a { color: var(--accent); }
+  .shot { margin: 12px 0 18px; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; max-width: 720px; background: #fff; }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot figcaption { padding: 6px 12px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); }
+  .nav2 { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .nav2 button, .nav2 a { font: 600 13px var(--sans); padding: 7px 12px; border-radius: 6px; border: 1px solid #cfd4ca; background: #fff; text-decoration: none; }
+  .nav2 button:hover, .nav2 a:hover { border-color: var(--accent); }
+  .doc .feat { list-style: none; padding: 0; margin: 0 0 14px; max-width: 760px; }
+  .doc .feat li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 14.5px; line-height: 1.8; color: #3b4046; word-break: keep-all; }
+  .doc .feat b { display: block; margin-bottom: 2px; color: var(--text); }
+
+  /* ── 모바일 ── */
+  @media (max-width: 860px) {
+    body { display: block; }
+    .win { width: 100vw; height: 100vh; height: 100dvh; border: 0; border-radius: 0; grid-template-columns: minmax(0, 1fr); }
+    .side { position: fixed; z-index: 30; top: 0; bottom: 0; left: 0; width: min(290px, 84vw); transform: translateX(-102%); transition: transform .2s; box-shadow: 6px 0 24px rgba(0,0,0,.14); }
+    .win.drawer .side { transform: none; }
+    .burger { display: block; }
+    .bar .fps { display: none; }
+    .gut { display: none; }
+    .hero { margin: 8px 0 0; padding: 0 18px 20px; width: 100%; background: linear-gradient(180deg, var(--win) 86%, rgba(251,251,248,0)); }
+    .hero h1 { font-size: 36px; }
+    .mail { left: 16px; transform: none; bottom: 44px; }
+    .tip { display: none; }
+    .page, .doc { padding: 20px 16px 40px; }
+    .cards { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+</style>
+<noscript><style>
+  body { display: block; padding: 24px; }
+  .win { display: none; }
+  #src article { max-width: 960px; margin: 0 auto 48px; }
+  #src .mail { position: static; transform: none; margin: 12px 0; }
+  #src .tip, #src .go, #src .nav2 button { display: none; }
+  #src .hero { margin-left: 0; background: none; }
+</style></noscript>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="s-dir" viewBox="0 0 16 16"><path d="M1.5 4.5V13h13V5.5H8L6.5 3.5h-5z" fill="currentColor"/></symbol>
+  <symbol id="s-doc" viewBox="0 0 16 16"><path d="M3.5 1.5h6l3 3v10h-9z" fill="currentColor"/><path d="M5.5 8h5M5.5 10.5h5" stroke="#fff" stroke-width="1"/></symbol>
+  <symbol id="s-home" viewBox="0 0 16 16"><path d="M2 7.5L8 2.5l6 5V14H10V10H6v4H2z" fill="currentColor"/></symbol>
+  <symbol id="s-grid" viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="2" y="9" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="9" width="5" height="5" rx="1" fill="currentColor"/></symbol>
+  <symbol id="s-lock" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7.5" rx="1.5" fill="currentColor"/><path d="M5.2 7V5.2a2.8 2.8 0 015.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="s-mail" viewBox="0 0 16 16"><rect x="1.5" y="3.5" width="13" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2 4.5l6 4.5 6-4.5" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="s-gh" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1a7 7 0 00-2.2 13.6c.35.07.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.03-.78-1.03-.64-.44.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.55-.18-3.19-.78-3.19-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.89.07-1.85 0 0 .59-.19 1.92.72a6.6 6.6 0 013.5 0c1.33-.91 1.92-.72 1.92-.72.38.96.14 1.67.07 1.85.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.45.25.22.47.64.47 1.29v1.92c0 .19.13.41.48.34A7 7 0 008 1z"/></symbol>
+  <symbol id="s-file" viewBox="0 0 16 16"><path d="M3.5 1.5h6l3 3v10h-9z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9.5 1.5v3h3" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
+</svg>
+
+<div class="win" id="win">
+  <aside class="side" aria-label="탐색기">
+    <div class="side-head"><svg><use href="#s-lock"/></svg>~/portfolio</div>
+    <ul class="tree" id="tree"></ul>
+    <div class="pin" aria-label="연락처">
+      <div class="cap">contact</div>
+      <a class="it" href="mailto:xogud17931@gmail.com"><svg class="ic-doc"><use href="#s-mail"/></svg>이메일</a>
+      <a class="it" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><svg class="ic-doc"><use href="#s-gh"/></svg>github</a>
+      <a class="it" href="resume.html"><svg class="ic-doc"><use href="#s-file"/></svg>이력서 · 자기소개서</a>
+    </div>
+  </aside>
+
+  <section class="main">
+    <div class="bar"><button class="burger" id="burger" type="button" aria-label="탐색기 열기">&#9776;</button><span class="buf" id="buf">home</span><span class="fps" id="fps"></span></div>
+    <div class="view" id="view"></div>
+    <div class="foot"><span class="mode" id="mode">NORMAL</span><span id="where">~/portfolio</span><span class="r" id="pos">보안 · 인프라 지망</span></div>
+  </section>
+</div>
+
+<!-- ===== 내용 (자바스크립트가 없으면 아래가 그대로 보인다) ===== -->
+<div id="src">
+
+<article data-id="home" data-kind="home" data-title="home" data-path="~/portfolio">
+  <div class="hero">
+    <div class="ln"><span class="k">const</span> whoami = </div>
+    <h1>하태형</h1>
+    <p class="one">모르는 것은 그날 찾아보고, 만들어서 확인한 사람</p>
+    <p class="sub">보안과 인프라를 배우는 개발자 지망생입니다. 리눅스마스터 2급에 합격하고 SQLD를 취득했으며, 직접 만들고 확인한 결과물을 대표작과 AI 과제로 모았습니다.</p>
+    <div class="go">
+      <button class="pri" type="button" data-open="featured">대표작 보기 →</button>
+      <button type="button" data-open="tasks">AI 과제 6개</button>
+      <button type="button" data-open="record">자격증 · 이력</button>
+    </div>
+  </div>
+  <a class="mail" href="mailto:xogud17931@gmail.com"><svg width="14" height="14" aria-hidden="true"><use href="#s-mail"/></svg><span id="mailtxt">xogud17931@gmail.com</span></a>
+  <div class="tip" aria-hidden="true">마우스를 움직여 보세요</div>
+</article>
+
+<article data-id="featured" data-kind="page" data-title="대표작" data-path="~/portfolio/대표작">
+  <div class="kick">~/portfolio/대표작</div>
+  <h1>대표작</h1>
+  <p class="intro">질문을 가설로 바꾸고 실험 도구를 직접 만든 논문, 그리고 팀에서 제작 전반을 맡은 CTF 머신입니다. 마지막 과제의 앱이 들어갈 자리도 마련했습니다.</p>
+  <ul class="cards">
+    <li><button class="card" type="button" data-open="t10">
+      <span class="thumb"><pre>┌──┬─────┬──┐
+│<i>♪</i> │  ┌──┘  │
+│  └──┤  <b>●</b>  │
+├──┐  │ ──┬─┤
+│  │  └─┐ │<i>♪</i>│
+└──┴────┴─┴─┘</pre></span>
+      <span class="cb"><span class="top">T10 · 논문<span class="tag">2026.10</span></span><b>고정 청각 랜드마크의 개수가 길찾기에 미치는 영향</b><p>소리를 0개, 2개, 3개 둔 미로를 브라우저 3D 시뮬레이터로 직접 만들어 비교했습니다.</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="ow">
+      <span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span>
+      <span class="cb"><span class="top">팀 과제 · CTF<span class="tag">Hard</span></span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card plan" type="button" data-open="t13">
+      <span class="thumb"><pre>$ npm run build
+<i>›</i> building…
+<b>_</b></pre></span>
+      <span class="cb"><span class="top">T13 · 앱<span class="tag g">예정</span></span><b>마지막 과제의 앱이 들어갈 자리</b><p>앱 이름, 해결하려는 문제, 배포 주소가 들어갑니다.</p><span class="more g">예정</span></span></button></li>
+  </ul>
+</article>
+
+<article data-id="tasks" data-kind="page" data-title="AI과제" data-path="~/portfolio/AI과제">
+  <div class="kick">~/portfolio/AI과제</div>
+  <h1>AI와 함께한 과제 6개</h1>
+  <p class="intro">카드를 누르면 과제의 화면과 설명이 문서로 열립니다. 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
+  <ul class="cards">
+    <li><button class="card" type="button" data-open="t02"><span class="thumb"><img src="assets/tasks/t02.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">T02<span class="tag">STEP 1</span></span><b>Dodge</b><p>직접 설계한 미니게임</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="t04"><span class="thumb"><img src="assets/tasks/t04.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">T04<span class="tag">STEP 2</span></span><b>The Day Before</b><p>어제 생성된 저장소 수 대시보드</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="t07"><span class="thumb"><img src="assets/tasks/t07.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">T07<span class="tag">STEP 3·4</span></span><b>PinPoint 재설계</b><p>로그인과 전체 재설계</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="t10"><span class="thumb"><pre>┌──┬─────┐
+│<i>♪</i> │  ┌──┤
+│  └──┤ <b>●</b>│
+└─────┴──┘</pre></span><span class="cb"><span class="top">T10<span class="tag">대표작</span></span><b>논문</b><p>청각 랜드마크와 길찾기</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card plan" type="button" data-open="t13"><span class="thumb"><pre>$ <b>_</b></pre></span><span class="cb"><span class="top">T13<span class="tag g">예정</span></span><b>앱</b><p>예정</p><span class="more g">예정</span></span></button></li>
+    <li><button class="card" type="button" data-open="ow"><span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span><span class="cb"><span class="top">TEAM<span class="tag">팀 과제</span></span><b>Overwrite</b><p>팀 CTF 머신 제작</p><span class="more">문서 열기 →</span></span></button></li>
+  </ul>
+  <h2>// AI 사용 방식의 단계</h2>
+  <ol class="steps"><li><b>STEP 1</b>대화형으로 요구하기</li><li><b>STEP 2</b>프로젝트 단위로 대화하기</li><li><b>STEP 3</b>폴더 안에서 명세로 일하기</li><li><b>STEP 4</b>외부 도구와 연결하기</li></ol>
+  <p class="note">처음에는 요구사항을 그대로 AI에게 넣는 것으로 시작했고, 이후 요구를 구체적으로 나누고, 설계서와 계획을 먼저 두고, 외부 도구까지 연결하는 방식으로 달라졌습니다. AI가 빠르게 만들어 주는 만큼 무엇을 만들지 정하고, 결과를 직접 써 보고, 맞는 것을 고르는 일이 더 중요하다는 점을 배웠습니다.</p>
+  <h2>// 지금 할 수 있는 것</h2>
+  <ul class="pills"><li>써 보고 판단해서 되돌린다</li><li>여러 안을 받아 직접 고른다</li><li>요구를 문서로 바꿔서 준다</li><li>작업의 맥락을 이어 간다</li><li>확인한 기록을 남긴다</li><li>못 한 것을 숨기지 않는다</li></ul>
+</article>
+
+<article data-id="record" data-kind="page" data-title="자격증·이력" data-path="~/portfolio/자격증·이력">
+  <div class="kick">~/portfolio/자격증·이력</div>
+  <h1>자격증과 이력</h1>
+  <p class="intro">수업과 과제를 하는 동안 자격증 준비를 함께 이어 갔습니다. 이력서, 자기소개서, 경력기술서는 <a href="resume.html">문서 페이지</a>에서 내려받을 수 있습니다.</p>
+  <h2>// 자격증</h2>
+  <table class="tbl"><tbody>
+    <tr><th>리눅스마스터 2급</th><td>합격 · 2026.10.02 발표</td></tr>
+    <tr><th>SQLD</th><td>취득 · 2025.06.27</td></tr>
+    <tr><th>정보처리기사</th><td>필기 합격 · 실기 응시 예정 2026.10.25</td></tr>
+  </tbody></table>
+  <h2>// 교육 · 학력</h2>
+  <table class="tbl"><tbody>
+    <tr><th>코리아IT아카데미 Aleph 과정</th><td>2026.08.11 – 2026.11.13 · 수강 중</td></tr>
+    <tr><th>코리아IT아카데미 정보처리산업기사 과정</th><td>2024.12 – 2025.06 · 수료</td></tr>
+    <tr><th>영남대학교 기계공학부</th><td>2020.02 · 졸업</td></tr>
+  </tbody></table>
+</article>
+
+<!-- ===== 세부 문서(.md) ===== -->
+<article data-id="t02" data-kind="md" data-title="T02-Dodge.md" data-path="~/portfolio/AI과제/T02-Dodge.md" data-parent="tasks">
+  <h1><span class="md">#</span>T02 · Dodge</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">AI 사용</span>: <span class="val">STEP 1 · 대화형으로 요구하기</span><br />
+    <span class="key">한 일</span>: <span class="val">레벨 디자인, 점진적 기능 추가, 상세 요구</span><br />
+    <span class="key">링크</span>: <span class="val"><a href="https://aleph-project-dodge.vercel.app/" target="_blank" rel="noreferrer">aleph-project-dodge.vercel.app ↗</a></span><br />
+    <span class="dl">---</span></div>
+  <p>30초 동안 탄막을 피하는 생존 게임입니다. 30초에 끝나는 간단한 미니게임이라는 주제에서 예전에 했던 피하기 게임을 떠올려 만들었습니다.</p>
+  <figure class="shot"><img src="assets/tasks/t02.jpg" alt="T02 Dodge 첫 화면" width="1600" height="1000" loading="lazy" /><figcaption>배포 사이트 첫 화면</figcaption></figure>
+  <h2><span class="md">##</span>AI로 넣은 기능과 이유</h2>
+  <ul class="feat">
+    <li><b>시간대별로 다른 공격</b>피하기만 하면 단조로워서, 시간에 따라 직선, 곡선, 유도 공격이 나오게 했습니다. 30초에 가까워질수록 어려워지고 긴장감이 들게 하려는 레벨 디자인입니다.</li>
+    <li><b>난이도 세 단계</b>난이도에 맞춰 장애물의 개수와 속도가 늘어나게 했습니다. 처음 나오는 장애물은 쉬움 3개, 보통 5개, 어려움 8개입니다.</li>
+    <li><b>상한 없는 도전 모드</b>난이도를 나누고 보니 사람마다 실력 차이가 크다는 것을 알게 되어, 단계에 상한을 두지 않았습니다. 쉬운 모드는 아주 쉽게 했습니다.</li>
+    <li><b>캐릭터 직접 그리기</b>기본 캐릭터만 있으면 심심할 것 같아서, 도화지에 직접 그려 캐릭터를 만들 수 있게 했습니다.</li>
+    <li><b>최근 기록</b>상한 없는 모드가 생기자 경쟁심이 있는 사람은 자기 위치를 보고 싶어 할 것 같아서 최근 기록을 볼 수 있게 했습니다.</li>
+    <li><b>접을 수 있는 영역</b>기능을 더하자 화면이 길어져 스크롤이 생겨서, 튜토리얼과 캐릭터 만들기처럼 항상 볼 필요 없는 것을 접어 공간을 줄였습니다.</li>
+  </ul>
+  <h2><span class="md">##</span>연결</h2>
+  <p>기능 하나가 다음 문제를 만들었고, 그 문제를 다음 기능으로 풀었습니다. 난이도를 나누자 실력 차이가 보였고, 상한 없는 모드를 만들자 기록이 필요해졌고, 기능이 늘자 화면이 길어졌습니다.</p>
+  <h2><span class="md">##</span>배운 것</h2>
+  <p>컨셉만 잡고 기본 틀을 요구한 뒤 간단한 기능을 하나씩 더하며, 자세히 요구하는 법을 익혔습니다.</p>
+  <div class="nav2"><button type="button" data-open="tasks">← AI 과제 목록</button><a href="https://aleph-project-dodge.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></div>
+</article>
+
+<article data-id="t04" data-kind="md" data-title="T04-TheDayBefore.md" data-path="~/portfolio/AI과제/T04-TheDayBefore.md" data-parent="tasks">
+  <h1><span class="md">#</span>T04 · The Day Before</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">AI 사용</span>: <span class="val">STEP 2 · 프로젝트 단위로 대화하기</span><br />
+    <span class="key">한 일</span>: <span class="val">참고 디자인 지정, 여러 안 중 선택, 편의 기능 추가, 자동 기록</span><br />
+    <span class="key">기록</span>: <span class="val">GitHub Actions 자동 기록 54일 중 52일</span><br />
+    <span class="key">링크</span>: <span class="val"><a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a> · <a href="https://github.com/HTH-0/aleph_the_day_before" target="_blank" rel="noreferrer">GitHub ↗</a></span><br />
+    <span class="dl">---</span></div>
+  <p>어제 하루 동안 생성된 공개 GitHub 저장소 수를 매일 기록하는 대시보드입니다. 외부 API가 실패해도 가짜 값을 채우지 않고 지연 상태를 보여 줍니다.</p>
+  <figure class="shot"><img src="assets/tasks/t04.jpg" alt="T04 The Day Before 첫 화면" width="1600" height="1000" loading="lazy" /><figcaption>배포 사이트 첫 화면</figcaption></figure>
+  <h2><span class="md">##</span>AI로 넣은 기능과 이유</h2>
+  <ul class="feat">
+    <li><b>편의 기능 세 가지</b>잔디 모양의 기록 표시, 추이 그래프, 중앙의 큰 숫자 갱신을 더했습니다. 요구받은 기능 밖에서 편의성을 높이려고 시각적으로, 기능적으로 더한 것입니다.</li>
+  </ul>
+  <h2><span class="md">##</span>상황</h2>
+  <p>처음에는 AI가 추천한 디자인을 그대로 따랐는데 마음에 들지 않는 부분이 있었습니다.</p>
+  <h2><span class="md">##</span>해결</h2>
+  <p>가능한 제안을 여러 개 나열해 달라고 요청하고 그중에서 직접 고르는 방식으로 바꿨습니다. 참고할 디자인과 원하는 모습을 지정하고 세부 디자인까지 요구했습니다.</p>
+  <h2><span class="md">##</span>확인</h2>
+  <p>GitHub Actions의 자동 기록이 54일 중 52일 이어졌고, 제출 뒤에도 표의 가독성과 그래프 라벨 겹침을 고쳤습니다.</p>
+  <div class="nav2"><button type="button" data-open="tasks">← AI 과제 목록</button><a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a><a href="https://github.com/HTH-0/aleph_the_day_before" target="_blank" rel="noreferrer">소스 GitHub ↗</a></div>
+</article>
+
+<article data-id="t07" data-kind="md" data-title="T07-PinPoint.md" data-path="~/portfolio/AI과제/T07-PinPoint.md" data-parent="tasks">
+  <h1><span class="md">#</span>T07 · PinPoint 재설계</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">기간</span>: <span class="val">2026.09.03 – 09.06 (커밋 37개)</span><br />
+    <span class="key">AI 사용</span>: <span class="val">STEP 3·4 · 폴더 안 명세, 외부 도구(MCP) 연결</span><br />
+    <span class="key">한 일</span>: <span class="val">로그인 구현, 전체 재설계, Document PiP 구현</span><br />
+    <span class="key">링크</span>: <span class="val"><a href="https://aleph-pinpoint.vercel.app/" target="_blank" rel="noreferrer">aleph-pinpoint.vercel.app ↗</a></span><br />
+    <span class="dl">---</span></div>
+  <p>전체 배치를 다시 설계했습니다. 픽셀 테마는 부분 수정 대신 기초부터 다시 만들고, 작업 원칙 · 구조 · 검증 기준을 문서로 정리했습니다.</p>
+  <figure class="shot"><img src="assets/tasks/t07.jpg" alt="T07 PinPoint 재설계 로그인 화면" width="1600" height="1000" loading="lazy" /><figcaption>로그인 화면</figcaption></figure>
+  <h2><span class="md">##</span>상황</h2>
+  <p>코르크보드와 픽셀에 이어 Win95 테마까지 구현했지만, 기능을 고칠 때마다 무료 이미지의 저작권을 확인하는 일이 작업량을 크게 늘렸습니다.</p>
+  <h2><span class="md">##</span>해결</h2>
+  <p>팀원들에게 보였을 때 칭찬은 들었지만 관심이 다른 테마에 몰려서, 구현 사흘 만에 모든 페이지에서 제거했습니다. 달성 이벤트 디자인은 여러 안을 나란히 만들어 비교한 뒤 정했고, 핀 모드는 복잡하게 만들었다가 줄이고 다시 조정했습니다.</p>
+  <h2><span class="md">##</span>확인</h2>
+  <p>로그인 뒤 다른 사람의 자료가 열리지 않는 것을 확인한 기록과, 막지 못한 것(무차별 대입 방어 등)의 목록을 제출 문서에 남겼습니다.</p>
+  <div class="nav2"><button type="button" data-open="tasks">← AI 과제 목록</button><a href="https://aleph-pinpoint.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></div>
+</article>
+
+<article data-id="t10" data-kind="md" data-title="T10-논문.md" data-path="~/portfolio/대표작/T10-논문.md" data-parent="featured">
+  <h1><span class="md">#</span>T10 · 미로형 3D 공간에서 고정 청각 랜드마크의 개수가 길찾기에 미치는 영향</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">날짜</span>: <span class="val">2026.10.01</span><br />
+    <span class="key">한 일</span>: <span class="val">가설 설정, 브라우저 3D 시뮬레이터 직접 제작, 사전 분석 계획</span><br />
+    <span class="key">자료</span>: <span class="val">참가자 5명, 시행 15회</span><br />
+    <span class="key">링크</span>: <span class="val"><a href="thesis.html">논문 전문</a> · <a href="https://github.com/HTH-0/aleph_thesis" target="_blank" rel="noreferrer">소스와 원자료 GitHub ↗</a></span><br />
+    <span class="dl">---</span></div>
+  <p>서로 다른 음색의 소리를 0개, 2개, 3개 둔 미로를 브라우저 3D 시뮬레이터로 직접 만들었습니다. 참가자 5명의 시행 15회를 수집해 소요 시간, 경로 효율성, 막다른 길 진입 횟수를 비교했습니다.</p>
+  <h2><span class="md">##</span>상황</h2>
+  <p>설계를 바꾸며 실험해서 참가자 5명의 설계 버전이 서로 달라 시간을 그대로 합칠 수 없었습니다. 소리가 들리는 최대 거리도 처음에는 최단경로 위의 거리만 보고 60유닛으로 잘못 정했습니다.</p>
+  <h2><span class="md">##</span>해결</h2>
+  <p>같은 사람의 소리 없는 시행과 비교한 비율로 분석했고, 최대 거리를 90유닛으로 고쳤습니다. 분석 계획은 데이터를 보기 전에 정했고, AI가 한 일과 직접 판단한 일을 문서에 나누어 적었습니다.</p>
+  <h2><span class="md">##</span>결과</h2>
+  <p>소리 3개 조건이 소리 없는 조건보다 빨랐던 참가자는 5명 중 4명이었습니다(시행 순서를 통제한 3명 중에서는 2명). 표본이 작아 가설의 지지와 기각은 판단하지 않고 탐색적 경향으로만 적었습니다.</p>
+  <div class="nav2"><button type="button" data-open="featured">← 대표작 목록</button><a href="thesis.html">논문 전문</a><a href="https://github.com/HTH-0/aleph_thesis" target="_blank" rel="noreferrer">소스와 원자료 GitHub ↗</a></div>
+</article>
+
+<article data-id="ow" data-kind="md" data-title="Overwrite.md" data-path="~/portfolio/대표작/Overwrite.md" data-parent="featured">
+  <h1><span class="md">#</span>Overwrite · 팀 CTF 머신</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">시기</span>: <span class="val">2026.10 · 팀 과제 (팀원 4명)</span><br />
+    <span class="key">난이도</span>: <span class="val">Hard · 서로 다른 취약점 다섯 단계</span><br />
+    <span class="key">맡은 일</span>: <span class="val">스토리와 공격 기법 방향, 서버 구성, 문서화, 최종 수정</span><br />
+    <span class="key">링크</span>: <span class="val"><a href="overwrite.html">자세히 보기</a></span><br />
+    <span class="dl">---</span></div>
+  <p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 참가자가 의료분쟁 조사관이 되어 병원 홈페이지에서 내부망 서버까지 들어가 원본 기록을 찾습니다. 서로 다른 취약점 다섯 단계를 한 줄로 이었고, 난이도는 Hard입니다.</p>
+  <figure class="shot"><img src="assets/overwrite/ui-start.gif" alt="Overwrite 시작 화면" width="820" height="407" loading="lazy" /><figcaption>시작 화면</figcaption></figure>
+  <h2><span class="md">##</span>맡은 역할</h2>
+  <p>팀원 4명이 만들었고, 스토리와 공격 기법의 방향을 정하고, 서버 구성과 문서화, 최종 수정까지 제작 전반을 맡았습니다.</p>
+  <div class="nav2"><button type="button" data-open="featured">← 대표작 목록</button><a href="overwrite.html">자세히 보기</a></div>
+</article>
+
+<article data-id="t13" data-kind="md" data-title="T13-앱.md" data-path="~/portfolio/대표작/T13-앱.md" data-parent="featured">
+  <h1><span class="md">#</span>T13 · 앱 (예정)</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">상태</span>: <span class="val">예정</span><br />
+    <span class="key">들어갈 내용</span>: <span class="val">앱 이름, 해결하려는 문제, 배포 주소, 소스 주소</span><br />
+    <span class="dl">---</span></div>
+  <p>마지막 과제의 앱이 들어갈 자리입니다. 완성되면 이 문서를 채웁니다.</p>
+  <div class="nav2"><button type="button" data-open="featured">← 대표작 목록</button></div>
+</article>
+</div>
+
+<script>
+(function () {
+  var TREE = [
+    { id: 'home', icon: 'home', label: 'home' },
+    { id: 'featured', icon: 'grid', label: '대표작/', kids: [
+      { id: 't10', icon: 'doc', label: 'T10-논문.md' }, { id: 'ow', icon: 'doc', label: 'Overwrite.md' },
+      { id: 't13', icon: 'doc', label: 'T13-앱.md' } ] },
+    { id: 'tasks', icon: 'grid', label: 'AI과제/', kids: [
+      { id: 't02', icon: 'doc', label: 'T02-Dodge.md' }, { id: 't04', icon: 'doc', label: 'T04-TheDayBefore.md' },
+      { id: 't07', icon: 'doc', label: 'T07-PinPoint.md' }, { id: 't10', icon: 'doc', label: 'T10-논문.md' },
+      { id: 't13', icon: 'doc', label: 'T13-앱.md' }, { id: 'ow', icon: 'doc', label: 'TEAM-Overwrite.md' } ] },
+    { id: 'record', icon: 'grid', label: '자격증·이력/' }
+  ];
+  var src = document.getElementById('src');
+  var arts = {};
+  [].forEach.call(src.querySelectorAll('article[data-id]'), function (a) { arts[a.dataset.id] = a; });
+  src.style.display = 'none';
+
+  var win = document.getElementById('win'), view = document.getElementById('view');
+  var buf = document.getElementById('buf'), where = document.getElementById('where'), mode = document.getElementById('mode');
+  var tree = document.getElementById('tree');
+
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function build(list, ul, d) {
+    list.forEach(function (n) {
+      var li = el('li');
+      var b = el('button', 'it', '<svg class="ic-' + (n.icon || 'doc') + '"><use href="#s-' + (n.kids ? 'dir' : (n.icon || 'doc')) + '"/></svg><span class="lbl">' + n.label + '</span>');
+      b.type = 'button'; b.style.setProperty('--d', d);
+      if (n.kids) b.querySelector('svg').setAttribute('class', 'ic-dir');
+      if (n.off) { b.disabled = true; b.title = '시안에서는 비어 있습니다'; } else { b.dataset.open = n.id; }
+      li.appendChild(b);
+      if (n.kids) { var u = el('ul'); build(n.kids, u, d + 1); li.appendChild(u); }
+      ul.appendChild(li);
+    });
+  }
+  build(TREE, tree, 0);
+
+  /* 줄 번호: 내용 길이만큼 숫자, 그 뒤는 ~ */
+  function gutter(n, total) {
+    var s = ''; for (var i = 1; i <= total; i++) s += (i <= n ? i : '~') + '<br>';
+    return '<div class="gut" aria-hidden="true">' + s + '</div>';
+  }
+
+  var stopArt = null;
+  function open(id) {
+    var a = arts[id]; if (!a) return;
+    if (stopArt) { stopArt(); stopArt = null; }
+    var kind = a.dataset.kind;
+    view.innerHTML = '';
+    view.scrollTop = 0;
+    var wrap = el('div', kind === 'home' ? 'home' : kind === 'md' ? 'doc' : 'page');
+    wrap.appendChild(a.cloneNode(true));
+    var h = view.clientHeight, rows = Math.ceil(h / 24) + 2;
+    if (kind === 'home') {
+      view.insertAdjacentHTML('beforeend', gutter(9, rows));
+      var cv = el('canvas'); cv.id = 'art'; cv.setAttribute('aria-hidden', 'true');
+      wrap.insertBefore(cv, wrap.firstChild);
+      view.appendChild(wrap);
+      stopArt = startArt(cv, wrap);
+      scrambleMail();
+    } else {
+      view.appendChild(wrap);
+      var lines = Math.round(wrap.scrollHeight / 24);
+      view.insertAdjacentHTML('afterbegin', gutter(kind === 'md' ? lines : 0, Math.max(rows, lines + 4)));
+      if (kind !== 'md') view.querySelector('.gut').style.display = 'none';
+    }
+    buf.textContent = a.dataset.title + (kind === 'md' ? '  [md]' : '');
+    where.textContent = a.dataset.path;
+    mode.textContent = kind === 'md' ? 'READ' : 'NORMAL';
+    [].forEach.call(document.querySelectorAll('.it[data-open]'), function (b) { b.classList.toggle('on', b.dataset.open === id || (arts[id].dataset.parent === b.dataset.open && false)); });
+    win.classList.remove('drawer');
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-open]');
+    if (t && !t.disabled) { e.preventDefault(); open(t.dataset.open); }
+  });
+  document.getElementById('burger').addEventListener('click', function () { win.classList.toggle('drawer'); });
+
+  /* ── 이메일 글자 섞기 ── */
+  var POOL = '<>{}[]#$%&*/\\|01!?~@';
+  function scrambleMail() {
+    var node = document.getElementById('mailtxt'); if (!node) return;
+    var real = 'xogud17931@gmail.com', t0 = performance.now(), dur = 1100;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { node.textContent = real; return; }
+    (function step(now) {
+      if (!document.body.contains(node)) return;
+      var k = Math.min(1, (now - t0) / dur), fix = Math.floor(k * real.length), s = '';
+      for (var i = 0; i < real.length; i++) s += i < fix ? real[i] : POOL[(Math.random() * POOL.length) | 0];
+      node.textContent = s;
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+    var host = node.parentNode;
+    if (!host._bound) { host._bound = 1; host.addEventListener('mouseenter', scrambleMail); }
+  }
+
+  /* ── 첫 화면 ASCII: 패킷이 흐르고, 포인터 근처에서 소용돌이 → 멈추면 자물쇠 ── */
+  function startArt(cv, host) {
+    var ctx = cv.getContext('2d');
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var W = 0, H = 0, dpr = 1, CW = 9, CH = 17;
+    var fpsEl = document.getElementById('fps');
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = host.clientWidth; H = Math.max(host.clientHeight, view.clientHeight);
+      cv.style.height = H + 'px';
+      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.font = '13px "JetBrains Mono", Consolas, monospace'; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
+    }
+    size();
+    var heroEl = host.querySelector('.hero'), mailEl = host.querySelector('.mail');
+    function rectOf(e2) { var r = e2.getBoundingClientRect(), b = host.getBoundingClientRect(); return { x: r.left - b.left, y: r.top - b.top, w: r.width, h: r.height }; }
+    var tipEl = host.querySelector('.tip');
+    var hero = rectOf(heroEl), mail = rectOf(mailEl), tip = tipEl ? rectOf(tipEl) : { x: -1e4, y: -1e4, w: 0, h: 0 };
+
+    // 패킷(보이드)
+    // 떠다니는 것: Packet Tracer(Cisco IOS) 명령, 리눅스 명령, SQL, Java (색으로 종류 구분)
+    var KINDS = [
+      { c: '#d6336c', w: ['R1> enable', 'R1# conf t', 'int fa0/1', 'no shutdown', 'show ip route', 'show run', 'router ospf 1', 'vlan 10', 'switchport mode access', 'copy run start', 'hostname R1', 'show vlan brief'] },
+      { c: '#2b8a3e', w: ['cd ~', 'ls -al', 'cp a b', 'chmod 600', 'grep -r', 'ssh', 'sudo', 'ps aux', 'tail -f', 'mkdir'] },
+      { c: '#1f6feb', w: ['SELECT *', 'WHERE id=1', 'JOIN', 'COMMIT;', 'INSERT', 'GROUP BY', 'ORDER BY'] },
+      { c: '#e8590c', w: ['@Override', 'try {', 'new HashMap<>()', 'System.out', 'void main', 'catch (e)'] }
+    ];
+    function pick() { var k = KINDS[(Math.random() * KINDS.length) | 0]; return { t: k.w[(Math.random() * k.w.length) | 0], c: k.c }; }
+    var TW = {}; // 문자열 폭 캐시
+    function tw(t) { if (TW[t] == null) { ctx.font = '12px "JetBrains Mono", Consolas, monospace'; TW[t] = ctx.measureText(t).width; } return TW[t]; }
+    var B = [];
+    var NB = Math.round(Math.max(22, Math.min(46, W * H / 17000)));
+    for (var i = 0; i < NB; i++) { var pk = pick(); B.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * 2, vy: (Math.random() - .5) * 2, t: pk.t, c: pk.c }); }
+
+    // 포인터: 실제 마우스가 없으면 자동으로 움직이는 유령 포인터
+    var P = { x: W * .68, y: H * .55, real: false, last: 0 }, still = 0, lockAmt = 0;
+    function onMove(e) {
+      var r = cv.getBoundingClientRect(), pt = e.touches ? e.touches[0] : e;
+      var nx = pt.clientX - r.left, ny = pt.clientY - r.top;
+      if (Math.hypot(nx - P.x, ny - P.y) > 2) still = 0;
+      P.x = nx; P.y = ny; P.real = true; P.last = performance.now();
+    }
+    host.addEventListener('mousemove', onMove);
+    host.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('resize', onResize);
+    function onResize() { size(); hero = rectOf(heroEl); mail = rectOf(mailEl); if (tipEl) tip = rectOf(tipEl); gutW = W > 860 ? 60 : 0; }
+
+    /* 명암 문자로 만든 자물쇠: 고리는 원통처럼, 몸통은 = 바탕에 + 테두리, 열쇠 구멍은 #과 X */
+    var LCW = 6, LCH = 11, LC = 26, LR = 19, KX = (LC - 1) / 2, KY = LCH / LCW;
+    var LOCK = [];
+    (function buildLock() {
+      // 소용돌이와 같은 선 문자(- / | \)로 그린다. 입체감은 진하기로 낸다.
+      var Ro = 10, Ri = 6.2, ARC = 5.7, yc = ARC * KY, top = 8, bot = LR - 1, KR = top + 3;
+      var DIR = ['-', '\\', '|', '/'];
+      function tang(dx, dy) { var a = Math.atan2(dy, dx) + Math.PI / 2; return DIR[((Math.round(a / (Math.PI / 4)) % 4) + 4) % 4]; }
+      for (var r = 0; r < LR; r++) for (var c = 0; c < LC; c++) {
+        var dx = c - KX, ch = '', kind = 0, al = 1;
+        if (r < top) { // 고리
+          var t = -1, dyv = r * KY - yc;
+          if (r <= ARC) { var d = Math.hypot(dx, dyv); if (d >= Ri && d <= Ro) { t = (d - Ri) / (Ro - Ri); ch = tang(dx, dyv); } }
+          else if (Math.abs(dx) >= Ri && Math.abs(dx) <= Ro) { t = (Math.abs(dx) - Ri) / (Ro - Ri); ch = '|'; }
+          if (t >= 0) al = [.55, 1, 1, .5][Math.min(3, (t * 4) | 0)];
+        } else { // 몸통(모서리는 둥글게)
+          var cx2 = Math.max(0, Math.max(2 - c, c - (LC - 3))), cy2 = Math.max(0, Math.max(top + 1 - r, r - (bot - 1)));
+          if (Math.hypot(cx2, cy2 * KY * .9) > 2.2) continue;
+          var edgeC = Math.min(c, LC - 1 - c), edgeR = Math.min(r - top, bot - r);
+          if (edgeR === 0) { ch = '-'; al = 1; }
+          else if (edgeC === 0) { ch = '|'; al = 1; }
+          else if (edgeC <= 2) { ch = '|'; al = .8; }
+          else { ch = '/'; al = .55; }
+          // 열쇠 구멍: 0과 1, 주변은 한 칸 비운다
+          var kd = Math.hypot(dx, (r - KR) * KY), slot = r >= KR + 1 && r <= KR + 4 && Math.abs(dx) < 1.1;
+          var inK = kd < 2.3 || slot;
+          var nearK = kd < 3.4 || (r >= KR && r <= KR + 5 && Math.abs(dx) < 2.1);
+          if (inK) { ch = (c + r) % 2 ? '1' : '0'; kind = 1; al = 1; }
+          else if (nearK && edgeR > 0) continue;
+        }
+        if (!ch) continue;
+        LOCK.push({ ox: (c - KX) * LCW, oy: (r - (LR - 1) / 2) * LCH, ch: ch, k: kind, a: al,
+                    thr: Math.random() * .5, rr: 60 + Math.random() * 150, a0: Math.random() * 6.283 });
+      }
+    })();
+    var LBW = LC * LCW, LBH = LR * LCH;
+    var Lc = { x: 0, y: 0 }, LS = 1;
+
+    var gutW = W > 860 ? 60 : 0;
+    function blocked(x, y) { // 글자 영역과 줄 번호 위에는 그리지 않는다
+      return x < gutW || (x > hero.x - 6 && x < hero.x + hero.w && y > hero.y - 6 && y < hero.y + hero.h + 4) ||
+             (x > mail.x - 10 && x < mail.x + mail.w + 10 && y > mail.y - 8 && y < mail.y + mail.h + 8) ||
+             (tip.w > 0 && x > tip.x - 8 && x < tip.x + tip.w + 8 && y > tip.y - 8 && y < tip.y + tip.h + 8);
+    }
+    // 자물쇠가 글자를 가리지 않는 위치: 넓으면 소개 글 오른쪽, 좁으면 소개 글과 이메일 사이
+    function safeSpot(px, py) {
+      var wide = W - (hero.x + hero.w) > LBW * .75 + 30;
+      var aw = wide ? W - (hero.x + hero.w) - 16 : W - 16, ah = wide ? H - 16 : mail.y - (hero.y + hero.h) - 16;
+      LS = Math.max(.6, Math.min(1, aw / LBW, ah / LBH));
+      var hw = LBW * LS / 2 + 8, hh = LBH * LS / 2 + 8, x0, x1, y0, y1;
+      if (wide) { x0 = hero.x + hero.w + hw; x1 = W - hw; y0 = hh; y1 = H - hh; }
+      else { x0 = x1 = W / 2; y0 = hero.y + hero.h + hh; y1 = mail.y - hh; }
+      if (y1 < y0) y0 = y1 = (y0 + y1) / 2;
+      if (x1 < x0) x0 = x1 = (x0 + x1) / 2;
+      return { x: Math.min(x1, Math.max(x0, px)), y: Math.min(y1, Math.max(y0, py)), cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 };
+    }
+    Lc = safeSpot(P.x, P.y);
+
+    // 자물쇠 상자가 글자, 이메일, 줄 번호와 겹치지 않는 무작위 자리
+    function overlap(ax, ay, aw, ah, b, pad) { return ax < b.x + b.w + pad && ax + aw > b.x - pad && ay < b.y + b.h + pad && ay + ah > b.y - pad; }
+    function randomSpot() {
+      safeSpot(0, 0); // LS 갱신
+      var w = LBW * LS, h = LBH * LS;
+      for (var n = 0; n < 40; n++) {
+        var x = gutW + w / 2 + 10 + Math.random() * Math.max(0, W - gutW - w - 20);
+        var y = h / 2 + 10 + Math.random() * Math.max(0, H - h - 20);
+        if (!overlap(x - w / 2, y - h / 2, w, h, hero, 10) && !overlap(x - w / 2, y - h / 2, w, h, mail, 10)) return { x: x, y: y };
+      }
+      var c = safeSpot(0, 0); return { x: c.cx, y: c.cy };
+    }
+    var G = { mode: 'move', until: 0, tx: W * .7, ty: H * .5, vx: 0, vy: 0 };
+    function ghostStep(t) {
+      if (G.mode === 'move') {
+        if (Math.hypot(G.tx - P.x, G.ty - P.y) < 30) { G.tx = gutW + Math.random() * (W - gutW); G.ty = Math.random() * H; }
+        if (!G.until) G.until = t + 2.5 + Math.random() * 2;
+        if (t > G.until) { var sp = randomSpot(); G.tx = sp.x; G.ty = sp.y; G.mode = 'land'; }
+      } else if (G.mode === 'land' && Math.hypot(G.tx - P.x, G.ty - P.y) < 4) { P.x = G.tx; P.y = G.ty; G.mode = 'stop'; G.until = t + 3.6; G.vx = G.vy = 0; return; }
+      else if (G.mode === 'stop' && t > G.until) { G.mode = 'move'; G.until = 0; G.tx = gutW + Math.random() * (W - gutW); G.ty = Math.random() * H; }
+      if (G.mode === 'stop') return;
+      var dx = G.tx - P.x, dy = G.ty - P.y, d = Math.hypot(dx, dy) || 1;
+      var spd = G.mode === 'land' ? Math.min(3, d * .05) : 3;
+      G.vx += (dx / d * spd - G.vx) * .05; G.vy += (dy / d * spd - G.vy) * .05;
+      P.x += G.vx; P.y += G.vy; still = 0;
+    }
+
+    var raf = 0, t0 = performance.now(), frames = 0, fpsT = t0;
+    function frame(now) {
+      raf = requestAnimationFrame(frame);
+      var t = (now - t0) / 1000;
+      if (!P.real || now - P.last > 3500) { // 유령 포인터: 흘러 다니다가 무작위 자리에 멈춘다
+        P.real = false;
+        ghostStep(t);
+      }
+      still += 1 / 60;
+      lockAmt += ((still > .8 ? 1 : 0) - lockAmt) * (still > .8 ? .035 : .09);
+      var tgt = P.real ? safeSpot(P.x, P.y) : { x: P.x, y: P.y };
+      if (lockAmt < .05 || still > .8) { Lc.x += (tgt.x - Lc.x) * .2; Lc.y += (tgt.y - Lc.y) * .2; } // 흩어지는 동안에는 제자리
+      draw(t);
+      frames++;
+      if (now - fpsT > 500) { if (fpsEl) fpsEl.textContent = Math.round(frames * 1000 / (now - fpsT)) + ' FPS'; frames = 0; fpsT = now; }
+    }
+    function inLockBox(x, y) { return Math.abs(x - Lc.x) < LBW * LS / 2 && Math.abs(y - Lc.y) < LBH * LS / 2; }
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      // 1) 포인터 주변의 문자 소용돌이 (자물쇠가 생기는 자리에서는 옅어진다)
+      var R = Math.min(190, Math.max(120, W * .17));
+      var c0 = Math.max(0, Math.floor((P.x - R) / CW)), c1 = Math.ceil((P.x + R) / CW);
+      var r0 = Math.max(0, Math.floor((P.y - R) / CH)), r1 = Math.ceil((P.y + R) / CH);
+      var SW = '/|\\-';
+      ctx.font = '13px "JetBrains Mono", Consolas, monospace';
+      for (var r = r0; r <= r1; r++) for (var c = c0; c <= c1; c++) {
+        var x = c * CW + CW / 2, y = r * CH + CH / 2;
+        if (x > W || y > H || blocked(x, y)) continue;
+        var dx = x - P.x, dy = y - P.y, d = Math.hypot(dx, dy);
+        if (d > R) continue;
+        var f = 1 - d / R, al = f * (1 - lockAmt * (inLockBox(x, y) ? 1 : .6)), col;
+        if (al < .03) continue;
+        var ang = Math.atan2(dy, dx) + Math.PI / 2 + t * 1.2 + d * .02;
+        var ch = SW[(((ang / (Math.PI / 4)) % 4) + 4 | 0) % 4];
+        if (f > .55 && ((c * 7 + r * 13 + (t * 3 | 0)) % 23 === 0)) { ch = '01#&%'[(c + r) % 5]; col = ['#d6336c', '#e8590c', '#7048e8'][(c + r) % 3]; }
+        else col = '#7d858d';
+        ctx.globalAlpha = Math.min(1, al * 1.1); ctx.fillStyle = col; ctx.fillText(ch, x, y);
+      }
+      // 2) 자물쇠: 문자들이 나선을 그리며 제자리로 모인다
+      if (lockAmt > .01) {
+        ctx.font = '600 ' + (10 * LS).toFixed(2) + 'px "JetBrains Mono", Consolas, monospace';
+        for (var i = 0; i < LOCK.length; i++) {
+          var L = LOCK[i], k = Math.min(1, Math.max(0, (lockAmt - L.thr) / .5));
+          if (k <= 0) continue;
+          var e = 1 - Math.pow(1 - k, 3), m = 1 - e, a = L.a0 + t * 2.2 + m * 5;
+          var lx = Lc.x + L.ox * LS + Math.cos(a) * L.rr * m, ly = Lc.y + L.oy * LS + Math.sin(a) * L.rr * m;
+          if (blocked(lx, ly)) continue;
+          ctx.globalAlpha = e * L.a;
+          ctx.fillStyle = L.k ? '#7048e8' : '#2f3a46';
+          ctx.fillText(L.ch, lx, ly);
+        }
+        ctx.font = '13px "JetBrains Mono", Consolas, monospace';
+      }
+      // 3) 패킷 떼
+      for (var i2 = 0; i2 < B.length; i2++) {
+        var b = B[i2], sx = 0, sy = 0, ax2 = 0, ay2 = 0, cx = 0, cy = 0, n = 0;
+        for (var j = 0; j < B.length; j++) {
+          if (i2 === j) continue;
+          var o = B[j], ddx = o.x - b.x, ddy = o.y - b.y, dd = ddx * ddx + ddy * ddy;
+          if (dd < 6400) { n++; ax2 += o.vx; ay2 += o.vy; cx += o.x; cy += o.y; if (dd < 2500) { sx -= ddx; sy -= ddy; } }
+        }
+        if (n) { b.vx += (ax2 / n - b.vx) * .04 + (cx / n - b.x) * .0008; b.vy += (ay2 / n - b.vy) * .04 + (cy / n - b.y) * .0008; }
+        b.vx += sx * .004; b.vy += sy * .004;
+        var pdx = b.x - P.x, pdy = b.y - P.y, pd = Math.hypot(pdx, pdy) || 1;
+        var VR = Math.min(R * 1.8, W * .3), pull = still > .3 ? 1.6 : .7, inV = pd < VR;
+        if (inV) { // 소용돌이: 돌면서 중심으로 끌려간다
+          var fz = 1 - pd / VR;
+          b.vx += (-pdy / pd * 1.1 - pdx / pd * .9) * fz * pull;
+          b.vy += (pdx / pd * 1.1 - pdy / pd * .9) * fz * pull;
+        }
+        if (pd < 14) { // 빨려 들어가면 가장자리에서 다시 나타난다
+          var side = (Math.random() * 4) | 0;
+          b.x = side === 0 ? -15 : side === 1 ? W + 15 : Math.random() * W;
+          b.y = side === 2 ? -15 : side === 3 ? H + 15 : Math.random() * H;
+          b.vx = (W / 2 - b.x) / W * 2; b.vy = (H / 2 - b.y) / H * 2;
+          var np = pick(); b.t = np.t; b.c = np.c;
+          continue;
+        }
+        b.vx += Math.cos(t * .3 + i2) * .02; b.vy += Math.sin(t * .27 + i2 * 1.3) * .02;
+        var vmax = inV ? 4.5 : 2.2, sp = Math.hypot(b.vx, b.vy) || 1, lim = sp > vmax ? vmax / sp : sp < .8 ? .8 / sp : 1;
+        b.vx *= lim; b.vy *= lim; b.h2x = b.h1x; b.h2y = b.h1y; b.h1x = b.x; b.h1y = b.y; b.x += b.vx; b.y += b.vy;
+        if (b.x < -20) b.x = W + 20; if (b.x > W + 20) b.x = -20; if (b.y < -20) b.y = H + 20; if (b.y > H + 20) b.y = -20;
+        var hw2 = tw(b.t) / 2;
+        if (blocked(b.x, b.y) || blocked(b.x - hw2, b.y) || blocked(b.x + hw2, b.y) || (lockAmt > .3 && inLockBox(b.x, b.y))) continue;
+        ctx.font = '12px "JetBrains Mono", Consolas, monospace';
+        ctx.fillStyle = b.c;
+        if (inV && b.h2x != null) { // 끌려 들어가는 궤적
+          var tx = b.x - b.vx * 4, ty = b.y - b.vy * 4, ux = b.x - b.vx * 8, uy = b.y - b.vy * 8;
+          if (!blocked(tx - hw2, ty) && !blocked(tx + hw2, ty)) { ctx.globalAlpha = .25 * Math.min(1, pd / 70); ctx.fillText(b.t, tx, ty); }
+          if (!blocked(ux - hw2, uy) && !blocked(ux + hw2, uy)) { ctx.globalAlpha = .12 * Math.min(1, pd / 70); ctx.fillText(b.t, ux, uy); }
+        }
+        ctx.globalAlpha = .7 * Math.min(1, pd / 70); ctx.fillText(b.t, b.x, b.y);
+      }
+      ctx.globalAlpha = 1;
+    }
+    if (reduce) { var sp1 = safeSpot(0, 0); P.x = Lc.x = sp1.cx; P.y = Lc.y = sp1.cy; P.x = -999; still = 9; lockAmt = 1; draw(0); }
+    else raf = requestAnimationFrame(frame);
+    return function () { cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); if (fpsEl) fpsEl.textContent = ''; };
+  }
+
+  open('home');
+})();
+</script>
+</body>
+</html>

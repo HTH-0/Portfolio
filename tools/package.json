@@ -1,0 +1,11 @@
+{
+  "name": "portfolio-tools",
+  "private": true,
+  "type": "module",
+  "description": "docs/*.md를 사이트용 HTML과 .docx로 만드는 도구",
+  "scripts": { "build": "node build-docs.mjs" },
+  "dependencies": {
+    "docx": "8.5.0",
+    "marked": "12.0.2"
+  }
+}

@@ -1,0 +1,23 @@
+# 작업용 참고 자료 (제출하지 않음)
+참고자료/
+작업메모.md
+
+node_modules/
+.vercel/
+.env
+.env.*
+
+# 제출용 ZIP 결과물
+dist/
+
+# Overwrite CTF 원본 자료 (플래그·VM 이미지 포함, 제출하지 않음)
+/overwrite/
+
+# PinPoint(T06, T07) 원본 사본 (내부에 별도 저장소가 있어 제출하지 않음)
+/aleph_pinpoint/
+
+# 인수인계 문서 (제출하지 않음)
+진행.md
+
+# 디자인 참고 영상 (다른 사이트 녹화, 사이트에서 쓰지 않음)
+vscode디자인참고.mp4
