@@ -1,5 +1,5 @@
 // docs/*.md → site/resume.html, site/files/*.docx, docs/*.docx
-// site/files/thesis.md → site/thesis.html
+// site/files/thesis.md는 원문 그대로 둔다(논문은 site/index.html 안의 문서로 표시)
 // 사용법: cd tools && npm install && npm run build
 
 import fs from "node:fs";
@@ -171,17 +171,6 @@ fs.writeFileSync(path.join(SITE, "resume.html"), page(
   },
 ));
 
-const thesisMd = read(path.join(FILES, "thesis.md"));
-fs.writeFileSync(path.join(SITE, "thesis.html"), page(
-  "논문 · 하태형",
-  "미로형 3D 공간에서 고정 청각 랜드마크의 개수가 길찾기에 미치는 영향",
-  {
-    nav: `    <a href="files/thesis.md">원문 .md</a>\n    <a href="https://github.com/HTH-0/aleph_thesis" target="_blank" rel="noreferrer">소스 · 원자료 GitHub ↗</a>`,
-    main: `    <p class="note">T10 논문 전문입니다. 본문에 나오는 <code>sim/</code>, <code>analysis/</code>, <code>docs/</code> 경로는 <a href="https://github.com/HTH-0/aleph_thesis" target="_blank" rel="noreferrer">aleph_thesis 저장소</a>에 있습니다.</p>
-    <article class="md">
-${mdToHtml(thesisMd)}
-    </article>`,
-  },
-));
+// 논문은 site/index.html 안의 문서(T10-논문.md)로 옮겼으므로 thesis.html은 더 만들지 않는다.
 
-console.log("만든 파일: site/resume.html, site/thesis.html, docs/*.docx, site/files/*");
+console.log("만든 파일: site/resume.html, docs/*.docx, site/files/*");
