@@ -271,6 +271,80 @@
   dialog.lb::backdrop { background: rgba(20, 24, 18, 0.86); }
   dialog.lb img { display: block; max-width: 96vw; max-height: 84vh; margin: 0 auto; object-fit: contain; cursor: zoom-out; border-radius: 6px; }
   dialog.lb p { margin: 10px 16px 0; text-align: center; font-size: 13px; color: #fff; }
+
+  /* ── 바탕화면(폭 1440px·높이 800px 이상에서만) ── */
+  html .desk-ui { display: none; }
+  @media (min-width: 1440px) and (min-height: 800px) {
+    :root { --wl: max(112px, calc((100vw - 1240px) / 2 - 210px)); }
+    html, body { overflow: hidden; }
+    body { display: block; }
+    .win { position: absolute; z-index: 5; left: var(--wl); height: min(780px, calc(100vh - 110px)); top: calc((100vh - 46px - min(780px, calc(100vh - 110px))) / 2); }
+    html .dicons, html .taskbar { display: flex; }
+    html .dlayer { display: block; }
+  }
+  .dicons { position: fixed; left: 16px; top: 22px; z-index: 3; display: flex; flex-direction: column; gap: 14px; }
+  .dicons .gap { height: 18px; }
+  .dicon { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 80px; padding: 6px 2px; border-radius: 6px; font: 12px/1.3 var(--sans); color: #22301b; text-decoration: none; text-align: center; }
+  .dicon:hover, .dicon:focus-visible { background: rgba(255, 255, 255, .45); outline: none; }
+  .dicon .ti { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #fff; border: 1px solid #c8cfbf; box-shadow: 0 2px 5px rgba(40, 60, 30, .12); font: 700 14px var(--mono); }
+  .dicon .ti svg { width: 22px; height: 22px; color: #3b4046; }
+  .dicon .ti.hm { background: #2b8a3e; border-color: #2b8a3e; color: #fff; }
+  .dicon .ti.ow { background: #23272b; border-color: #23272b; color: #ff8a8a; }
+  .dicon .ti.th { background: #7048e8; border-color: #7048e8; color: #fff; font-size: 18px; }
+  .dlayer { position: fixed; left: 0; top: 0; right: 0; bottom: 46px; overflow: hidden; pointer-events: none; z-index: 4; }
+  .dlayer.front { z-index: 20; }
+  .dwin { position: absolute; left: calc(var(--wl) + 1100px); width: 600px; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; pointer-events: auto; cursor: pointer; font-family: var(--mono); transition: left .25s, top .25s, width .25s, height .25s, box-shadow .25s; }
+  .dlayer.front .dwin { cursor: default; left: calc(100vw - min(880px, calc(100vw - 420px)) - 28px); top: 24px; width: min(880px, calc(100vw - 420px)); height: calc(100% - 48px); max-height: 660px; box-shadow: 0 30px 80px rgba(20, 30, 15, .4); }
+  .dwin .wt { flex: none; display: flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; font-size: 12px; }
+  .dwin .wt i { width: 11px; height: 11px; border-radius: 50%; } .dwin .wt i:nth-child(1) { background: #ff5f56; } .dwin .wt i:nth-child(2) { background: #ffbd2e; } .dwin .wt i:nth-child(3) { background: #27c93f; }
+  .dwin .wt .nm { margin-left: auto; }
+  .dwin .wt .x { display: none; margin-left: 10px; width: 22px; height: 22px; border-radius: 4px; font-size: 15px; line-height: 22px; color: inherit; }
+  .dlayer.front .dwin .wt .x { display: block; }
+  .dwin .wt .x:hover { background: rgba(255, 255, 255, .12); }
+  .dwin .wb { flex: 1; min-height: 0; overflow: auto; }
+  .dlayer:not(.front) .dwin .wb { overflow: hidden; }
+  .dwin.tm { top: 40px; height: 430px; background: #1e2227; color: #c9d1d9; font-size: 13px; line-height: 1.75; box-shadow: 0 16px 40px rgba(0, 0, 0, .28); }
+  .dwin.tm .wt { background: #2a2f36; color: #8b949e; }
+  .dwin.tm .wb { padding: 12px 18px 16px; }
+  .dwin.tm pre { margin: 0; font: inherit; white-space: pre; }
+  .tm .g { color: #7ee787; } .tm .y { color: #f2c94c; } .tm .bl { color: #79c0ff; } .tm .m { color: #d2a8ff; } .tm .d { color: #8b949e; } .tm .w { color: #e6edf3; }
+  .tm .cur { display: inline-block; width: 8px; height: 15px; vertical-align: -2px; background: #c9d1d9; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .dwin.ij { top: calc(100% - 410px); height: 390px; background: #1e1f22; color: #bcbec4; font-size: 12.5px; line-height: 1.65; box-shadow: 0 16px 40px rgba(0, 0, 0, .3); }
+  .dwin.ij .wt { background: #2b2d30; color: #9da0a8; }
+  .ij .wb { display: grid; grid-template-columns: 210px minmax(0, 1fr); }
+  .ij .proj { background: #2b2d30; border-right: 1px solid #393b40; padding: 8px 8px 12px; font-size: 12px; line-height: 1.8; white-space: nowrap; overflow: hidden; }
+  .ij .proj b { display: block; color: #dfe1e5; font-weight: 600; margin-bottom: 2px; }
+  .ij .proj .dr::before { content: "▾ "; color: #6f737a; } .ij .proj .dr.c::before { content: "▸ "; }
+  .ij .proj .mine { color: #e6c07b; } .ij .proj .mine::after { content: " ●"; font-size: 9px; }
+  .ij .proj .nt { color: #6f737a; font-style: italic; }
+  .ij .proj .in1 { padding-left: 14px; } .ij .proj .in2 { padding-left: 28px; }
+  .ij .ed { min-width: 0; display: flex; flex-direction: column; }
+  .ij .itabs { flex: none; display: flex; background: #2b2d30; font-size: 12px; }
+  .ij .itabs button { padding: 6px 14px; color: #9da0a8; border-top: 2px solid transparent; font: inherit; }
+  .ij .itabs button.on { color: #dfe1e5; background: #1e1f22; border-top-color: #3574f0; }
+  .ij .pane { padding: 12px 16px; }
+  .ij .pane[hidden] { display: none; }
+  .ij h5 { margin: 0 0 8px; color: #56a8f5; font-size: 13px; font-weight: 600; }
+  .ij .flow { display: flex; align-items: center; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
+  .ij .bx { border: 1px solid #4e5157; border-radius: 6px; padding: 4px 7px; font-size: 11.5px; line-height: 1.45; background: #26282c; text-align: center; }
+  .ij .bx b { display: block; color: #dfe1e5; font-weight: 600; }
+  .ij .bx.sc { border-color: #e6c07b; } .ij .bx.sc b { color: #e6c07b; }
+  .ij .ar { color: #6f737a; }
+  .ij .ly { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 4px 0 8px; font-size: 11.5px; text-align: center; }
+  .ij .ly span { border: 1px solid #393b40; border-radius: 4px; padding: 3px 2px; }
+  .ij p { margin: 0 0 12px; font-size: 12px; }
+  .ij ol { margin: 0; padding-left: 18px; font-size: 12px; }
+  .ij pre { margin: 0; font: inherit; white-space: pre; }
+  .ij .k { color: #cf8e6d; } .ij .an { color: #b3ae60; } .ij .s { color: #6aab73; } .ij .f { color: #56a8f5; } .ij .c { color: #7a7e85; font-style: italic; }
+  .taskbar { position: fixed; left: 0; right: 0; bottom: 0; height: 46px; z-index: 30; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: rgba(35, 39, 43, .93); font: 12px var(--mono); color: #e9eee3; }
+  .taskbar .st { width: 22px; height: 22px; border-radius: 5px; background: var(--path); display: grid; place-items: center; }
+  .taskbar .st svg { width: 13px; height: 13px; color: #fff; }
+  .taskbar button { padding: 6px 12px; border-radius: 4px; background: rgba(255, 255, 255, .1); color: #e9eee3; font: inherit; }
+  .taskbar button:hover { background: rgba(255, 255, 255, .2); }
+  .taskbar button.on { background: rgba(255, 255, 255, .28); }
+  .taskbar .ck { margin-left: auto; text-align: right; line-height: 1.35; font-size: 11.5px; }
+  @media (prefers-reduced-motion: reduce) { .dwin { transition: none; } .tm .cur { animation: none; } }
 </style>
 <noscript><style>
   body { display: block; padding: 24px; }
@@ -278,6 +352,7 @@
   #src article { max-width: 960px; margin: 0 auto 48px; }
   #src .mail { position: static; transform: none; margin: 12px 0; }
   #src .tip, #src .go, #src .nav2 button, #src .tabs { display: none; }
+  .desk-ui { display: none !important; }
   #src .hero { margin-left: 0; background: none; }
 </style></noscript>
 </head>
@@ -310,6 +385,118 @@
     <div class="view" id="view"></div>
     <div class="foot"><span class="mode" id="mode">NORMAL</span><span id="where">~/portfolio</span><span class="r" id="pos">백엔드 · 보안 인프라</span></div>
   </section>
+</div>
+
+<!-- ===== 바탕화면(넓은 화면 전용): 아이콘, 편집기 뒤 창 두 개, 작업 표시줄 ===== -->
+<nav class="desk-ui dicons" aria-label="바탕화면 바로가기">
+  <a class="dicon" href="#" data-open="hm"><span class="ti hm">HM</span>HealthMe</a>
+  <a class="dicon" href="#" data-open="ow"><span class="ti ow">OW</span>Overwrite</a>
+  <a class="dicon" href="#" data-open="t10"><span class="ti th">♪</span>논문</a>
+  <span class="gap"></span>
+  <a class="dicon" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-gh"/></svg></span>GitHub</a>
+  <a class="dicon" href="mailto:xogud17931@gmail.com"><span class="ti"><svg><use href="#s-mail"/></svg></span>메일</a>
+  <a class="dicon" href="files/resume.md" data-open="resume"><span class="ti"><svg><use href="#s-file"/></svg></span>이력서</a>
+</nav>
+
+<div class="desk-ui dlayer" data-w="tm">
+  <section class="dwin tm" aria-label="터미널: 보안·인프라 소개">
+    <div class="wt"><i></i><i></i><i></i><span class="nm">hth@lab: ~</span><button class="x" type="button" aria-label="창 닫기">×</button></div>
+    <div class="wb"><pre><span class="g">$</span> whoami
+<span class="w">hth</span>  <span class="d"># 하태형 · 백엔드 + 보안·인프라</span>
+<span class="g">$</span> history
+  <span class="d">1</span>  <span class="y">2020.02   </span>  영남대학교 기계공학부 졸업
+  <span class="d">2</span>  <span class="y">2024.12   </span>  정보처리산업기사 과정 시작 · Java, Spring, DB
+  <span class="d">3</span>  <span class="y">2025.04   </span>  HealthMe 팀 프로젝트 · 로그인·소셜 로그인·추천 담당
+  <span class="d">4</span>  <span class="y">2025.06   </span>  SQLD 취득
+  <span class="d">5</span>  <span class="y">2026.03   </span>  정보처리기사 필기 합격
+  <span class="d">6</span>  <span class="y">2026.08   </span>  Aleph 과정 시작 · 네트워크·리눅스·보안관제 실습
+  <span class="d">7</span>  <span class="y">2026.10   </span>  리눅스마스터 2급 합격 · 팀 CTF 머신 Overwrite
+  <span class="d">8</span>  <span class="y">2026.10.25</span>  정보처리기사 실기 응시
+<span class="g">$</span> tree -L 1 ~/aleph-notes   <span class="d"># 직접 정리한 실습 노트 37개</span>
+<span class="bl">aleph-notes</span>
+├── <span class="y">network/</span>    16  OSPF·EIGRP·VLAN·ACL·NAT
+│                 ASA Failover·ZFW·pfSense
+│                 GRE over IPsec·FHRP·IPv6
+├── <span class="y">system/</span>     13  계정·권한·커널, Bash
+│                 Apache·DNS·NFS·Samba·FTP
+│                 rsyslog·Zabbix·Docker
+├── <span class="y">detection/</span>   3  Snort3·Suricata·Wazuh·OSSEC
+├── <span class="y">database/</span>    3  MariaDB 권한·복제·백업
+└── <span class="y">etc/</span>         2  모의해킹 방식, 리눅스마스터 오답
+<span class="g">$</span> cat projects.txt
+<span class="m">Overwrite</span>  팀 CTF 머신 · 취약점 5단계 설계, 서버 구성
+<span class="g">$</span> cat certs.txt
+리눅스마스터 2급 · SQLD · 정보처리기사 필기
+<span class="g">$</span> <span class="cur"></span></pre></div>
+  </section>
+</div>
+
+<div class="desk-ui dlayer" data-w="ij">
+  <section class="dwin ij" aria-label="IntelliJ: HealthMe 구조">
+    <div class="wt"><i></i><i></i><i></i><span class="nm">HealthMe — IntelliJ IDEA</span><button class="x" type="button" aria-label="창 닫기">×</button></div>
+    <div class="wb">
+      <div class="proj">
+        <b>Project · healthme</b>
+        <div class="dr">backend <span class="nt">Spring Boot 3.4</span></div>
+        <div class="dr in1">domain</div>
+        <div class="dr c in2 mine">user</div>
+        <div class="dr c in2 mine">result</div>
+        <div class="dr c in2">survey</div>
+        <div class="dr c in2">product</div>
+        <div class="dr c in2">shoppingcart</div>
+        <div class="dr c in2">mypage</div>
+        <div class="dr c in2">approval</div>
+        <div class="dr c in2">admin</div>
+        <div class="dr in1">global/config</div>
+        <div class="dr c in2 mine">auth</div>
+        <div class="dr c in2 mine">security</div>
+        <div class="dr c">frontend <span class="nt">React</span></div>
+        <div class="nt">● 내가 맡은 패키지</div>
+      </div>
+      <div class="ed">
+        <div class="itabs" role="tablist"><button type="button" class="on" data-ij="arch">ARCHITECTURE.md</button><button type="button" data-ij="sec">SecurityConfig.java</button></div>
+        <div class="pane" data-pane="arch">
+          <h5>## 요청 흐름</h5>
+          <div class="flow"><span class="bx"><b>React</b>axios</span><span class="ar">→</span><span class="bx sc"><b>Security</b>JWT 필터 · 폼 / OAuth2</span><span class="ar">→</span><span class="bx"><b>Controller</b>REST</span><span class="ar">→</span><span class="bx"><b>Service</b></span><span class="ar">→</span><span class="bx"><b>Repository</b>JPA · MyBatis</span><span class="ar">→</span><span class="bx"><b>MySQL</b></span></div>
+          <h5>## 패키지 원칙</h5>
+          <p>기능(domain)마다 같은 5개 층으로 나눴습니다.</p>
+          <div class="ly"><span>controller</span><span>dto</span><span>entity</span><span>repository</span><span>service</span></div>
+          <p>인증과 보안 설정은 <span class="s">global/config</span>에 모아 기능 코드와 분리했습니다.</p>
+          <h5>## 로그인 흐름 (내 담당)</h5>
+          <ol><li>폼 로그인 또는 카카오·네이버·구글 OAuth2</li><li>성공 핸들러에서 JWT(Access·Refresh)를 발급해 HttpOnly 쿠키에 저장</li><li>이후 요청마다 <span class="k">JwtAuthorizationFilter</span>가 토큰 검증</li><li>URL별 권한: 공개 / <span class="s">USER</span> / <span class="s">ADMIN</span></li></ol>
+        </div>
+        <div class="pane" data-pane="sec" hidden><pre><span class="c">// HealthMe · global/config/security/SecurityConfig.java (일부)</span>
+<span class="an">@Bean</span>
+<span class="k">protected</span> SecurityFilterChain <span class="f">configure</span>(HttpSecurity http) <span class="k">throws</span> Exception {
+    http
+        .authorizeHttpRequests(auth -&gt; auth
+            .requestMatchers(<span class="s">"/healthme/users/**"</span>, <span class="s">"/healthme/products/**"</span>).permitAll()
+            .requestMatchers(<span class="s">"/healthme/result/**"</span>, <span class="s">"/healthme/mypage/**"</span>).hasRole(<span class="s">"USER"</span>)
+            .requestMatchers(<span class="s">"/admin"</span>, <span class="s">"/admin/**"</span>).hasRole(<span class="s">"ADMIN"</span>)
+            .anyRequest().authenticated())
+        .formLogin(login -&gt; login
+            .loginProcessingUrl(<span class="s">"/healthme/users/login"</span>)
+            .successHandler(customLoginSuccessHandler)
+            .failureHandler(customLoginFailureHandler))
+        .oauth2Login(oauth -&gt; oauth
+            .userInfoEndpoint(user -&gt; user.userService(principalDetailsOAuth2Service))
+            .successHandler(oAuth2LoginSuccessHandler));
+    http.addFilterBefore(
+        <span class="k">new</span> JwtAuthorizationFilter(userRepository, jwtTokenProvider),
+        UsernamePasswordAuthenticationFilter.<span class="k">class</span>);
+    <span class="k">return</span> http.build();
+}</pre></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="desk-ui taskbar" aria-label="작업 표시줄">
+  <span class="st"><svg><use href="#s-lock"/></svg></span>
+  <button type="button" class="on" data-task="code">portfolio — VS Code</button>
+  <button type="button" data-task="tm">hth@lab: ~</button>
+  <button type="button" data-task="ij">HealthMe — IntelliJ</button>
+  <span class="ck" id="clock"></span>
 </div>
 
 <!-- ===== 내용 (자바스크립트가 없으면 아래가 그대로 보인다) ===== -->
@@ -1576,6 +1763,34 @@
     else raf = requestAnimationFrame(frame);
     return function () { cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); if (fpsEl) fpsEl.textContent = ''; };
   }
+
+  /* ── 바탕화면: 뒤에 있는 창을 누르면 앞으로, ×·바탕화면·편집기를 누르면 다시 뒤로 ── */
+  var layers = [].slice.call(document.querySelectorAll('.dlayer'));
+  var tasks = [].slice.call(document.querySelectorAll('.taskbar [data-task]'));
+  function front(name) {
+    layers.forEach(function (l) { l.classList.toggle('front', l.dataset.w === name); });
+    tasks.forEach(function (t) { t.classList.toggle('on', t.dataset.task === (name || 'code')); });
+  }
+  document.addEventListener('click', function (e) {
+    var tk = e.target.closest('.taskbar [data-task]');
+    if (tk) { var cur = document.querySelector('.dlayer.front'); front(tk.dataset.task === 'code' || (cur && cur.dataset.w === tk.dataset.task) ? null : tk.dataset.task); return; }
+    var tb = e.target.closest('.ij .itabs [data-ij]');
+    if (tb) {
+      [].forEach.call(tb.parentNode.children, function (b) { b.classList.toggle('on', b === tb); });
+      [].forEach.call(document.querySelectorAll('.ij .pane'), function (p) { p.hidden = p.dataset.pane !== tb.dataset.ij; });
+    }
+    if (e.target.closest('.dwin .x')) { front(null); return; }
+    var w = e.target.closest('.dwin');
+    if (w) { front(w.parentNode.dataset.w); return; }
+    if (document.querySelector('.dlayer.front')) front(null);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.querySelector('.dlayer.front')) front(null); });
+  var clock = document.getElementById('clock');
+  function tick() {
+    var d = new Date(), p = function (n) { return (n < 10 ? '0' : '') + n; };
+    clock.innerHTML = p(d.getHours()) + ':' + p(d.getMinutes()) + '<br>' + d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+  }
+  if (clock) { tick(); setInterval(tick, 30000); }
 
   open('home');
 })();
