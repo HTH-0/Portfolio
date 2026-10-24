@@ -1,4 +1,4 @@
-// docs/*.md → site/index.html 안의 세부 문서, site/files/*.docx·*.md, docs/*.docx
+// docs/이력서.md → site/index.html 안의 이력서 문서, site/files/resume.docx·resume.md, docs/이력서.docx
 // site/files/thesis.md는 원문 그대로 둔다(논문은 site/index.html 안의 문서로 표시)
 // 사용법: cd tools && npm install && npm run build
 
@@ -18,14 +18,12 @@ const FILES = path.join(SITE, "files");
 
 const DOC_LIST = [
   { file: "이력서.md", id: "resume", slug: "resume", title: "이력서" },
-  { file: "자기소개서.md", id: "cover", slug: "cover-letter", title: "자기소개서" },
-  { file: "경력기술서.md", id: "career", slug: "career", title: "경력기술서" },
 ];
 
 const read = (p) => fs.readFileSync(p, "utf8").replace(/^﻿/, "").replace(/\r\n/g, "\n");
 
 // ---------- HTML ----------
-// site/index.html의 <!-- docs:start --> ~ <!-- docs:end --> 사이를 세부 문서(.md) 3개로 바꾼다.
+// site/index.html의 <!-- docs:start --> ~ <!-- docs:end --> 사이를 세부 문서(.md)로 바꾼다. 지금은 이력서 하나다.
 
 function mdToHtml(md) {
   return marked.parse(md.replace(/^# .*\n+/, ""), { gfm: true })
@@ -135,4 +133,4 @@ fs.writeFileSync(INDEX, index.slice(0, i0 + START.length) + "\n" + articles.join
 
 // 논문은 site/index.html 안의 문서(T10-논문.md)로 옮겼으므로 thesis.html은 더 만들지 않는다.
 
-console.log("만든 파일: site/index.html(이력 문서 3개), docs/*.docx, site/files/*");
+console.log("만든 파일: site/index.html(이력서 문서), docs/이력서.docx, site/files/resume.*");

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="모르는 것은 그날 찾아보고, 만들어서 확인하는 하태형의 포트폴리오" />
+<meta name="description" content="인증과 서버 보안을 다뤄 본 백엔드 개발자 지망생 하태형의 포트폴리오" />
 <title>하태형 포트폴리오</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -298,14 +298,14 @@
       <div class="cap">contact</div>
       <a class="it" href="mailto:xogud17931@gmail.com"><svg class="ic-doc"><use href="#s-mail"/></svg>이메일</a>
       <a class="it" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><svg class="ic-doc"><use href="#s-gh"/></svg>github</a>
-      <a class="it" href="files/resume.md" data-open="resume"><svg class="ic-doc"><use href="#s-file"/></svg>이력서 · 자기소개서</a>
+      <a class="it" href="files/resume.md" data-open="resume"><svg class="ic-doc"><use href="#s-file"/></svg>이력서</a>
     </div>
   </aside>
 
   <section class="main">
     <div class="bar"><button class="burger" id="burger" type="button" aria-label="탐색기 열기">&#9776;</button><span class="buf" id="buf">home</span><span class="fps" id="fps"></span></div>
     <div class="view" id="view"></div>
-    <div class="foot"><span class="mode" id="mode">NORMAL</span><span id="where">~/portfolio</span><span class="r" id="pos">보안 · 인프라 지망</span></div>
+    <div class="foot"><span class="mode" id="mode">NORMAL</span><span id="where">~/portfolio</span><span class="r" id="pos">백엔드 · 보안 인프라</span></div>
   </section>
 </div>
 
@@ -317,7 +317,7 @@
     <div class="ln"><span class="k">const</span> whoami = </div>
     <h1>하태형</h1>
     <p class="one">모르는 것은 그날 찾아보고, 만들어서 확인한 사람</p>
-    <p class="sub">보안과 인프라를 배우는 개발자 지망생입니다. 리눅스마스터 2급에 합격하고 SQLD를 취득했으며, 직접 만들고 확인한 결과물을 프로젝트로 모았습니다.</p>
+    <p class="sub">인증과 서버 보안을 다뤄 본 백엔드 개발자 지망생입니다. Spring Boot 팀 프로젝트에서 로그인과 소셜 로그인을 맡았고, CTF 머신을 만들며 서버를 구성했습니다. 리눅스마스터 2급과 SQLD를 취득했습니다.</p>
     <div class="go">
       <button class="pri" type="button" data-open="projects">프로젝트 보기 →</button>
       <button type="button" data-open="stack">기술 스택</button>
@@ -331,9 +331,15 @@
 <article data-id="projects" data-kind="page" data-title="프로젝트" data-path="~/portfolio/프로젝트">
   <div class="kick">~/portfolio/프로젝트</div>
   <h1>프로젝트</h1>
-  <p class="intro">코리아IT아카데미 Aleph 과정(2026.08.11 – 11.13) 동안 만든 프로젝트입니다. 질문을 가설로 바꾸고 실험 도구를 직접 만든 논문, 팀에서 제작 전반을 맡은 CTF 머신, 마지막 과제의 앱을 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
+  <p class="intro">코리아IT아카데미의 정보처리산업기사 과정(2024.12 – 2025.06)과 Aleph 과정(2026.08.11 – 11.13)에서 만든 프로젝트입니다. 인증 기능을 맡은 팀 프로젝트 HealthMe, 팀에서 제작 전반을 맡은 CTF 머신, 실험 도구를 직접 만든 논문, 마지막 과제의 앱을 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
   <h2>// 대표</h2>
   <ul class="cards">
+    <li><button class="card" type="button" data-open="hm">
+      <span class="thumb"><img src="assets/healthme/result.png" alt="" loading="lazy" /></span>
+      <span class="cb"><span class="top">대표 · 팀 백엔드<span class="tag">Spring Boot</span></span><b>HealthMe</b><p>설문으로 영양 성향을 분석해 식품을 추천하는 쇼핑몰입니다. 로그인·회원가입, 소셜 로그인, 추천 로직을 맡았습니다.</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="ow">
+      <span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span>
+      <span class="cb"><span class="top">대표 · 팀 CTF<span class="tag">Hard</span></span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span></button></li>
     <li><button class="card" type="button" data-open="t10">
       <span class="thumb"><pre>┌──┬─────┬──┐
 │<i>♪</i> │  ┌──┘  │
@@ -342,9 +348,6 @@
 │  │  └─┐ │<i>♪</i>│
 └──┴────┴─┴─┘</pre></span>
       <span class="cb"><span class="top">대표 · 논문<span class="tag">2026.10</span></span><b>고정 청각 랜드마크의 개수가 길찾기에 미치는 영향</b><p>소리를 0개, 2개, 3개 둔 미로를 브라우저 3D 시뮬레이터로 직접 만들어 비교했습니다.</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="ow">
-      <span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">대표 · 팀 CTF<span class="tag">Hard</span></span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span></button></li>
     <li><button class="card plan" type="button" data-open="t13">
       <span class="thumb"><pre>$ npm run build
 <i>›</i> building…
@@ -372,10 +375,14 @@
   <section class="tabp" data-panel="be" role="tabpanel">
     <h2>// 백엔드</h2>
     <ul class="stack">
-      <li><b>Java</b><span>GitHub 저장소 <a href="https://github.com/HTH-0/JAVA" target="_blank" rel="noreferrer">JAVA</a> · <a href="https://github.com/HTH-0/CodingTest" target="_blank" rel="noreferrer">CodingTest</a> (2025)</span></li>
-      <li><b>Spring · Spring Boot</b><span>GitHub 저장소 <a href="https://github.com/HTH-0/Spring" target="_blank" rel="noreferrer">Spring</a> · <a href="https://github.com/HTH-0/Springboot" target="_blank" rel="noreferrer">Springboot</a> (2025)</span></li>
+      <li><b>Java</b><span>GitHub 저장소 <a href="https://github.com/HTH-0/JAVA" target="_blank" rel="noreferrer">JAVA</a> · <a href="https://github.com/HTH-0/CodingTest" target="_blank" rel="noreferrer">CodingTest</a> (2025), 팀 프로젝트 <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a> (Java 21)</span></li>
+      <li><b>Spring · Spring Boot</b><span>GitHub 저장소 <a href="https://github.com/HTH-0/Spring" target="_blank" rel="noreferrer">Spring</a> · <a href="https://github.com/HTH-0/Springboot" target="_blank" rel="noreferrer">Springboot</a> (2025), <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a> (Spring Boot 3.4)</span></li>
+      <li><b>Spring Security · JWT · OAuth2</b><span><a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>에서 로그인, 회원가입, 카카오·네이버·구글 소셜 로그인 담당</span></li>
+      <li><b>JPA · MyBatis</b><span><a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>의 데이터 접근 계층</span></li>
       <li><b>JSP / Servlet</b><span>GitHub 저장소 <a href="https://github.com/HTH-0/JSP_SERVLET" target="_blank" rel="noreferrer">JSP_SERVLET</a> (2025)</span></li>
+      <li><b>MySQL · MariaDB</b><span><a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>의 데이터베이스(MySQL), 수업 실습에서 사용</span></li>
       <li><b>SQL</b><span>SQLD 취득 (2025.06.27)</span></li>
+      <li><b>Git · GitHub</b><span>정보처리산업기사 과정에서 브랜치 전략과 병합 충돌 해결 학습, <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a> 팀 협업</span></li>
     </ul>
   </section>
   <section class="tabp" data-panel="infra" role="tabpanel">
@@ -392,18 +399,27 @@
 <article data-id="record" data-kind="page" data-title="자격증·이력" data-path="~/portfolio/자격증·이력">
   <div class="kick">~/portfolio/자격증·이력</div>
   <h1>자격증과 이력</h1>
-  <p class="intro">수업과 과제를 하는 동안 자격증 준비를 함께 이어 갔습니다. <a href="files/resume.md" data-open="resume">이력서</a>, <a href="files/cover-letter.md" data-open="cover">자기소개서</a>, <a href="files/career.md" data-open="career">경력기술서</a>는 문서로 읽고 .docx로 내려받을 수 있습니다.</p>
+  <p class="intro">수업과 과제를 하는 동안 자격증 준비를 함께 이어 갔습니다. <a href="files/resume.md" data-open="resume">이력서</a>는 문서로 읽고 .docx로 내려받을 수 있습니다.</p>
   <h2>// 자격증</h2>
   <table class="tbl"><tbody>
-    <tr><th>리눅스마스터 2급</th><td>합격 · 2026.10.02 발표</td></tr>
-    <tr><th>SQLD</th><td>취득 · 2025.06.27</td></tr>
-    <tr><th>정보처리기사</th><td>필기 합격 · 실기 응시 예정 2026.10.25</td></tr>
+    <tr><th>리눅스마스터 2급</th><td>합격 · 2026.10.02 발표 · 한국정보통신진흥협회</td></tr>
+    <tr><th>SQLD</th><td>취득 · 2025.06.27 · 한국데이터산업진흥원</td></tr>
+    <tr><th>정보처리기사</th><td>필기 합격 2026.03 · 실기 응시 2026.10.25 · 한국산업인력공단</td></tr>
   </tbody></table>
   <h2>// 교육 · 학력</h2>
   <table class="tbl"><tbody>
     <tr><th>코리아IT아카데미 Aleph 과정</th><td>2026.08.11 – 2026.11.13 · 수강 중</td></tr>
     <tr><th>코리아IT아카데미 정보처리산업기사 과정</th><td>2024.12 – 2025.06 · 수료</td></tr>
-    <tr><th>영남대학교 기계공학부</th><td>2020.02 · 졸업</td></tr>
+    <tr><th>영남대학교 기계공학부</th><td>2015.03 – 2020.02 · 졸업</td></tr>
+  </tbody></table>
+  <h2>// 정보처리산업기사 과정에서 배운 것</h2>
+  <table class="tbl"><tbody>
+    <tr><th>Java</th><td>기초 문법, 객체지향(클래스, 상속, 인터페이스), 예외 처리, 컬렉션 프레임워크</td></tr>
+    <tr><th>Database</th><td>SELECT · INSERT · UPDATE · DELETE, 테이블 생성, JOIN, 서브쿼리, 트랜잭션</td></tr>
+    <tr><th>Linux</th><td>기본 명령어, 계정과 권한 관리, 파일 시스템 탐색</td></tr>
+    <tr><th>Git</th><td>Git, GitHub, 소스트리로 버전 관리, 브랜치 전략, 병합 충돌 해결</td></tr>
+    <tr><th>HTML · CSS</th><td>HTML5 · CSS3 레이아웃, Flexbox · Grid, 반응형 웹</td></tr>
+    <tr><th>JavaScript</th><td>기본 문법, 제어문, 함수, 이벤트 처리, 비동기 처리</td></tr>
   </tbody></table>
 </article>
 
@@ -719,6 +735,32 @@
   <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button><a href="https://github.com/HTH-0/aleph_thesis" target="_blank" rel="noreferrer">소스와 원자료 GitHub ↗</a></div>
 </article>
 
+<article data-id="hm" data-kind="md" data-title="HealthMe.md" data-path="~/portfolio/프로젝트/HealthMe.md" data-parent="projects">
+  <h1><span class="md">#</span>HealthMe · 영양 큐레이션 쇼핑몰</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">시기</span>: <span class="val">2025.04 – 06 (커밋 기록 기준) · 정보처리산업기사 과정 팀 프로젝트 (팀원 4명)</span><br />
+    <span class="key">맡은 일</span>: <span class="val">로그인·회원가입, 소셜 로그인, 아이디·비밀번호 찾기, 설문 결과 분석과 추천 로직</span><br />
+    <span class="key">기술</span>: <span class="val">Java 21, Spring Boot 3.4, Spring Security, OAuth2, JWT, JPA, MyBatis, MySQL, React</span><br />
+    <span class="key">링크</span>: <span class="val"><a href="https://github.com/HTH-0/Project_HealthMe" target="_blank" rel="noreferrer">GitHub ↗</a></span><br />
+    <span class="dl">---</span></div>
+  <p>사용자 설문으로 영양 성향을 분석하고, 그 결과에 맞는 식품을 추천해 장바구니와 결제까지 이어지는 쇼핑몰입니다.</p>
+  <figure class="shot"><img src="assets/healthme/result.png" alt="HealthMe 설문 결과 화면, 영양소별 막대그래프" width="1200" height="630" loading="lazy" /><figcaption>설문 결과 화면</figcaption></figure>
+  <h2><span class="md">##</span>맡은 기능</h2>
+  <ul class="feat">
+    <li><b>로그인과 회원가입</b>JWT 기반 로그인과 회원가입, 이메일·휴대폰 인증, 비밀번호 재설정 흐름을 만들었습니다.</li>
+    <li><b>소셜 로그인</b>카카오, 네이버, 구글 OAuth2 로그인을 연동하고, 제공자마다 다른 사용자 정보를 하나로 합쳐 처리했습니다.</li>
+    <li><b>설문 결과 분석</b>설문 응답으로 영양 성향 점수를 계산하는 로직을 만들었습니다.</li>
+    <li><b>추천 로직</b>영양소 유사도와 가중치로 상품을 고르는 콘텐츠 기반 추천을 설계했습니다.</li>
+    <li><b>흐름 점검</b>전체 사용자 흐름을 시험하고 예외 상황을 디버깅했습니다.</li>
+  </ul>
+  <figure class="shot"><img src="assets/healthme/signup.png" alt="HealthMe 회원가입 화면" width="900" height="470" loading="lazy" /><figcaption>회원가입 화면</figcaption></figure>
+  <h2><span class="md">##</span>작성 방식</h2>
+  <p>패키지 구조와 인증 흐름은 직접 설계했고, 코드는 수업 실습에서 작성한 코드를 가져와 이 구조에 맞게 붙여 완성했습니다.</p>
+  <h2><span class="md">##</span>확인</h2>
+  <p>팀 전체 커밋 330개 가운데 77개가 제 커밋입니다.</p>
+  <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button><a href="https://github.com/HTH-0/Project_HealthMe" target="_blank" rel="noreferrer">소스 GitHub ↗</a></div>
+</article>
+
 <article data-id="ow" data-kind="md" data-title="Overwrite.md" data-path="~/portfolio/프로젝트/Overwrite.md" data-parent="projects">
   <h1><span class="md">#</span>Overwrite · 팀 CTF 머신</h1>
   <div class="fm"><span class="dl">---</span><br />
@@ -1027,7 +1069,7 @@
 </tr>
 <tr>
 <td>희망 분야</td>
-<td>보안 · 인프라 · 백엔드</td>
+<td>백엔드 (보안 · 인프라)</td>
 </tr>
 </tbody></table></div>
 <h2><span class="md">##</span>학력</h2>
@@ -1041,7 +1083,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>~ 2020.02</td>
+<td>2015.03 ~ 2020.02</td>
 <td>영남대학교</td>
 <td>기계공학부</td>
 <td>졸업</td>
@@ -1070,6 +1112,7 @@
 <td>수료</td>
 </tr>
 </tbody></table></div>
+<p>정보처리산업기사 과정에서 Java(객체지향, 예외 처리, 컬렉션), Database(SQL, JOIN, 트랜잭션), Linux(명령어, 계정·권한 관리), Git(브랜치 전략, 병합 충돌 해결), HTML·CSS, JavaScript를 배웠습니다.</p>
 <h2><span class="md">##</span>자격증</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -1093,108 +1136,28 @@
 <td>취득</td>
 </tr>
 <tr>
-<td>2026.10.25 (예정)</td>
-<td>정보처리기사</td>
+<td>2026.03</td>
+<td>정보처리기사 필기</td>
 <td>한국산업인력공단</td>
-<td>필기 합격, 실기 응시 예정</td>
+<td>합격 (실기 2026.10.25 응시)</td>
 </tr>
 </tbody></table></div>
-  <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/resume.docx" download>.docx 내려받기</a></div>
-</article>
-
-<article data-id="cover" data-kind="md" data-title="자기소개서.md" data-path="~/portfolio/자격증·이력/자기소개서.md" data-parent="record">
-  <h1><span class="md">#</span>자기소개서</h1>
-  <div class="fm"><span class="dl">---</span><br />
-    <span class="key">내려받기</span>: <span class="val"><a href="files/cover-letter.docx" download>.docx</a> · <a href="files/cover-letter.md">원문 .md</a></span><br />
-    <span class="dl">---</span></div>
-<p>하태형 · <a href="mailto:xogud17931@gmail.com">xogud17931@gmail.com</a></p>
-<h2><span class="md">##</span>앞으로</h2>
-<p>저는 보안과 인프라를 깊게 배우고 싶습니다. 10월 25일 정보처리기사 실기를 치르고, 수업과 자격증 공부로 기본기를 쌓고, 보안과 AI를 비롯한 기술을 실제 결과물로 연결하겠습니다. 막히는 날은 앞으로도 올 것입니다. 저는 넘어지지 않는 사람이 아니라, 넘어진 다음 날 아침 다시 책상에 앉는 사람으로 일하겠습니다.</p>
-  <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/cover-letter.docx" download>.docx 내려받기</a></div>
-</article>
-
-<article data-id="career" data-kind="md" data-title="경력기술서.md" data-path="~/portfolio/자격증·이력/경력기술서.md" data-parent="record">
-  <h1><span class="md">#</span>경력기술서</h1>
-  <div class="fm"><span class="dl">---</span><br />
-    <span class="key">내려받기</span>: <span class="val"><a href="files/career.docx" download>.docx</a> · <a href="files/career.md">원문 .md</a></span><br />
-    <span class="dl">---</span></div>
-<p>하태형 · Aleph 과정(코리아IT아카데미, 2026.08.11 ~ 2026.11.13) 과제 기준</p>
-<p>과제 하나당 한 줄로 적었습니다. 「능력」은 자기조절력, 대인관계력, 자기동기력 가운데 그 과제에서 가장 잘 드러난 것입니다.</p>
+<h2><span class="md">##</span>병역</h2>
 <div class="table-wrap"><table>
 <thead>
 <tr>
-<th>과제 (기간)</th>
-<th>능력</th>
-<th>상황</th>
-<th>행동</th>
-<th>결과</th>
+<th>기간</th>
+<th>구분</th>
+<th>비고</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Aleph Project (2026.08.11 ~ 08.21)</td>
-<td>자기동기력</td>
-<td>처음으로 AI에게 요구사항을 말로 전달해 결과물을 만들어야 했다.</td>
-<td>요구사항을 쓰고 결과를 보고 다시 고쳐 쓰는 일을 되풀이했다.</td>
-<td>08.21 첫 과제를 마무리하고 배포했다.</td>
-</tr>
-<tr>
-<td>PinPoint 재설계 (2026.09)</td>
-<td>자기조절력</td>
-<td>첫 버전의 픽셀 테마가 부분 수정으로는 원하는 수준에 닿지 않았다.</td>
-<td>부분 수정을 멈추고 디자인의 기초부터 다시 설계했다. 직접 목업과 가이드를 만들고 작업 원칙 · 구조 · 검증 기준을 문서로 정리했다.</td>
-<td>코르크 · 픽셀 두 테마로 정리한 발전 버전을 배포했다.</td>
-</tr>
-<tr>
-<td>Aleph Portfolio (2026.09 ~ 09.15)</td>
-<td>자기동기력</td>
-<td>처음 만든 포트폴리오에 인증 기능을 넣어 보고 싶었다.</td>
-<td>패스키(WebAuthn) 기능의 방향을 정하고, AI가 만든 결과에서 오류가 나면 화면과 메시지를 근거로 문제 지점을 짚어 다시 요청했다.</td>
-<td>패스키 인증과 계정별 데이터 분리가 작동하는 사이트를 배포했다.</td>
-</tr>
-<tr>
-<td>나를 말하는 에이전트 (2026.09.10 ~ 09.15)</td>
-<td>자기조절력</td>
-<td>에이전트가 만든 강점 지도에 실제보다 크게 쓴 표현이 섞여 있었다.</td>
-<td>리추얼 기록을 직접 다시 읽고 과장된 항목 2개를 지운 뒤 지운 이유를 적었다.</td>
-<td>완성본을 동료 두 사람에게 읽혔고, 두 사람 모두 지어낸 느낌이 없다고 답했다.</td>
-</tr>
-<tr>
-<td>논문 (2026.09.13 ~ 10.01)</td>
-<td>대인관계력</td>
-<td>길찾기에 소리가 도움이 되는지 확인할 실험 참가자와 도구가 없었다.</td>
-<td>브라우저 3D 미로 시뮬레이터를 만들고 지인 5명을 모아 실험을 진행했다. 참가자의 피드백을 받아 미로 크기, 안내문, 제한시간을 바꿨다.</td>
-<td>시행 15회를 수집했고, 결과가 약한 부분과 한계까지 그대로 적은 논문을 완성했다.</td>
-</tr>
-<tr>
-<td>소설 (2026.09 ~ 10)</td>
-<td>자기조절력</td>
-<td>내 삶의 고비를 소설로 쓰면서 사실과 연출이 섞일 위험이 있었다.</td>
-<td>지어낸 문단마다 표시를 달고, 장별 인과표와 대조표로 인과 순서와 설정이 어긋난 세 곳을 찾아 고쳤다.</td>
-<td>14장 31,138자 원고를 완성했고, 이 원고에서 포트폴리오의 이야기를 사실로 되돌려 썼다.</td>
-</tr>
-<tr>
-<td>CTF 머신 제작 (팀, 2026.10.06 ~ )</td>
-<td>대인관계력</td>
-<td>처음 해 보는 팀 CTF 제작 과제라 팀원 모두 방향을 정하지 못했다.</td>
-<td>기획 회의에서 먼저 의견을 내고 팀원마다 맡을 일을 정할 기준을 세웠다. 기획서를 파일로 정리해 공유하고, 팀원이 만든 문제를 직접 풀어 보며 피드백했다.</td>
-<td>동료가 &quot;의견 합일을 빠르게 도와줬다&quot;고 적었고, 여러 번 수정한 문제를 마무리 단계까지 진행했다.</td>
-</tr>
-<tr>
-<td>포트폴리오 (2026.10.14 ~ )</td>
-<td>자기동기력</td>
-<td>과정이 끝난 뒤에도 기록이 늘면 포트폴리오를 직접 다시 써야 했다.</td>
-<td>리추얼 기록 · 출석 · 제출 현황을 읽어 숫자 칸과 능력별 문단 후보를 다시 만드는 장치를 만들었다. AI 호출 없이 승인한 문장만 사이트에 들어가게 했다.</td>
-<td>같은 입력에서 같은 결과가 나오는 것을 두 번 실행해 확인했다.</td>
+<td>2016.05 ~ 2018.02</td>
+<td>육군 병장</td>
+<td>만기 전역</td>
 </tr>
 </tbody></table></div>
-<h2><span class="md">##</span>근거</h2>
-<ul>
-<li>날짜와 동료 발언: Aleph 과정 리추얼 기록 (2026-08-11 ~ 2026-10-14)</li>
-<li>과정 과제 결과물: 포트폴리오 「과정에서 만든 것들」의 배포 링크</li>
-<li>논문: <a href="https://github.com/HTH-0/aleph_thesis">https://github.com/HTH-0/aleph_thesis</a></li>
-<li>포트폴리오: <a href="https://github.com/HTH-0/aleph_hth_portfolio">https://github.com/HTH-0/aleph_hth_portfolio</a></li>
-</ul>
-  <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/career.docx" download>.docx 내려받기</a></div>
+  <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/resume.docx" download>.docx 내려받기</a></div>
 </article>
 <!-- docs:end -->
 </div>
@@ -1204,13 +1167,13 @@
   var TREE = [
     { id: 'home', icon: 'home', label: 'home' },
     { id: 'projects', icon: 'grid', label: '프로젝트/', kids: [
-      { id: 't10', icon: 'doc', label: '논문.md' }, { id: 'ow', icon: 'doc', label: 'Overwrite.md' },
+      { id: 'hm', icon: 'doc', label: 'HealthMe.md' }, { id: 'ow', icon: 'doc', label: 'Overwrite.md' },
+      { id: 't10', icon: 'doc', label: '논문.md' },
       { id: 't13', icon: 'doc', label: '앱.md' }, { id: 't02', icon: 'doc', label: 'Dodge.md' },
       { id: 't04', icon: 'doc', label: 'TheDayBefore.md' }, { id: 't07', icon: 'doc', label: 'PinPoint.md' } ] },
     { id: 'stack', icon: 'grid', label: '기술스택' },
     { id: 'record', icon: 'grid', label: '자격증·이력/', kids: [
-      { id: 'resume', icon: 'doc', label: '이력서.md' }, { id: 'cover', icon: 'doc', label: '자기소개서.md' },
-      { id: 'career', icon: 'doc', label: '경력기술서.md' } ] }
+      { id: 'resume', icon: 'doc', label: '이력서.md' } ] }
   ];
   var src = document.getElementById('src');
   var arts = {};
