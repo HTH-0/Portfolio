@@ -129,6 +129,9 @@
   .stack b { font-weight: 600; }
   .stack span { color: #5a6066; word-break: keep-all; }
   .stack a { color: var(--accent); }
+  .src { display: inline-block; margin-right: 4px; padding: 0 6px; border-radius: 3px; font: 600 11px/18px var(--mono); font-style: normal; vertical-align: 1px; }
+  .src.p { background: #e4efe0; color: #2b6a1f; }
+  .src.c { background: #eef0f6; color: #4a5470; }
   @media (max-width: 600px) { .stack li { grid-template-columns: minmax(0, 1fr); } }
 
   /* ── 세부 문서(.md) ── */
@@ -370,8 +373,8 @@
 <article data-id="stack" data-kind="page" data-title="기술스택" data-path="~/portfolio/기술스택">
   <div class="kick">~/portfolio/기술스택</div>
   <h1>기술 스택</h1>
-  <p class="intro">자격증, 저장소, 프로젝트로 확인할 수 있는 기술만 적었습니다. 항목마다 근거를 함께 두었습니다.</p>
-  <div class="tabs" role="tablist" aria-label="분야"><button type="button" role="tab" data-tab="be">백엔드</button><button type="button" role="tab" data-tab="infra">인프라 · 네트워크</button></div>
+  <p class="intro">자격증, 저장소, 프로젝트, 과정 실습으로 확인할 수 있는 기술만 적었습니다. 근거는 <i class="src p">프로젝트</i> 실제 프로젝트에 적용한 것과 <i class="src c">과정 실습</i> Aleph 과정에서 가상머신으로 구축해 본 것으로 나눴습니다.</p>
+  <div class="tabs" role="tablist" aria-label="분야"><button type="button" role="tab" data-tab="be">백엔드</button><button type="button" role="tab" data-tab="infra">인프라 · 서버</button><button type="button" role="tab" data-tab="net">네트워크 · 보안</button></div>
   <section class="tabp" data-panel="be" role="tabpanel">
     <h2>// 백엔드</h2>
     <ul class="stack">
@@ -380,18 +383,33 @@
       <li><b>Spring Security · JWT · OAuth2</b><span><a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>에서 로그인, 회원가입, 카카오·네이버·구글 소셜 로그인 담당</span></li>
       <li><b>JPA · MyBatis</b><span><a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>의 데이터 접근 계층</span></li>
       <li><b>JSP / Servlet</b><span>GitHub 저장소 <a href="https://github.com/HTH-0/JSP_SERVLET" target="_blank" rel="noreferrer">JSP_SERVLET</a> (2025)</span></li>
-      <li><b>MySQL · MariaDB</b><span><a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>의 데이터베이스(MySQL), 수업 실습에서 사용</span></li>
+      <li><b>MySQL · MariaDB</b><span><i class="src p">프로젝트</i> <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>의 데이터베이스(MySQL) · <i class="src c">과정 실습</i> MariaDB 계정·권한 관리, Master-Slave 복제, mysqldump 백업</span></li>
       <li><b>SQL</b><span>SQLD 취득 (2025.06.27)</span></li>
       <li><b>Git · GitHub</b><span>정보처리산업기사 과정에서 브랜치 전략과 병합 충돌 해결 학습, <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a> 팀 협업</span></li>
     </ul>
   </section>
   <section class="tabp" data-panel="infra" role="tabpanel">
-    <h2>// 인프라 · 네트워크</h2>
+    <h2>// 인프라 · 서버</h2>
     <ul class="stack">
-      <li><b>Linux</b><span>리눅스마스터 2급 합격 (2026.10.02 발표)</span></li>
-      <li><b>Ubuntu Server</b><span>팀 CTF 머신 Overwrite의 서버 구성</span></li>
-      <li><b>VirtualBox</b><span>Overwrite 머신의 실행 환경 (VirtualBox 7.x)</span></li>
-      <li><b>Cisco Packet Tracer</b><span>IOS 명령으로 라우터 · 스위치 설정 (VLAN, OSPF)</span></li>
+      <li><b>Linux (Ubuntu · Rocky)</b><span>리눅스마스터 2급 합격 (2026.10.02 발표) · <i class="src c">과정 실습</i> 계정·권한(passwd/shadow, 특수 권한), 커널·리소스(sysctl, /proc)</span></li>
+      <li><b>Ubuntu Server · VirtualBox</b><span><i class="src p">프로젝트</i> 팀 CTF 머신 Overwrite의 서버 구성과 실행 환경(VirtualBox 7.x) · <i class="src c">과정 실습</i> 실습용 가상머신 구성</span></li>
+      <li><b>웹 · 파일 · DNS 서버</b><span><i class="src c">과정 실습</i> Apache(LAMP, HTTPS), BIND DNS, NFS · Samba, FTP · FTPS · SFTP</span></li>
+      <li><b>로그 · 모니터링</b><span><i class="src c">과정 실습</i> rsyslog와 LogAnalyzer로 로그 서버 구성, Zabbix · PMM 모니터링</span></li>
+      <li><b>Bash</b><span><i class="src c">과정 실습</i> 셸 스크립트 기초</span></li>
+      <li><b>Docker (기초)</b><span><i class="src c">과정 실습</i> 설치, 이미지와 컨테이너 기본 조작</span></li>
+      <li><b>Windows Server</b><span><i class="src c">과정 실습</i> IIS, FTP, DNS 서비스 구성</span></li>
+    </ul>
+  </section>
+  <section class="tabp" data-panel="net" role="tabpanel">
+    <h2>// 네트워크 · 보안</h2>
+    <ul class="stack">
+      <li><b>라우팅 · 스위칭 (Cisco IOS)</b><span><i class="src c">과정 실습</i> RIP · OSPF · EIGRP, VLAN · Inter-VLAN · DHCP, 게이트웨이 이중화(FHRP), IPv6, 서브네팅</span></li>
+      <li><b>ACL · NAT</b><span><i class="src c">과정 실습</i> 표준 · 확장 · Reflexive · Dynamic ACL, NAT · PAT</span></li>
+      <li><b>방화벽</b><span><i class="src c">과정 실습</i> Cisco ASA(ASAv, Active/Standby Failover), Zone-Based Firewall, pfSense</span></li>
+      <li><b>VPN</b><span><i class="src c">과정 실습</i> GRE over IPsec</span></li>
+      <li><b>IDS · IPS</b><span><i class="src c">과정 실습</i> Snort3 소스 빌드와 커스텀 룰, Suricata(ET Open 룰셋, eve.json 분석), Inline Snort. hping3로 만든 공격 트래픽으로 탐지 확인</span></li>
+      <li><b>SIEM · HIDS</b><span><i class="src c">과정 실습</i> Wazuh 서버 구축과 Linux · Windows 에이전트 연결, OSSEC</span></li>
+      <li><b>Cisco Packet Tracer · GNS3</b><span><i class="src c">과정 실습</i> 라우터 · 스위치 · 방화벽 실습 환경</span></li>
     </ul>
   </section>
 </article>
