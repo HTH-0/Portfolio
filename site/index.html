@@ -1605,12 +1605,7 @@
 
     // 패킷(보이드)
     // 떠다니는 것: Packet Tracer(Cisco IOS) 명령, 리눅스 명령, SQL, Java (색으로 종류 구분)
-    var KINDS = MODE === 'backend' ? [
-      { c: '#2b8a3e', w: ['@RestController', '@Service', '@Transactional', '@Autowired', '@GetMapping', '@Entity', '@Bean', '@Valid'] },
-      { c: '#1f6feb', w: ['SELECT *', 'WHERE id=1', 'JOIN', 'COMMIT;', 'INSERT', 'GROUP BY', 'ORDER BY'] },
-      { c: '#7048e8', w: ['GET /api/me', 'POST /login', '200 OK', '401', 'Bearer eyJ…', 'PUT /users/1', 'DELETE'] },
-      { c: '#e8590c', w: ['@Override', 'try {', 'Optional<User>', 'List<Product>', 'ResponseEntity.ok()', 'catch (e)'] }
-    ] : [
+    var KINDS = [
       { c: '#d6336c', w: ['R1> enable', 'R1# conf t', 'int fa0/1', 'no shutdown', 'show ip route', 'show run', 'router ospf 1', 'vlan 10', 'switchport mode access', 'copy run start', 'hostname R1', 'show vlan brief'] },
       { c: '#2b8a3e', w: ['cd ~', 'ls -al', 'cp a b', 'chmod 600', 'grep -r', 'ssh', 'sudo', 'ps aux', 'tail -f', 'mkdir'] },
       { c: '#1f6feb', w: ['SELECT *', 'WHERE id=1', 'JOIN', 'COMMIT;', 'INSERT', 'GROUP BY', 'ORDER BY'] },
@@ -1754,18 +1749,19 @@
     function inLockBox(x, y) { return Math.abs(x - Lc.x) < LBW * LS / 2 && Math.abs(y - Lc.y) < LBH * LS / 2; }
     function draw(t) {
       ctx.clearRect(0, 0, W, H);
-      // 1) 포인터 주변의 문자 소용돌이 (자물쇠가 생기는 자리에서는 옅어진다)
+      // 1) 포인터 주변의 문자 소용돌이. 멈추면 반지름이 줄어 한 점으로 사라지고, 그다음 자물쇠(카드)가 나타난다
       var R = Math.min(190, Math.max(120, W * .17));
-      var c0 = Math.max(0, Math.floor((P.x - R) / CW)), c1 = Math.ceil((P.x + R) / CW);
-      var r0 = Math.max(0, Math.floor((P.y - R) / CH)), r1 = Math.ceil((P.y + R) / CH);
+      var Rs = R * (1 - Math.min(1, lockAmt / .4));
+      var c0 = Math.max(0, Math.floor((P.x - Rs) / CW)), c1 = Rs < 2 ? -1 : Math.ceil((P.x + Rs) / CW);
+      var r0 = Math.max(0, Math.floor((P.y - Rs) / CH)), r1 = Math.ceil((P.y + Rs) / CH);
       var SW = '/|\\-';
       ctx.font = '13px "JetBrains Mono", Consolas, monospace';
       for (var r = r0; r <= r1; r++) for (var c = c0; c <= c1; c++) {
         var x = c * CW + CW / 2, y = r * CH + CH / 2;
         if (x > W || y > H || blocked(x, y)) continue;
         var dx = x - P.x, dy = y - P.y, d = Math.hypot(dx, dy);
-        if (d > R) continue;
-        var f = 1 - d / R, al = f * (1 - lockAmt * (inLockBox(x, y) ? 1 : .6)), col;
+        if (d > Rs) continue;
+        var f = 1 - d / Rs, al = f, col;
         if (al < .03) continue;
         var ang = Math.atan2(dy, dx) + Math.PI / 2 + t * 1.2 + d * .02;
         var ch = SW[(((ang / (Math.PI / 4)) % 4) + 4 | 0) % 4];
