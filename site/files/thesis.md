@@ -168,7 +168,7 @@ Tomás-Zapico, C., Iglesias-Gutiérrez, E., Díaz Martínez, A. E., Butler, R. G
 
 필요한 것은 Node.js뿐이다. 이 ZIP의 최상위 폴더에서 실행한다.
 
-1. **실험 화면 확인.** `node sim/devserver.js`를 실행하고 `http://localhost:5173`을 연다. 로컬에서는 결과가 DB 대신 `sim/data/raw/`에 파일로 저장되며, `http://localhost:5173/admin.html`에서 관리자 키 `dev`로 열람할 수 있다. 헤드폰으로 들어야 한다. 참가자 순서 배정은 브라우저 `localStorage`에 의존하므로, 슬롯 1번부터 다시 시작하려면 시크릿 창을 쓴다.
+1. **실험 화면 확인.** `node sim/devserver.js`를 실행하고 `http://localhost:5173`을 연다. 로컬에서는 결과가 DB 대신 `sim/data/raw/`에 파일로 저장된다. 헤드폰으로 들어야 한다. 참가자 순서 배정은 브라우저 `localStorage`에 의존하므로, 슬롯 1번부터 다시 시작하려면 시크릿 창을 쓴다.
 2. **표 재현.** `node analysis/summarize.js`가 `analysis/results.csv`를 읽어 3장의 표(참가자별 시간비·효율비, 막다른 길 진입·재정향 시간, 시행 순서, R-SOD별 시간비)를 출력하고 `analysis/rsod_scatter.svg`를 만든다.
 3. **소리 환경 계산.** `node analysis/audible_count.js`가 `sim/config.js`와 `sim/maps.js`를 읽어 칸별로 들리는 소리 개수와 4.2 판단 3의 수치(40% 지점, 72%)를 출력한다.
 4. **원자료.** `analysis/results.csv`가 분석에 쓴 원자료다(참가자 5명, 본시행 15행; 열: participant, design, slot, rsod, trialIndex, map, landmarkLevel, elapsedSec, distance, pathEfficiency, deadEndEntries, reorientationSec, timedOut). 참가자 이름은 실명이라 P1~P5로 바꿨다. 이 파일은 배포된 데이터베이스에서 `analysis/export_results.js`로 내려받은 것인데, 데이터베이스는 연구자만 접근할 수 있으므로 제출물에서는 이 CSV를 원자료로 본다.

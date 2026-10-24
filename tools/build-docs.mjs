@@ -1,4 +1,4 @@
-// docs/*.md → site/resume.html, site/files/*.docx, docs/*.docx
+// docs/*.md → site/index.html 안의 세부 문서, site/files/*.docx·*.md, docs/*.docx
 // site/files/thesis.md는 원문 그대로 둔다(논문은 site/index.html 안의 문서로 표시)
 // 사용법: cd tools && npm install && npm run build
 
@@ -17,67 +17,34 @@ const SITE = path.join(ROOT, "site");
 const FILES = path.join(SITE, "files");
 
 const DOC_LIST = [
-  { file: "이력서.md", slug: "resume", title: "이력서" },
-  { file: "자기소개서.md", slug: "cover-letter", title: "자기소개서" },
-  { file: "경력기술서.md", slug: "career", title: "경력기술서" },
+  { file: "이력서.md", id: "resume", slug: "resume", title: "이력서" },
+  { file: "자기소개서.md", id: "cover", slug: "cover-letter", title: "자기소개서" },
+  { file: "경력기술서.md", id: "career", slug: "career", title: "경력기술서" },
 ];
 
 const read = (p) => fs.readFileSync(p, "utf8").replace(/^﻿/, "").replace(/\r\n/g, "\n");
 
 // ---------- HTML ----------
-
-const PAGE_STYLE = `
-    body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
-    a { color: var(--color-accent-700); }
-    .bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; padding: 18px 28px; background: color-mix(in srgb, var(--color-bg) 90%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--color-divider); }
-    .bar a { color: var(--color-text); text-decoration: none; font-size: 13px; }
-    .bar .home { font-family: var(--font-heading); font-weight: 600; font-size: 18px; margin-right: auto; }
-    main { max-width: 920px; margin: 0 auto; padding: 48px 16px 96px; }
-    .doc { padding: 40px 0; border-top: 1px solid var(--color-divider); }
-    .doc:first-of-type { border-top: none; }
-    .md h1 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 16px; }
-    .md h2 { font-size: 22px; margin: 36px 0 12px; }
-    .md h3 { font-size: 18px; margin: 28px 0 10px; }
-    .md p, .md li { font-size: 15px; line-height: 1.9; color: var(--color-neutral-800); word-break: keep-all; }
-    .md blockquote { margin: 16px 0; padding: 4px 16px; border-left: 3px solid var(--color-accent); color: var(--color-neutral-700); }
-    .md code { font-size: 0.92em; background: var(--color-surface); padding: 1px 5px; border-radius: 3px; }
-    .md pre { overflow-x: auto; background: var(--color-surface); padding: 12px; }
-    .md .table-wrap { overflow-x: auto; margin: 16px 0; }
-    .md table { border-collapse: collapse; width: 100%; font-size: 13px; line-height: 1.7; }
-    .md th, .md td { border: 1px solid var(--color-divider); padding: 8px 10px; text-align: left; vertical-align: top; word-break: keep-all; }
-    .md th { background: var(--color-surface); white-space: nowrap; }
-    .downloads { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0 0 8px; font-size: 13px; }
-    .note { font-size: 13px; color: var(--color-neutral-600); line-height: 1.8; }`;
+// site/index.html의 <!-- docs:start --> ~ <!-- docs:end --> 사이를 세부 문서(.md) 3개로 바꾼다.
 
 function mdToHtml(md) {
-  return marked.parse(md, { gfm: true })
+  return marked.parse(md.replace(/^# .*\n+/, ""), { gfm: true })
+    .replace(/<h([23])>/g, (_, n) => `<h${n}><span class="md">${"#".repeat(n)}</span>`)
     .replace(/<table>/g, '<div class="table-wrap"><table>')
-    .replace(/<\/table>/g, "</table></div>");
+    .replace(/<\/table>/g, "</table></div>")
+    .trim();
 }
 
-function page(title, description, body) {
-  return `<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="${description}" />
-  <title>${title}</title>
-  <link rel="stylesheet" href="industry.css" />
-  <style>${PAGE_STYLE}
-  </style>
-</head>
-<body>
-  <nav class="bar">
-    <a href="index.html" class="home">← 하태형 포트폴리오</a>
-${body.nav}
-  </nav>
-  <main>
-${body.main}
-  </main>
-</body>
-</html>
-`;
+function article(d, md) {
+  const dl = `<a href="files/${d.slug}.docx" download>.docx</a> · <a href="files/${d.slug}.md">원문 .md</a>`;
+  return `<article data-id="${d.id}" data-kind="md" data-title="${d.title}.md" data-path="~/portfolio/자격증·이력/${d.title}.md" data-parent="record">
+  <h1><span class="md">#</span>${d.title}</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">내려받기</span>: <span class="val">${dl}</span><br />
+    <span class="dl">---</span></div>
+${mdToHtml(md)}
+  <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/${d.slug}.docx" download>.docx 내려받기</a></div>
+</article>`;
 }
 
 // ---------- DOCX ----------
@@ -149,28 +116,23 @@ async function writeDocx(md, file) {
 
 fs.mkdirSync(FILES, { recursive: true });
 
-const sections = [];
+const articles = [];
 for (const d of DOC_LIST) {
   const md = read(path.join(DOCS, d.file));
   const base = path.basename(d.file, ".md");
   await writeDocx(md, path.join(DOCS, `${base}.docx`));
   fs.copyFileSync(path.join(DOCS, `${base}.docx`), path.join(FILES, `${d.slug}.docx`));
   fs.copyFileSync(path.join(DOCS, d.file), path.join(FILES, `${d.slug}.md`));
-  sections.push(`    <section class="doc md" id="${d.slug}">
-      <p class="downloads"><a href="files/${d.slug}.docx" download>${d.title} .docx 내려받기</a><a href="files/${d.slug}.md">원문 .md</a></p>
-${mdToHtml(md)}
-    </section>`);
+  articles.push(article(d, md));
 }
 
-fs.writeFileSync(path.join(SITE, "resume.html"), page(
-  "이력서 · 하태형",
-  "하태형의 이력서, 자기소개서, 경력기술서",
-  {
-    nav: DOC_LIST.map((d) => `    <a href="#${d.slug}">${d.title}</a>`).join("\n"),
-    main: sections.join("\n"),
-  },
-));
+const INDEX = path.join(SITE, "index.html");
+const START = "<!-- docs:start -->", END = "<!-- docs:end -->";
+const index = fs.readFileSync(INDEX, "utf8");
+const i0 = index.indexOf(START), i1 = index.indexOf(END);
+if (i0 < 0 || i1 < i0) throw new Error("site/index.html에 " + START + " / " + END + " 표시가 없습니다.");
+fs.writeFileSync(INDEX, index.slice(0, i0 + START.length) + "\n" + articles.join("\n\n") + "\n" + index.slice(i1));
 
 // 논문은 site/index.html 안의 문서(T10-논문.md)로 옮겼으므로 thesis.html은 더 만들지 않는다.
 
-console.log("만든 파일: site/resume.html, docs/*.docx, site/files/*");
+console.log("만든 파일: site/index.html(이력 문서 3개), docs/*.docx, site/files/*");

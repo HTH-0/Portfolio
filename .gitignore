@@ -7,9 +7,6 @@ node_modules/
 .env
 .env.*
 
-# 제출용 ZIP 결과물
-dist/
-
 # Overwrite CTF 원본 자료 (플래그·VM 이미지 포함, 제출하지 않음)
 /overwrite/
 

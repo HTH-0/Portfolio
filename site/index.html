@@ -285,7 +285,7 @@
       <div class="cap">contact</div>
       <a class="it" href="mailto:xogud17931@gmail.com"><svg class="ic-doc"><use href="#s-mail"/></svg>이메일</a>
       <a class="it" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><svg class="ic-doc"><use href="#s-gh"/></svg>github</a>
-      <a class="it" href="resume.html"><svg class="ic-doc"><use href="#s-file"/></svg>이력서 · 자기소개서</a>
+      <a class="it" href="files/resume.md" data-open="resume"><svg class="ic-doc"><use href="#s-file"/></svg>이력서 · 자기소개서</a>
     </div>
   </aside>
 
@@ -342,7 +342,7 @@
 <article data-id="tasks" data-kind="page" data-title="AI과제" data-path="~/portfolio/AI과제">
   <div class="kick">~/portfolio/AI과제</div>
   <h1>AI와 함께한 과제 6개</h1>
-  <p class="intro">카드를 누르면 과제의 화면과 설명이 문서로 열립니다. 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
+  <p class="intro">코리아IT아카데미 Aleph 과정(2026.08.11 – 11.13) 동안 만든 과제입니다. 카드를 누르면 과제의 화면과 설명이 문서로 열립니다. 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
   <ul class="cards">
     <li><button class="card" type="button" data-open="t02"><span class="thumb"><img src="assets/tasks/t02.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">T02<span class="tag">STEP 1</span></span><b>Dodge</b><p>직접 설계한 미니게임</p><span class="more">문서 열기 →</span></span></button></li>
     <li><button class="card" type="button" data-open="t04"><span class="thumb"><img src="assets/tasks/t04.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">T04<span class="tag">STEP 2</span></span><b>The Day Before</b><p>어제 생성된 저장소 수 대시보드</p><span class="more">문서 열기 →</span></span></button></li>
@@ -364,7 +364,7 @@
 <article data-id="record" data-kind="page" data-title="자격증·이력" data-path="~/portfolio/자격증·이력">
   <div class="kick">~/portfolio/자격증·이력</div>
   <h1>자격증과 이력</h1>
-  <p class="intro">수업과 과제를 하는 동안 자격증 준비를 함께 이어 갔습니다. 이력서, 자기소개서, 경력기술서는 <a href="resume.html">문서 페이지</a>에서 내려받을 수 있습니다.</p>
+  <p class="intro">수업과 과제를 하는 동안 자격증 준비를 함께 이어 갔습니다. <a href="files/resume.md" data-open="resume">이력서</a>, <a href="files/cover-letter.md" data-open="cover">자기소개서</a>, <a href="files/career.md" data-open="career">경력기술서</a>는 문서로 읽고 .docx로 내려받을 수 있습니다.</p>
   <h2>// 자격증</h2>
   <table class="tbl"><tbody>
     <tr><th>리눅스마스터 2급</th><td>합격 · 2026.10.02 발표</td></tr>
@@ -431,7 +431,6 @@
 <article data-id="t07" data-kind="md" data-title="T07-PinPoint.md" data-path="~/portfolio/AI과제/T07-PinPoint.md" data-parent="tasks">
   <h1><span class="md">#</span>T07 · PinPoint 재설계</h1>
   <div class="fm"><span class="dl">---</span><br />
-    <span class="key">기간</span>: <span class="val">2026.09.03 – 09.06 (커밋 37개)</span><br />
     <span class="key">AI 사용</span>: <span class="val">STEP 3·4 · 폴더 안 명세, 외부 도구(MCP) 연결</span><br />
     <span class="key">한 일</span>: <span class="val">로그인 구현, 전체 재설계, Document PiP 구현</span><br />
     <span class="key">링크</span>: <span class="val"><a href="https://aleph-pinpoint.vercel.app/" target="_blank" rel="noreferrer">aleph-pinpoint.vercel.app ↗</a></span><br />
@@ -659,7 +658,7 @@
 <h2><span class="md">##</span>재현 방법</h2>
 <p>필요한 것은 Node.js뿐이다. aleph_thesis 저장소의 최상위 폴더에서 실행한다.</p>
 <ol>
-<li><strong>실험 화면 확인.</strong> <code>node sim/devserver.js</code>를 실행하고 <code>http://localhost:5173</code>을 연다. 로컬에서는 결과가 DB 대신 <code>sim/data/raw/</code>에 파일로 저장되며, <code>http://localhost:5173/admin.html</code>에서 관리자 키 <code>dev</code>로 열람할 수 있다. 헤드폰으로 들어야 한다. 참가자 순서 배정은 브라우저 <code>localStorage</code>에 의존하므로, 슬롯 1번부터 다시 시작하려면 시크릿 창을 쓴다.</li>
+<li><strong>실험 화면 확인.</strong> <code>node sim/devserver.js</code>를 실행하고 <code>http://localhost:5173</code>을 연다. 로컬에서는 결과가 DB 대신 <code>sim/data/raw/</code>에 파일로 저장된다. 헤드폰으로 들어야 한다. 참가자 순서 배정은 브라우저 <code>localStorage</code>에 의존하므로, 슬롯 1번부터 다시 시작하려면 시크릿 창을 쓴다.</li>
 <li><strong>표 재현.</strong> <code>node analysis/summarize.js</code>가 <code>analysis/results.csv</code>를 읽어 3장의 표(참가자별 시간비·효율비, 막다른 길 진입·재정향 시간, 시행 순서, R-SOD별 시간비)를 출력하고 <code>analysis/rsod_scatter.svg</code>를 만든다.</li>
 <li><strong>소리 환경 계산.</strong> <code>node analysis/audible_count.js</code>가 <code>sim/config.js</code>와 <code>sim/maps.js</code>를 읽어 칸별로 들리는 소리 개수와 4.2 판단 3의 수치(40% 지점, 72%)를 출력한다.</li>
 <li><strong>원자료.</strong> <code>analysis/results.csv</code>가 분석에 쓴 원자료다(참가자 5명, 본시행 15행; 열: participant, design, slot, rsod, trialIndex, map, landmarkLevel, elapsedSec, distance, pathEfficiency, deadEndEntries, reorientationSec, timedOut). 참가자 이름은 실명이라 P1~P5로 바꿨다. 이 파일은 배포된 데이터베이스에서 <code>analysis/export_results.js</code>로 내려받은 것인데, 데이터베이스는 연구자만 접근할 수 있으므로 저장소에서는 이 CSV를 원자료로 본다.</li>
@@ -966,6 +965,299 @@
   <p>마지막 과제의 앱이 들어갈 자리입니다. 완성되면 이 문서를 채웁니다.</p>
   <div class="nav2"><button type="button" data-open="featured">← 대표작 목록</button></div>
 </article>
+
+<!-- ===== 이력 문서: docs/*.md에서 tools/build-docs.mjs가 만든다. 직접 고치지 않는다. ===== -->
+<!-- docs:start -->
+<article data-id="resume" data-kind="md" data-title="이력서.md" data-path="~/portfolio/자격증·이력/이력서.md" data-parent="record">
+  <h1><span class="md">#</span>이력서</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">내려받기</span>: <span class="val"><a href="files/resume.docx" download>.docx</a> · <a href="files/resume.md">원문 .md</a></span><br />
+    <span class="dl">---</span></div>
+<h2><span class="md">##</span>인적 사항</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>이름</td>
+<td>하태형</td>
+</tr>
+<tr>
+<td>이메일</td>
+<td><a href="mailto:xogud17931@gmail.com">xogud17931@gmail.com</a></td>
+</tr>
+<tr>
+<td>GitHub</td>
+<td><a href="https://github.com/HTH-0">https://github.com/HTH-0</a></td>
+</tr>
+<tr>
+<td>포트폴리오</td>
+<td><a href="https://alephhthportfolio.vercel.app">https://alephhthportfolio.vercel.app</a></td>
+</tr>
+<tr>
+<td>희망 분야</td>
+<td>보안 · 인프라 · 백엔드</td>
+</tr>
+</tbody></table></div>
+<h2><span class="md">##</span>학력</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>기간</th>
+<th>학교</th>
+<th>전공</th>
+<th>구분</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>~ 2020.02</td>
+<td>영남대학교</td>
+<td>기계공학부</td>
+<td>졸업</td>
+</tr>
+</tbody></table></div>
+<h2><span class="md">##</span>교육</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>기간</th>
+<th>과정</th>
+<th>기관</th>
+<th>구분</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026.08.11 ~ 2026.11.13</td>
+<td>Aleph 과정</td>
+<td>코리아IT아카데미</td>
+<td>수강 중</td>
+</tr>
+<tr>
+<td>2024.12 ~ 2025.06</td>
+<td>정보처리산업기사 과정</td>
+<td>코리아IT아카데미</td>
+<td>수료</td>
+</tr>
+</tbody></table></div>
+<h2><span class="md">##</span>자격증</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>취득일</th>
+<th>자격증</th>
+<th>발행</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026.10.02</td>
+<td>리눅스마스터 2급</td>
+<td>한국정보통신진흥협회</td>
+<td>합격 발표</td>
+</tr>
+<tr>
+<td>2025.06.27</td>
+<td>SQLD</td>
+<td>한국데이터산업진흥원</td>
+<td>취득</td>
+</tr>
+<tr>
+<td>2026.10.25 (예정)</td>
+<td>정보처리기사</td>
+<td>한국산업인력공단</td>
+<td>필기 합격, 실기 응시 예정</td>
+</tr>
+</tbody></table></div>
+<h2><span class="md">##</span>과제와 기간 (Aleph 과정)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>기간</th>
+<th>과제</th>
+<th>형태</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026.08.11 ~ 2026.08.21</td>
+<td>T01 Aleph Project</td>
+<td>개인</td>
+<td>나를 소개하는 한 페이지 사이트</td>
+</tr>
+<tr>
+<td>2026.08</td>
+<td>T02 Dodge</td>
+<td>개인</td>
+<td>직접 설계한 미니게임</td>
+</tr>
+<tr>
+<td>2026.08</td>
+<td>T03 Meme Studio</td>
+<td>개인</td>
+<td>짤 · 카드 제작 도구</td>
+</tr>
+<tr>
+<td>2026.08 ~ 2026.09</td>
+<td>T04 The Day Before</td>
+<td>개인</td>
+<td>GitHub 연계, 화면 효과, 기초 디자인 적용</td>
+</tr>
+<tr>
+<td>2026.08 ~ 2026.09</td>
+<td>T05 Meme Studio 확장 실험</td>
+<td>개인</td>
+<td>다른 AI로 기능 추가, AI 사이 자료 전달 연습</td>
+</tr>
+<tr>
+<td>2026.09</td>
+<td>T06 PinPoint</td>
+<td>개인</td>
+<td>계획 관리 앱 첫 버전, 디자인 도구로 시안 보완</td>
+</tr>
+<tr>
+<td>2026.09</td>
+<td>T07 PinPoint 재설계</td>
+<td>개인</td>
+<td>전체 배치 재설계, 작업 원칙 · 검증 기준 문서화</td>
+</tr>
+<tr>
+<td>2026.09 ~ 2026.09.15</td>
+<td>T08 Aleph Portfolio</td>
+<td>개인</td>
+<td>포트폴리오 재설계, 패스키(WebAuthn) 인증 추가</td>
+</tr>
+<tr>
+<td>2026.09.10 ~ 2026.09.15</td>
+<td>T09 나를 말하는 에이전트</td>
+<td>개인</td>
+<td>리추얼 기록으로 강점 지도와 서사 문서 작성</td>
+</tr>
+<tr>
+<td>2026.09.13 ~ 2026.10.01</td>
+<td>T10 논문</td>
+<td>개인</td>
+<td>청각 랜드마크 개수와 길찾기, 3D 실험 시뮬레이터 제작</td>
+</tr>
+<tr>
+<td>2026.09 ~ 2026.10</td>
+<td>T11 소설</td>
+<td>개인</td>
+<td>삶의 고비 셋을 다룬 14장 소설</td>
+</tr>
+<tr>
+<td>2026.10.06 ~</td>
+<td>CTF 머신 제작</td>
+<td>팀</td>
+<td>기획 주도, 역할 분담 기준 수립, 풀이 피드백</td>
+</tr>
+<tr>
+<td>2026.10.14 ~</td>
+<td>T12 포트폴리오</td>
+<td>개인</td>
+<td>이 포트폴리오와 기록 갱신 장치</td>
+</tr>
+</tbody></table></div>
+  <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/resume.docx" download>.docx 내려받기</a></div>
+</article>
+
+<article data-id="cover" data-kind="md" data-title="자기소개서.md" data-path="~/portfolio/자격증·이력/자기소개서.md" data-parent="record">
+  <h1><span class="md">#</span>자기소개서</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">내려받기</span>: <span class="val"><a href="files/cover-letter.docx" download>.docx</a> · <a href="files/cover-letter.md">원문 .md</a></span><br />
+    <span class="dl">---</span></div>
+<p>하태형 · <a href="mailto:xogud17931@gmail.com">xogud17931@gmail.com</a></p>
+<h2><span class="md">##</span>앞으로</h2>
+<p>저는 보안과 인프라를 깊게 배우고 싶습니다. 10월 25일 정보처리기사 실기를 치르고, 수업과 자격증 공부로 기본기를 쌓고, 보안과 AI를 비롯한 기술을 실제 결과물로 연결하겠습니다. 막히는 날은 앞으로도 올 것입니다. 저는 넘어지지 않는 사람이 아니라, 넘어진 다음 날 아침 다시 책상에 앉는 사람으로 일하겠습니다.</p>
+  <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/cover-letter.docx" download>.docx 내려받기</a></div>
+</article>
+
+<article data-id="career" data-kind="md" data-title="경력기술서.md" data-path="~/portfolio/자격증·이력/경력기술서.md" data-parent="record">
+  <h1><span class="md">#</span>경력기술서</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">내려받기</span>: <span class="val"><a href="files/career.docx" download>.docx</a> · <a href="files/career.md">원문 .md</a></span><br />
+    <span class="dl">---</span></div>
+<p>하태형 · Aleph 과정(코리아IT아카데미, 2026.08.11 ~ 2026.11.13) 과제 기준</p>
+<p>과제 하나당 한 줄로 적었습니다. 「능력」은 자기조절력, 대인관계력, 자기동기력 가운데 그 과제에서 가장 잘 드러난 것입니다.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>과제 (기간)</th>
+<th>능력</th>
+<th>상황</th>
+<th>행동</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T01 Aleph Project (2026.08.11 ~ 08.21)</td>
+<td>자기동기력</td>
+<td>처음으로 AI에게 요구사항을 말로 전달해 결과물을 만들어야 했다.</td>
+<td>요구사항을 쓰고 결과를 보고 다시 고쳐 쓰는 일을 되풀이했다.</td>
+<td>08.21 첫 과제를 마무리하고 배포했다.</td>
+</tr>
+<tr>
+<td>T07 PinPoint 재설계 (2026.09)</td>
+<td>자기조절력</td>
+<td>T06의 픽셀 테마가 부분 수정으로는 원하는 수준에 닿지 않았다.</td>
+<td>부분 수정을 멈추고 디자인의 기초부터 다시 설계했다. 직접 목업과 가이드를 만들고 작업 원칙 · 구조 · 검증 기준을 문서로 정리했다.</td>
+<td>코르크 · 픽셀 두 테마로 정리한 발전 버전을 배포했다.</td>
+</tr>
+<tr>
+<td>T08 Aleph Portfolio (2026.09 ~ 09.15)</td>
+<td>자기동기력</td>
+<td>처음 만든 포트폴리오에 인증 기능을 넣어 보고 싶었다.</td>
+<td>패스키(WebAuthn) 기능의 방향을 정하고, AI가 만든 결과에서 오류가 나면 화면과 메시지를 근거로 문제 지점을 짚어 다시 요청했다.</td>
+<td>패스키 인증과 계정별 데이터 분리가 작동하는 사이트를 배포했다.</td>
+</tr>
+<tr>
+<td>T09 나를 말하는 에이전트 (2026.09.10 ~ 09.15)</td>
+<td>자기조절력</td>
+<td>에이전트가 만든 강점 지도에 실제보다 크게 쓴 표현이 섞여 있었다.</td>
+<td>리추얼 기록을 직접 다시 읽고 과장된 항목 2개를 지운 뒤 지운 이유를 적었다.</td>
+<td>완성본을 동료 두 사람에게 읽혔고, 두 사람 모두 지어낸 느낌이 없다고 답했다.</td>
+</tr>
+<tr>
+<td>T10 논문 (2026.09.13 ~ 10.01)</td>
+<td>대인관계력</td>
+<td>길찾기에 소리가 도움이 되는지 확인할 실험 참가자와 도구가 없었다.</td>
+<td>브라우저 3D 미로 시뮬레이터를 만들고 지인 5명을 모아 실험을 진행했다. 참가자의 피드백을 받아 미로 크기, 안내문, 제한시간을 바꿨다.</td>
+<td>시행 15회를 수집했고, 결과가 약한 부분과 한계까지 그대로 적은 논문을 완성했다.</td>
+</tr>
+<tr>
+<td>T11 소설 (2026.09 ~ 10)</td>
+<td>자기조절력</td>
+<td>내 삶의 고비를 소설로 쓰면서 사실과 연출이 섞일 위험이 있었다.</td>
+<td>지어낸 문단마다 표시를 달고, 장별 인과표와 대조표로 인과 순서와 설정이 어긋난 세 곳을 찾아 고쳤다.</td>
+<td>14장 31,138자 원고를 완성했고, 이 원고에서 포트폴리오의 이야기를 사실로 되돌려 썼다.</td>
+</tr>
+<tr>
+<td>CTF 머신 제작 (팀, 2026.10.06 ~ )</td>
+<td>대인관계력</td>
+<td>처음 해 보는 팀 CTF 제작 과제라 팀원 모두 방향을 정하지 못했다.</td>
+<td>기획 회의에서 먼저 의견을 내고 팀원마다 맡을 일을 정할 기준을 세웠다. 기획서를 파일로 정리해 공유하고, 팀원이 만든 문제를 직접 풀어 보며 피드백했다.</td>
+<td>동료가 &quot;의견 합일을 빠르게 도와줬다&quot;고 적었고, 여러 번 수정한 문제를 마무리 단계까지 진행했다.</td>
+</tr>
+<tr>
+<td>T12 포트폴리오 (2026.10.14 ~ )</td>
+<td>자기동기력</td>
+<td>과정이 끝난 뒤에도 기록이 늘면 포트폴리오를 직접 다시 써야 했다.</td>
+<td>리추얼 기록 · 출석 · 제출 현황을 읽어 숫자 칸과 능력별 문단 후보를 다시 만드는 장치를 만들었다. AI 호출 없이 승인한 문장만 사이트에 들어가게 했다.</td>
+<td>같은 입력에서 같은 결과가 나오는 것을 두 번 실행해 확인했다.</td>
+</tr>
+</tbody></table></div>
+<h2><span class="md">##</span>근거</h2>
+<ul>
+<li>날짜와 동료 발언: Aleph 과정 리추얼 기록 (2026-08-11 ~ 2026-10-14)</li>
+<li>T01 ~ T09 결과물: 포트폴리오 「과정에서 만든 것들」의 배포 링크</li>
+<li>T10: <a href="https://github.com/HTH-0/aleph_thesis">https://github.com/HTH-0/aleph_thesis</a></li>
+<li>T12: <a href="https://github.com/HTH-0/aleph_hth_portfolio">https://github.com/HTH-0/aleph_hth_portfolio</a></li>
+</ul>
+  <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/career.docx" download>.docx 내려받기</a></div>
+</article>
+<!-- docs:end -->
 </div>
 
 <script>
@@ -979,7 +1271,9 @@
       { id: 't02', icon: 'doc', label: 'T02-Dodge.md' }, { id: 't04', icon: 'doc', label: 'T04-TheDayBefore.md' },
       { id: 't07', icon: 'doc', label: 'T07-PinPoint.md' }, { id: 't10', icon: 'doc', label: 'T10-논문.md' },
       { id: 't13', icon: 'doc', label: 'T13-앱.md' }, { id: 'ow', icon: 'doc', label: 'TEAM-Overwrite.md' } ] },
-    { id: 'record', icon: 'grid', label: '자격증·이력/' }
+    { id: 'record', icon: 'grid', label: '자격증·이력/', kids: [
+      { id: 'resume', icon: 'doc', label: '이력서.md' }, { id: 'cover', icon: 'doc', label: '자기소개서.md' },
+      { id: 'career', icon: 'doc', label: '경력기술서.md' } ] }
   ];
   var src = document.getElementById('src');
   var arts = {};
