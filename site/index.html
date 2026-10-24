@@ -117,6 +117,19 @@
   .tbl tr:last-child > * { border-bottom: 0; }
   .tbl th { width: 44%; font-weight: 600; }
   .tbl td { color: #5a6066; }
+  .tabs { display: flex; gap: 4px; max-width: 760px; border-bottom: 1px solid var(--line); }
+  .tabs button { padding: 9px 16px; margin-bottom: -1px; font: 600 13.5px var(--sans); color: var(--muted); border-bottom: 2px solid transparent; }
+  .tabs button:hover { color: var(--text); }
+  .tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+  .tabs button:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+  .page .tabp h2 { display: none; }
+  .stack { list-style: none; max-width: 760px; margin: 16px 0 0; padding: 0; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; overflow: hidden; }
+  .stack li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 2px 16px; padding: 12px 16px; border-bottom: 1px solid #eef0ea; font-size: 14px; line-height: 1.7; }
+  .stack li:last-child { border-bottom: 0; }
+  .stack b { font-weight: 600; }
+  .stack span { color: #5a6066; word-break: keep-all; }
+  .stack a { color: var(--accent); }
+  @media (max-width: 600px) { .stack li { grid-template-columns: minmax(0, 1fr); } }
 
   /* ── 세부 문서(.md) ── */
   .doc { padding: 14px 36px 48px 70px; max-width: 900px; }
@@ -261,7 +274,7 @@
   .win { display: none; }
   #src article { max-width: 960px; margin: 0 auto 48px; }
   #src .mail { position: static; transform: none; margin: 12px 0; }
-  #src .tip, #src .go, #src .nav2 button { display: none; }
+  #src .tip, #src .go, #src .nav2 button, #src .tabs { display: none; }
   #src .hero { margin-left: 0; background: none; }
 </style></noscript>
 </head>
@@ -304,10 +317,10 @@
     <div class="ln"><span class="k">const</span> whoami = </div>
     <h1>하태형</h1>
     <p class="one">모르는 것은 그날 찾아보고, 만들어서 확인한 사람</p>
-    <p class="sub">보안과 인프라를 배우는 개발자 지망생입니다. 리눅스마스터 2급에 합격하고 SQLD를 취득했으며, 직접 만들고 확인한 결과물을 대표작과 AI 과제로 모았습니다.</p>
+    <p class="sub">보안과 인프라를 배우는 개발자 지망생입니다. 리눅스마스터 2급에 합격하고 SQLD를 취득했으며, 직접 만들고 확인한 결과물을 프로젝트로 모았습니다.</p>
     <div class="go">
-      <button class="pri" type="button" data-open="featured">대표작 보기 →</button>
-      <button type="button" data-open="tasks">AI 과제 6개</button>
+      <button class="pri" type="button" data-open="projects">프로젝트 보기 →</button>
+      <button type="button" data-open="stack">기술 스택</button>
       <button type="button" data-open="record">자격증 · 이력</button>
     </div>
   </div>
@@ -315,10 +328,11 @@
   <div class="tip" aria-hidden="true">마우스를 움직여 보세요</div>
 </article>
 
-<article data-id="featured" data-kind="page" data-title="대표작" data-path="~/portfolio/대표작">
-  <div class="kick">~/portfolio/대표작</div>
-  <h1>대표작</h1>
-  <p class="intro">질문을 가설로 바꾸고 실험 도구를 직접 만든 논문, 그리고 팀에서 제작 전반을 맡은 CTF 머신입니다. 마지막 과제의 앱이 들어갈 자리도 마련했습니다.</p>
+<article data-id="projects" data-kind="page" data-title="프로젝트" data-path="~/portfolio/프로젝트">
+  <div class="kick">~/portfolio/프로젝트</div>
+  <h1>프로젝트</h1>
+  <p class="intro">코리아IT아카데미 Aleph 과정(2026.08.11 – 11.13) 동안 만든 프로젝트입니다. 질문을 가설로 바꾸고 실험 도구를 직접 만든 논문, 팀에서 제작 전반을 맡은 CTF 머신, 마지막 과제의 앱을 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
+  <h2>// 대표</h2>
   <ul class="cards">
     <li><button class="card" type="button" data-open="t10">
       <span class="thumb"><pre>┌──┬─────┬──┐
@@ -327,38 +341,52 @@
 ├──┐  │ ──┬─┤
 │  │  └─┐ │<i>♪</i>│
 └──┴────┴─┴─┘</pre></span>
-      <span class="cb"><span class="top">T10 · 논문<span class="tag">2026.10</span></span><b>고정 청각 랜드마크의 개수가 길찾기에 미치는 영향</b><p>소리를 0개, 2개, 3개 둔 미로를 브라우저 3D 시뮬레이터로 직접 만들어 비교했습니다.</p><span class="more">문서 열기 →</span></span></button></li>
+      <span class="cb"><span class="top">대표 · 논문<span class="tag">2026.10</span></span><b>고정 청각 랜드마크의 개수가 길찾기에 미치는 영향</b><p>소리를 0개, 2개, 3개 둔 미로를 브라우저 3D 시뮬레이터로 직접 만들어 비교했습니다.</p><span class="more">문서 열기 →</span></span></button></li>
     <li><button class="card" type="button" data-open="ow">
       <span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">팀 과제 · CTF<span class="tag">Hard</span></span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span></button></li>
+      <span class="cb"><span class="top">대표 · 팀 CTF<span class="tag">Hard</span></span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span></button></li>
     <li><button class="card plan" type="button" data-open="t13">
       <span class="thumb"><pre>$ npm run build
 <i>›</i> building…
 <b>_</b></pre></span>
-      <span class="cb"><span class="top">T13 · 앱<span class="tag g">예정</span></span><b>마지막 과제의 앱이 들어갈 자리</b><p>앱 이름, 해결하려는 문제, 배포 주소가 들어갑니다.</p><span class="more g">예정</span></span></button></li>
+      <span class="cb"><span class="top">대표 · 앱<span class="tag g">예정</span></span><b>마지막 과제의 앱이 들어갈 자리</b><p>앱 이름, 해결하려는 문제, 배포 주소가 들어갑니다.</p><span class="more g">예정</span></span></button></li>
   </ul>
-</article>
-
-<article data-id="tasks" data-kind="page" data-title="AI과제" data-path="~/portfolio/AI과제">
-  <div class="kick">~/portfolio/AI과제</div>
-  <h1>AI와 함께한 과제 6개</h1>
-  <p class="intro">코리아IT아카데미 Aleph 과정(2026.08.11 – 11.13) 동안 만든 과제입니다. 카드를 누르면 과제의 화면과 설명이 문서로 열립니다. 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
+  <h2>// AI를 활용한 개인 과제</h2>
   <ul class="cards">
-    <li><button class="card" type="button" data-open="t02"><span class="thumb"><img src="assets/tasks/t02.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">T02<span class="tag">STEP 1</span></span><b>Dodge</b><p>직접 설계한 미니게임</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="t04"><span class="thumb"><img src="assets/tasks/t04.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">T04<span class="tag">STEP 2</span></span><b>The Day Before</b><p>어제 생성된 저장소 수 대시보드</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="t07"><span class="thumb"><img src="assets/tasks/t07.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">T07<span class="tag">STEP 3·4</span></span><b>PinPoint 재설계</b><p>로그인과 전체 재설계</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="t10"><span class="thumb"><pre>┌──┬─────┐
-│<i>♪</i> │  ┌──┤
-│  └──┤ <b>●</b>│
-└─────┴──┘</pre></span><span class="cb"><span class="top">T10<span class="tag">대표작</span></span><b>논문</b><p>청각 랜드마크와 길찾기</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card plan" type="button" data-open="t13"><span class="thumb"><pre>$ <b>_</b></pre></span><span class="cb"><span class="top">T13<span class="tag g">예정</span></span><b>앱</b><p>예정</p><span class="more g">예정</span></span></button></li>
-    <li><button class="card" type="button" data-open="ow"><span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span><span class="cb"><span class="top">TEAM<span class="tag">팀 과제</span></span><b>Overwrite</b><p>팀 CTF 머신 제작</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="t02"><span class="thumb"><img src="assets/tasks/t02.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">개인 · AI 활용<span class="tag">STEP 1</span></span><b>Dodge</b><p>직접 설계한 미니게임</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="t04"><span class="thumb"><img src="assets/tasks/t04.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">개인 · AI 활용<span class="tag">STEP 2</span></span><b>The Day Before</b><p>어제 생성된 저장소 수 대시보드</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="t07"><span class="thumb"><img src="assets/tasks/t07.jpg" alt="" loading="lazy" /></span><span class="cb"><span class="top">개인 · AI 활용<span class="tag">STEP 3·4</span></span><b>PinPoint 재설계</b><p>로그인과 전체 재설계</p><span class="more">문서 열기 →</span></span></button></li>
   </ul>
   <h2>// AI 사용 방식의 단계</h2>
   <ol class="steps"><li><b>STEP 1</b>대화형으로 요구하기</li><li><b>STEP 2</b>프로젝트 단위로 대화하기</li><li><b>STEP 3</b>폴더 안에서 명세로 일하기</li><li><b>STEP 4</b>외부 도구와 연결하기</li></ol>
   <p class="note">처음에는 요구사항을 그대로 AI에게 넣는 것으로 시작했고, 이후 요구를 구체적으로 나누고, 설계서와 계획을 먼저 두고, 외부 도구까지 연결하는 방식으로 달라졌습니다. AI가 빠르게 만들어 주는 만큼 무엇을 만들지 정하고, 결과를 직접 써 보고, 맞는 것을 고르는 일이 더 중요하다는 점을 배웠습니다.</p>
   <h2>// 지금 할 수 있는 것</h2>
   <ul class="pills"><li>써 보고 판단해서 되돌린다</li><li>여러 안을 받아 직접 고른다</li><li>요구를 문서로 바꿔서 준다</li><li>작업의 맥락을 이어 간다</li><li>확인한 기록을 남긴다</li><li>못 한 것을 숨기지 않는다</li></ul>
+</article>
+
+<article data-id="stack" data-kind="page" data-title="기술스택" data-path="~/portfolio/기술스택">
+  <div class="kick">~/portfolio/기술스택</div>
+  <h1>기술 스택</h1>
+  <p class="intro">자격증, 저장소, 프로젝트로 확인할 수 있는 기술만 적었습니다. 항목마다 근거를 함께 두었습니다.</p>
+  <div class="tabs" role="tablist" aria-label="분야"><button type="button" role="tab" data-tab="be">백엔드</button><button type="button" role="tab" data-tab="infra">인프라 · 네트워크</button></div>
+  <section class="tabp" data-panel="be" role="tabpanel">
+    <h2>// 백엔드</h2>
+    <ul class="stack">
+      <li><b>Java</b><span>GitHub 저장소 <a href="https://github.com/HTH-0/JAVA" target="_blank" rel="noreferrer">JAVA</a> · <a href="https://github.com/HTH-0/CodingTest" target="_blank" rel="noreferrer">CodingTest</a> (2025)</span></li>
+      <li><b>Spring · Spring Boot</b><span>GitHub 저장소 <a href="https://github.com/HTH-0/Spring" target="_blank" rel="noreferrer">Spring</a> · <a href="https://github.com/HTH-0/Springboot" target="_blank" rel="noreferrer">Springboot</a> (2025)</span></li>
+      <li><b>JSP / Servlet</b><span>GitHub 저장소 <a href="https://github.com/HTH-0/JSP_SERVLET" target="_blank" rel="noreferrer">JSP_SERVLET</a> (2025)</span></li>
+      <li><b>SQL</b><span>SQLD 취득 (2025.06.27)</span></li>
+    </ul>
+  </section>
+  <section class="tabp" data-panel="infra" role="tabpanel">
+    <h2>// 인프라 · 네트워크</h2>
+    <ul class="stack">
+      <li><b>Linux</b><span>리눅스마스터 2급 합격 (2026.10.02 발표)</span></li>
+      <li><b>Ubuntu Server</b><span>팀 CTF 머신 Overwrite의 서버 구성</span></li>
+      <li><b>VirtualBox</b><span>Overwrite 머신의 실행 환경 (VirtualBox 7.x)</span></li>
+      <li><b>Cisco Packet Tracer</b><span>IOS 명령으로 라우터 · 스위치 설정 (VLAN, OSPF)</span></li>
+    </ul>
+  </section>
 </article>
 
 <article data-id="record" data-kind="page" data-title="자격증·이력" data-path="~/portfolio/자격증·이력">
@@ -380,15 +408,15 @@
 </article>
 
 <!-- ===== 세부 문서(.md) ===== -->
-<article data-id="t02" data-kind="md" data-title="T02-Dodge.md" data-path="~/portfolio/AI과제/T02-Dodge.md" data-parent="tasks">
-  <h1><span class="md">#</span>T02 · Dodge</h1>
+<article data-id="t02" data-kind="md" data-title="Dodge.md" data-path="~/portfolio/프로젝트/Dodge.md" data-parent="projects">
+  <h1><span class="md">#</span>Dodge</h1>
   <div class="fm"><span class="dl">---</span><br />
     <span class="key">AI 사용</span>: <span class="val">STEP 1 · 대화형으로 요구하기</span><br />
     <span class="key">한 일</span>: <span class="val">레벨 디자인, 점진적 기능 추가, 상세 요구</span><br />
     <span class="key">링크</span>: <span class="val"><a href="https://aleph-project-dodge.vercel.app/" target="_blank" rel="noreferrer">aleph-project-dodge.vercel.app ↗</a></span><br />
     <span class="dl">---</span></div>
   <p>30초 동안 탄막을 피하는 생존 게임입니다. 30초에 끝나는 간단한 미니게임이라는 주제에서 예전에 했던 피하기 게임을 떠올려 만들었습니다.</p>
-  <figure class="shot"><img src="assets/tasks/t02.jpg" alt="T02 Dodge 첫 화면" width="1600" height="1000" loading="lazy" /><figcaption>배포 사이트 첫 화면</figcaption></figure>
+  <figure class="shot"><img src="assets/tasks/t02.jpg" alt="Dodge 첫 화면" width="1600" height="1000" loading="lazy" /><figcaption>배포 사이트 첫 화면</figcaption></figure>
   <h2><span class="md">##</span>AI로 넣은 기능과 이유</h2>
   <ul class="feat">
     <li><b>시간대별로 다른 공격</b>피하기만 하면 단조로워서, 시간에 따라 직선, 곡선, 유도 공격이 나오게 했습니다. 30초에 가까워질수록 어려워지고 긴장감이 들게 하려는 레벨 디자인입니다.</li>
@@ -402,11 +430,11 @@
   <p>기능 하나가 다음 문제를 만들었고, 그 문제를 다음 기능으로 풀었습니다. 난이도를 나누자 실력 차이가 보였고, 상한 없는 모드를 만들자 기록이 필요해졌고, 기능이 늘자 화면이 길어졌습니다.</p>
   <h2><span class="md">##</span>배운 것</h2>
   <p>컨셉만 잡고 기본 틀을 요구한 뒤 간단한 기능을 하나씩 더하며, 자세히 요구하는 법을 익혔습니다.</p>
-  <div class="nav2"><button type="button" data-open="tasks">← AI 과제 목록</button><a href="https://aleph-project-dodge.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></div>
+  <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button><a href="https://aleph-project-dodge.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></div>
 </article>
 
-<article data-id="t04" data-kind="md" data-title="T04-TheDayBefore.md" data-path="~/portfolio/AI과제/T04-TheDayBefore.md" data-parent="tasks">
-  <h1><span class="md">#</span>T04 · The Day Before</h1>
+<article data-id="t04" data-kind="md" data-title="TheDayBefore.md" data-path="~/portfolio/프로젝트/TheDayBefore.md" data-parent="projects">
+  <h1><span class="md">#</span>The Day Before</h1>
   <div class="fm"><span class="dl">---</span><br />
     <span class="key">AI 사용</span>: <span class="val">STEP 2 · 프로젝트 단위로 대화하기</span><br />
     <span class="key">한 일</span>: <span class="val">참고 디자인 지정, 여러 안 중 선택, 편의 기능 추가, 자동 기록</span><br />
@@ -414,7 +442,7 @@
     <span class="key">링크</span>: <span class="val"><a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a> · <a href="https://github.com/HTH-0/aleph_the_day_before" target="_blank" rel="noreferrer">GitHub ↗</a></span><br />
     <span class="dl">---</span></div>
   <p>어제 하루 동안 생성된 공개 GitHub 저장소 수를 매일 기록하는 대시보드입니다. 외부 API가 실패해도 가짜 값을 채우지 않고 지연 상태를 보여 줍니다.</p>
-  <figure class="shot"><img src="assets/tasks/t04.jpg" alt="T04 The Day Before 첫 화면" width="1600" height="1000" loading="lazy" /><figcaption>배포 사이트 첫 화면</figcaption></figure>
+  <figure class="shot"><img src="assets/tasks/t04.jpg" alt="The Day Before 첫 화면" width="1600" height="1000" loading="lazy" /><figcaption>배포 사이트 첫 화면</figcaption></figure>
   <h2><span class="md">##</span>AI로 넣은 기능과 이유</h2>
   <ul class="feat">
     <li><b>편의 기능 세 가지</b>잔디 모양의 기록 표시, 추이 그래프, 중앙의 큰 숫자 갱신을 더했습니다. 요구받은 기능 밖에서 편의성을 높이려고 시각적으로, 기능적으로 더한 것입니다.</li>
@@ -425,29 +453,29 @@
   <p>가능한 제안을 여러 개 나열해 달라고 요청하고 그중에서 직접 고르는 방식으로 바꿨습니다. 참고할 디자인과 원하는 모습을 지정하고 세부 디자인까지 요구했습니다.</p>
   <h2><span class="md">##</span>확인</h2>
   <p>GitHub Actions의 자동 기록이 54일 중 52일 이어졌고, 제출 뒤에도 표의 가독성과 그래프 라벨 겹침을 고쳤습니다.</p>
-  <div class="nav2"><button type="button" data-open="tasks">← AI 과제 목록</button><a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a><a href="https://github.com/HTH-0/aleph_the_day_before" target="_blank" rel="noreferrer">소스 GitHub ↗</a></div>
+  <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button><a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a><a href="https://github.com/HTH-0/aleph_the_day_before" target="_blank" rel="noreferrer">소스 GitHub ↗</a></div>
 </article>
 
-<article data-id="t07" data-kind="md" data-title="T07-PinPoint.md" data-path="~/portfolio/AI과제/T07-PinPoint.md" data-parent="tasks">
-  <h1><span class="md">#</span>T07 · PinPoint 재설계</h1>
+<article data-id="t07" data-kind="md" data-title="PinPoint.md" data-path="~/portfolio/프로젝트/PinPoint.md" data-parent="projects">
+  <h1><span class="md">#</span>PinPoint 재설계</h1>
   <div class="fm"><span class="dl">---</span><br />
     <span class="key">AI 사용</span>: <span class="val">STEP 3·4 · 폴더 안 명세, 외부 도구(MCP) 연결</span><br />
     <span class="key">한 일</span>: <span class="val">로그인 구현, 전체 재설계, Document PiP 구현</span><br />
     <span class="key">링크</span>: <span class="val"><a href="https://aleph-pinpoint.vercel.app/" target="_blank" rel="noreferrer">aleph-pinpoint.vercel.app ↗</a></span><br />
     <span class="dl">---</span></div>
   <p>전체 배치를 다시 설계했습니다. 픽셀 테마는 부분 수정 대신 기초부터 다시 만들고, 작업 원칙 · 구조 · 검증 기준을 문서로 정리했습니다.</p>
-  <figure class="shot"><img src="assets/tasks/t07.jpg" alt="T07 PinPoint 재설계 로그인 화면" width="1600" height="1000" loading="lazy" /><figcaption>로그인 화면</figcaption></figure>
+  <figure class="shot"><img src="assets/tasks/t07.jpg" alt="PinPoint 재설계 로그인 화면" width="1600" height="1000" loading="lazy" /><figcaption>로그인 화면</figcaption></figure>
   <h2><span class="md">##</span>상황</h2>
   <p>코르크보드와 픽셀에 이어 Win95 테마까지 구현했지만, 기능을 고칠 때마다 무료 이미지의 저작권을 확인하는 일이 작업량을 크게 늘렸습니다.</p>
   <h2><span class="md">##</span>해결</h2>
   <p>팀원들에게 보였을 때 칭찬은 들었지만 관심이 다른 테마에 몰려서, 구현 사흘 만에 모든 페이지에서 제거했습니다. 달성 이벤트 디자인은 여러 안을 나란히 만들어 비교한 뒤 정했고, 핀 모드는 복잡하게 만들었다가 줄이고 다시 조정했습니다.</p>
   <h2><span class="md">##</span>확인</h2>
   <p>로그인 뒤 다른 사람의 자료가 열리지 않는 것을 확인한 기록과, 막지 못한 것(무차별 대입 방어 등)의 목록을 제출 문서에 남겼습니다.</p>
-  <div class="nav2"><button type="button" data-open="tasks">← AI 과제 목록</button><a href="https://aleph-pinpoint.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></div>
+  <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button><a href="https://aleph-pinpoint.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></div>
 </article>
 
-<article data-id="t10" data-kind="md" data-title="T10-논문.md" data-path="~/portfolio/대표작/T10-논문.md" data-parent="featured">
-  <h1><span class="md">#</span>T10 · 미로형 3D 공간에서 고정 청각 랜드마크의 개수가 길찾기에 미치는 영향</h1>
+<article data-id="t10" data-kind="md" data-title="논문.md" data-path="~/portfolio/프로젝트/논문.md" data-parent="projects">
+  <h1><span class="md">#</span>미로형 3D 공간에서 고정 청각 랜드마크의 개수가 길찾기에 미치는 영향</h1>
   <div class="fm"><span class="dl">---</span><br />
     <span class="key">작성일</span>: <span class="val">2026.10.01</span><br />
     <span class="key">한 일</span>: <span class="val">가설 설정, 브라우저 3D 시뮬레이터 직접 제작, 사전 분석 계획</span><br />
@@ -460,7 +488,7 @@
 ├──┐  │ ──┬─┤
 │  │  └─┐ │<i>♪</i>│
 └──┴────┴─┴─┘</pre></figure>
-  <p class="note">T10 논문 전문입니다. 본문에 나오는 <code>sim/</code>, <code>analysis/</code>, <code>docs/</code> 경로는 <a href="https://github.com/HTH-0/aleph_thesis" target="_blank" rel="noreferrer">aleph_thesis 저장소</a>에 있습니다.</p>
+  <p class="note">논문 전문입니다. 본문에 나오는 <code>sim/</code>, <code>analysis/</code>, <code>docs/</code> 경로는 <a href="https://github.com/HTH-0/aleph_thesis" target="_blank" rel="noreferrer">aleph_thesis 저장소</a>에 있습니다.</p>
 <h2><span class="md">##</span>초록</h2>
 <p>길을 잘 못 찾는 사람이 시각 정보가 제한된 3D 공간에서 소리를 단서로 쓸 수 있는지가 궁금했다. 이를 확인하려고 서로 다른 음색의 고정 청각 랜드마크를 0개, 2개, 3개로 바꿔 가며 미로를 찾게 하는 브라우저 기반 3D 시뮬레이터를 직접 만들었다. 지인 5명이 시행마다 소리 개수가 다른 미로 3개를 풀었고, 소요 시간·경로 효율성·막다른 길 진입 횟수·재정향 시간을 자동으로 기록했다. 방향감각은 4문항 자기보고 척도(R-SOD)로 쟀다. 설계 버전이 서로 다른 참가자가 섞여 있어, 시간 절댓값을 합치지 않고 같은 사람의 소리 없는 시행 대비 비율로 비교했다. 3개 조건이 소리 없는 조건보다 빨랐던 참가자는 5명 중 4명이었지만(시행 순서를 통제한 3명 중에서는 2명), 2개 조건은 2명만 빨랐다. 방향감각 점수가 낮은 세 명은 모두 3개 조건에서 빨랐으나, 가장 높은 점수의 참가자도 빨라져 점수와 효과의 관계는 말할 수 없었다. 음량 컷오프 때문에 3개 조건도 경로 후반에는 사실상 소리 2개만 들려, 선행연구의 &quot;서로 다른 소리 3개일 때 위치 애매함이 풀린다&quot;를 재검증하지 못했다. 표본이 5명이라 가설의 지지와 기각은 판단할 수 없고, 결과는 탐색적 경향으로만 읽어야 한다.</p>
 
@@ -688,10 +716,10 @@
 <li>필자는 가설, 설계 변경, 데이터 사용 기준, 해석과 결론을 직접 정했다.</li>
 <li>실제 수집한 5명의 기록만 사용했고, 결과가 약하거나 가설과 어긋나는 부분도 그대로 적었다.</li>
 </ol>
-  <div class="nav2"><button type="button" data-open="featured">← 대표작 목록</button><a href="https://github.com/HTH-0/aleph_thesis" target="_blank" rel="noreferrer">소스와 원자료 GitHub ↗</a></div>
+  <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button><a href="https://github.com/HTH-0/aleph_thesis" target="_blank" rel="noreferrer">소스와 원자료 GitHub ↗</a></div>
 </article>
 
-<article data-id="ow" data-kind="md" data-title="Overwrite.md" data-path="~/portfolio/대표작/Overwrite.md" data-parent="featured">
+<article data-id="ow" data-kind="md" data-title="Overwrite.md" data-path="~/portfolio/프로젝트/Overwrite.md" data-parent="projects">
   <h1><span class="md">#</span>Overwrite · 팀 CTF 머신</h1>
   <div class="fm"><span class="dl">---</span><br />
     <span class="key">시기</span>: <span class="val">2026.10 · 팀 과제 (팀원 4명)</span><br />
@@ -953,17 +981,17 @@
         </ul>
         <p class="note">이 머신에 등장하는 모든 병원, 인물, 계정, 전화번호는 가상이며 실존하는 기관이나 개인과 무관합니다.</p>
       </section>
-  <div class="nav2"><button type="button" data-open="featured">← 대표작 목록</button></div>
+  <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button></div>
 </article>
 
-<article data-id="t13" data-kind="md" data-title="T13-앱.md" data-path="~/portfolio/대표작/T13-앱.md" data-parent="featured">
-  <h1><span class="md">#</span>T13 · 앱 (예정)</h1>
+<article data-id="t13" data-kind="md" data-title="앱.md" data-path="~/portfolio/프로젝트/앱.md" data-parent="projects">
+  <h1><span class="md">#</span>앱 (예정)</h1>
   <div class="fm"><span class="dl">---</span><br />
     <span class="key">상태</span>: <span class="val">예정</span><br />
     <span class="key">들어갈 내용</span>: <span class="val">앱 이름, 해결하려는 문제, 배포 주소, 소스 주소</span><br />
     <span class="dl">---</span></div>
   <p>마지막 과제의 앱이 들어갈 자리입니다. 완성되면 이 문서를 채웁니다.</p>
-  <div class="nav2"><button type="button" data-open="featured">← 대표작 목록</button></div>
+  <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button></div>
 </article>
 
 <!-- ===== 이력 문서: docs/*.md에서 tools/build-docs.mjs가 만든다. 직접 고치지 않는다. ===== -->
@@ -1071,95 +1099,6 @@
 <td>필기 합격, 실기 응시 예정</td>
 </tr>
 </tbody></table></div>
-<h2><span class="md">##</span>과제와 기간 (Aleph 과정)</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>기간</th>
-<th>과제</th>
-<th>형태</th>
-<th>내용</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2026.08.11 ~ 2026.08.21</td>
-<td>T01 Aleph Project</td>
-<td>개인</td>
-<td>나를 소개하는 한 페이지 사이트</td>
-</tr>
-<tr>
-<td>2026.08</td>
-<td>T02 Dodge</td>
-<td>개인</td>
-<td>직접 설계한 미니게임</td>
-</tr>
-<tr>
-<td>2026.08</td>
-<td>T03 Meme Studio</td>
-<td>개인</td>
-<td>짤 · 카드 제작 도구</td>
-</tr>
-<tr>
-<td>2026.08 ~ 2026.09</td>
-<td>T04 The Day Before</td>
-<td>개인</td>
-<td>GitHub 연계, 화면 효과, 기초 디자인 적용</td>
-</tr>
-<tr>
-<td>2026.08 ~ 2026.09</td>
-<td>T05 Meme Studio 확장 실험</td>
-<td>개인</td>
-<td>다른 AI로 기능 추가, AI 사이 자료 전달 연습</td>
-</tr>
-<tr>
-<td>2026.09</td>
-<td>T06 PinPoint</td>
-<td>개인</td>
-<td>계획 관리 앱 첫 버전, 디자인 도구로 시안 보완</td>
-</tr>
-<tr>
-<td>2026.09</td>
-<td>T07 PinPoint 재설계</td>
-<td>개인</td>
-<td>전체 배치 재설계, 작업 원칙 · 검증 기준 문서화</td>
-</tr>
-<tr>
-<td>2026.09 ~ 2026.09.15</td>
-<td>T08 Aleph Portfolio</td>
-<td>개인</td>
-<td>포트폴리오 재설계, 패스키(WebAuthn) 인증 추가</td>
-</tr>
-<tr>
-<td>2026.09.10 ~ 2026.09.15</td>
-<td>T09 나를 말하는 에이전트</td>
-<td>개인</td>
-<td>리추얼 기록으로 강점 지도와 서사 문서 작성</td>
-</tr>
-<tr>
-<td>2026.09.13 ~ 2026.10.01</td>
-<td>T10 논문</td>
-<td>개인</td>
-<td>청각 랜드마크 개수와 길찾기, 3D 실험 시뮬레이터 제작</td>
-</tr>
-<tr>
-<td>2026.09 ~ 2026.10</td>
-<td>T11 소설</td>
-<td>개인</td>
-<td>삶의 고비 셋을 다룬 14장 소설</td>
-</tr>
-<tr>
-<td>2026.10.06 ~</td>
-<td>CTF 머신 제작</td>
-<td>팀</td>
-<td>기획 주도, 역할 분담 기준 수립, 풀이 피드백</td>
-</tr>
-<tr>
-<td>2026.10.14 ~</td>
-<td>T12 포트폴리오</td>
-<td>개인</td>
-<td>이 포트폴리오와 기록 갱신 장치</td>
-</tr>
-</tbody></table></div>
   <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/resume.docx" download>.docx 내려받기</a></div>
 </article>
 
@@ -1192,42 +1131,42 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>T01 Aleph Project (2026.08.11 ~ 08.21)</td>
+<td>Aleph Project (2026.08.11 ~ 08.21)</td>
 <td>자기동기력</td>
 <td>처음으로 AI에게 요구사항을 말로 전달해 결과물을 만들어야 했다.</td>
 <td>요구사항을 쓰고 결과를 보고 다시 고쳐 쓰는 일을 되풀이했다.</td>
 <td>08.21 첫 과제를 마무리하고 배포했다.</td>
 </tr>
 <tr>
-<td>T07 PinPoint 재설계 (2026.09)</td>
+<td>PinPoint 재설계 (2026.09)</td>
 <td>자기조절력</td>
-<td>T06의 픽셀 테마가 부분 수정으로는 원하는 수준에 닿지 않았다.</td>
+<td>첫 버전의 픽셀 테마가 부분 수정으로는 원하는 수준에 닿지 않았다.</td>
 <td>부분 수정을 멈추고 디자인의 기초부터 다시 설계했다. 직접 목업과 가이드를 만들고 작업 원칙 · 구조 · 검증 기준을 문서로 정리했다.</td>
 <td>코르크 · 픽셀 두 테마로 정리한 발전 버전을 배포했다.</td>
 </tr>
 <tr>
-<td>T08 Aleph Portfolio (2026.09 ~ 09.15)</td>
+<td>Aleph Portfolio (2026.09 ~ 09.15)</td>
 <td>자기동기력</td>
 <td>처음 만든 포트폴리오에 인증 기능을 넣어 보고 싶었다.</td>
 <td>패스키(WebAuthn) 기능의 방향을 정하고, AI가 만든 결과에서 오류가 나면 화면과 메시지를 근거로 문제 지점을 짚어 다시 요청했다.</td>
 <td>패스키 인증과 계정별 데이터 분리가 작동하는 사이트를 배포했다.</td>
 </tr>
 <tr>
-<td>T09 나를 말하는 에이전트 (2026.09.10 ~ 09.15)</td>
+<td>나를 말하는 에이전트 (2026.09.10 ~ 09.15)</td>
 <td>자기조절력</td>
 <td>에이전트가 만든 강점 지도에 실제보다 크게 쓴 표현이 섞여 있었다.</td>
 <td>리추얼 기록을 직접 다시 읽고 과장된 항목 2개를 지운 뒤 지운 이유를 적었다.</td>
 <td>완성본을 동료 두 사람에게 읽혔고, 두 사람 모두 지어낸 느낌이 없다고 답했다.</td>
 </tr>
 <tr>
-<td>T10 논문 (2026.09.13 ~ 10.01)</td>
+<td>논문 (2026.09.13 ~ 10.01)</td>
 <td>대인관계력</td>
 <td>길찾기에 소리가 도움이 되는지 확인할 실험 참가자와 도구가 없었다.</td>
 <td>브라우저 3D 미로 시뮬레이터를 만들고 지인 5명을 모아 실험을 진행했다. 참가자의 피드백을 받아 미로 크기, 안내문, 제한시간을 바꿨다.</td>
 <td>시행 15회를 수집했고, 결과가 약한 부분과 한계까지 그대로 적은 논문을 완성했다.</td>
 </tr>
 <tr>
-<td>T11 소설 (2026.09 ~ 10)</td>
+<td>소설 (2026.09 ~ 10)</td>
 <td>자기조절력</td>
 <td>내 삶의 고비를 소설로 쓰면서 사실과 연출이 섞일 위험이 있었다.</td>
 <td>지어낸 문단마다 표시를 달고, 장별 인과표와 대조표로 인과 순서와 설정이 어긋난 세 곳을 찾아 고쳤다.</td>
@@ -1241,7 +1180,7 @@
 <td>동료가 &quot;의견 합일을 빠르게 도와줬다&quot;고 적었고, 여러 번 수정한 문제를 마무리 단계까지 진행했다.</td>
 </tr>
 <tr>
-<td>T12 포트폴리오 (2026.10.14 ~ )</td>
+<td>포트폴리오 (2026.10.14 ~ )</td>
 <td>자기동기력</td>
 <td>과정이 끝난 뒤에도 기록이 늘면 포트폴리오를 직접 다시 써야 했다.</td>
 <td>리추얼 기록 · 출석 · 제출 현황을 읽어 숫자 칸과 능력별 문단 후보를 다시 만드는 장치를 만들었다. AI 호출 없이 승인한 문장만 사이트에 들어가게 했다.</td>
@@ -1251,9 +1190,9 @@
 <h2><span class="md">##</span>근거</h2>
 <ul>
 <li>날짜와 동료 발언: Aleph 과정 리추얼 기록 (2026-08-11 ~ 2026-10-14)</li>
-<li>T01 ~ T09 결과물: 포트폴리오 「과정에서 만든 것들」의 배포 링크</li>
-<li>T10: <a href="https://github.com/HTH-0/aleph_thesis">https://github.com/HTH-0/aleph_thesis</a></li>
-<li>T12: <a href="https://github.com/HTH-0/aleph_hth_portfolio">https://github.com/HTH-0/aleph_hth_portfolio</a></li>
+<li>과정 과제 결과물: 포트폴리오 「과정에서 만든 것들」의 배포 링크</li>
+<li>논문: <a href="https://github.com/HTH-0/aleph_thesis">https://github.com/HTH-0/aleph_thesis</a></li>
+<li>포트폴리오: <a href="https://github.com/HTH-0/aleph_hth_portfolio">https://github.com/HTH-0/aleph_hth_portfolio</a></li>
 </ul>
   <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/career.docx" download>.docx 내려받기</a></div>
 </article>
@@ -1264,13 +1203,11 @@
 (function () {
   var TREE = [
     { id: 'home', icon: 'home', label: 'home' },
-    { id: 'featured', icon: 'grid', label: '대표작/', kids: [
-      { id: 't10', icon: 'doc', label: 'T10-논문.md' }, { id: 'ow', icon: 'doc', label: 'Overwrite.md' },
-      { id: 't13', icon: 'doc', label: 'T13-앱.md' } ] },
-    { id: 'tasks', icon: 'grid', label: 'AI과제/', kids: [
-      { id: 't02', icon: 'doc', label: 'T02-Dodge.md' }, { id: 't04', icon: 'doc', label: 'T04-TheDayBefore.md' },
-      { id: 't07', icon: 'doc', label: 'T07-PinPoint.md' }, { id: 't10', icon: 'doc', label: 'T10-논문.md' },
-      { id: 't13', icon: 'doc', label: 'T13-앱.md' }, { id: 'ow', icon: 'doc', label: 'TEAM-Overwrite.md' } ] },
+    { id: 'projects', icon: 'grid', label: '프로젝트/', kids: [
+      { id: 't10', icon: 'doc', label: '논문.md' }, { id: 'ow', icon: 'doc', label: 'Overwrite.md' },
+      { id: 't13', icon: 'doc', label: '앱.md' }, { id: 't02', icon: 'doc', label: 'Dodge.md' },
+      { id: 't04', icon: 'doc', label: 'TheDayBefore.md' }, { id: 't07', icon: 'doc', label: 'PinPoint.md' } ] },
+    { id: 'stack', icon: 'grid', label: '기술스택' },
     { id: 'record', icon: 'grid', label: '자격증·이력/', kids: [
       { id: 'resume', icon: 'doc', label: '이력서.md' }, { id: 'cover', icon: 'doc', label: '자기소개서.md' },
       { id: 'career', icon: 'doc', label: '경력기술서.md' } ] }
@@ -1333,6 +1270,7 @@
     where.textContent = a.dataset.path;
     mode.textContent = kind === 'md' ? 'READ' : 'NORMAL';
     if (kind === 'md') preview(id);
+    var tabs = wrap.querySelector('.tabs'); if (tabs) tab(tabs, tabs.querySelector('[data-tab]').dataset.tab);
     [].forEach.call(document.querySelectorAll('.it[data-open]'), function (b) { b.classList.toggle('on', b.dataset.open === id || (arts[id].dataset.parent === b.dataset.open && false)); });
     win.classList.remove('drawer');
   }
@@ -1369,6 +1307,12 @@
     set(docView);
   }
 
+  /* ── 탭: 고른 분야만 보인다(자바스크립트가 없으면 모두 보인다) ── */
+  function tab(tabs, name) {
+    [].forEach.call(tabs.querySelectorAll('[data-tab]'), function (b) { b.setAttribute('aria-selected', b.dataset.tab === name); });
+    [].forEach.call(tabs.parentNode.querySelectorAll('.tabp'), function (p) { p.hidden = p.dataset.panel !== name; });
+  }
+
   /* ── 이미지 크게 보기 ── */
   var lb = el('dialog', 'lb'); lb.setAttribute('aria-label', '크게 보기');
   lb.innerHTML = '<img alt="" /><p></p>';
@@ -1388,6 +1332,8 @@
   });
 
   document.addEventListener('click', function (e) {
+    var tb = e.target.closest('.tabs [data-tab]');
+    if (tb) { tab(tb.parentNode, tb.dataset.tab); return; }
     var t = e.target.closest('[data-open]');
     if (t && !t.disabled) { e.preventDefault(); open(t.dataset.open); }
   });
