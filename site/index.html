@@ -277,6 +277,27 @@
   dialog.lb img { display: block; max-width: 96vw; max-height: 84vh; margin: 0 auto; object-fit: contain; cursor: zoom-out; border-radius: 6px; }
   dialog.lb p { margin: 10px 16px 0; text-align: center; font-size: 13px; color: #fff; }
 
+  /* ── 자격증 카드 ── */
+  .certs { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; max-width: 860px; margin: 0; padding: 0; list-style: none; }
+  .cert { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; background: #fff; border: 1px solid #dfe2d8; border-top: 3px solid var(--accent); border-radius: 8px; }
+  .cert b { font-size: 17px; }
+  .cert .st { align-self: flex-start; padding: 1px 8px; border-radius: 999px; background: #e4efe0; color: #2b6a1f; font: 600 12px var(--mono); }
+  .cert .st.w { background: #eef0f6; color: #4a5470; }
+  .cert .mt { font: 13px/1.6 var(--mono); color: var(--muted); word-break: keep-all; }
+  .cert p { margin: 4px 0 0; font-size: 13.5px; line-height: 1.7; color: #50565c; word-break: keep-all; }
+  .cert a { color: var(--accent); }
+  /* ── 이력 타임라인 ── */
+  .tl { list-style: none; margin: 0; padding: 0; max-width: 860px; }
+  .tl > li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 4px 20px; padding: 16px 0; border-top: 1px solid var(--line); }
+  .tl > li:first-child { border-top: 0; padding-top: 4px; }
+  .tl .when { font: 600 13px/1.6 var(--mono); color: var(--path); }
+  .tl b { display: block; font-size: 16.5px; line-height: 1.45; word-break: keep-all; }
+  .tl .org { margin: 2px 0 8px; font-size: 13.5px; color: var(--muted); }
+  .tl .row { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 2px 10px; margin-top: 4px; font-size: 13.5px; line-height: 1.75; color: #3b4046; word-break: keep-all; }
+  .tl .row > span:first-child { font: 600 12px/1.9 var(--mono); color: var(--muted); }
+  .tl .row a { color: var(--accent); }
+  @media (max-width: 600px) { .tl > li { grid-template-columns: minmax(0, 1fr); } }
+
   /* ── 기술 스택 로고 타일 ── */
   .legend2 { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 4px; font-size: 12.5px; color: #50565c; }
   .legend2 span { display: inline-flex; align-items: center; gap: 5px; }
@@ -402,7 +423,7 @@
       <div class="cap">contact</div>
       <a class="it" href="mailto:xogud17931@gmail.com"><svg class="ic-doc"><use href="#s-mail"/></svg>이메일</a>
       <a class="it" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><svg class="ic-doc"><use href="#s-gh"/></svg>github</a>
-      <a class="it" href="files/resume.md" data-open="resume"><svg class="ic-doc"><use href="#s-file"/></svg>이력서</a>
+      <a class="it" href="#" data-open="history"><svg class="ic-doc"><use href="#s-file"/></svg>이력</a>
     </div>
   </aside>
 
@@ -421,7 +442,7 @@
   <span class="gap"></span>
   <a class="dicon" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-gh"/></svg></span>GitHub</a>
   <a class="dicon" href="mailto:xogud17931@gmail.com"><span class="ti"><svg><use href="#s-mail"/></svg></span>메일</a>
-  <a class="dicon" href="files/resume.md" data-open="resume"><span class="ti"><svg><use href="#s-file"/></svg></span>이력서</a>
+  <a class="dicon" href="#" data-open="history"><span class="ti"><svg><use href="#s-file"/></svg></span>이력</a>
 </nav>
 
 <div class="desk-ui dlayer" data-w="tm">
@@ -431,11 +452,11 @@
 <span class="w">hth</span>  <span class="d"># 하태형 · 백엔드 + 보안·인프라</span>
 <span class="g">$</span> history
   <span class="d">1</span>  <span class="y">2020.02   </span>  영남대학교 기계공학부 졸업
-  <span class="d">2</span>  <span class="y">2024.12   </span>  정보처리산업기사 과정 시작 · Java, Spring, DB
+  <span class="d">2</span>  <span class="y">2024.12   </span>  정보처리산업기사 취득과정 시작 · Java, Spring, DB
   <span class="d">3</span>  <span class="y">2025.04   </span>  HealthMe 팀 프로젝트 · 로그인·소셜 로그인·추천 담당
   <span class="d">4</span>  <span class="y">2025.06   </span>  SQLD 취득
   <span class="d">5</span>  <span class="y">2026.03   </span>  정보처리기사 필기 합격
-  <span class="d">6</span>  <span class="y">2026.08   </span>  Aleph 과정 시작 · 네트워크·리눅스·보안관제 실습
+  <span class="d">6</span>  <span class="y">2026.08   </span>  SKT ALEPH K-뉴딜 아카데미 시작 · 네트워크·보안 실습
   <span class="d">7</span>  <span class="y">2026.10   </span>  리눅스마스터 2급 합격 · 팀 CTF 머신 Overwrite
   <span class="d">8</span>  <span class="y">2026.10.25</span>  정보처리기사 실기 응시
 <span class="g">$</span> tree -L 1 ~/aleph-notes   <span class="d"># 직접 정리한 실습 노트 37개</span>
@@ -538,13 +559,14 @@
     <ul class="facts">
       <li><a href="#" data-open="hm"><b>HealthMe</b> · 인증 담당</a></li>
       <li><a href="#" data-open="ow"><b>Overwrite</b> · CTF 서버 구성</a></li>
-      <li><a href="#" data-open="record">리눅스마스터 2급</a></li>
-      <li><a href="#" data-open="record">SQLD</a></li>
+      <li><a href="#" data-open="certs">리눅스마스터 2급</a></li>
+      <li><a href="#" data-open="certs">SQLD</a></li>
     </ul>
     <div class="go">
       <button class="pri" type="button" data-open="projects">프로젝트 보기 →</button>
       <button type="button" data-open="stack">기술 스택</button>
-      <button type="button" data-open="record">자격증 · 이력</button>
+      <button type="button" data-open="certs">자격증</button>
+      <button type="button" data-open="history">이력</button>
     </div>
   </div>
   <a class="mail" href="mailto:xogud17931@gmail.com"><svg width="14" height="14" aria-hidden="true"><use href="#s-mail"/></svg><span id="mailtxt">xogud17931@gmail.com</span></a>
@@ -554,7 +576,7 @@
 <article data-id="projects" data-kind="page" data-title="프로젝트" data-path="~/portfolio/프로젝트">
   <div class="kick">~/portfolio/프로젝트</div>
   <h1>프로젝트</h1>
-  <p class="intro">코리아IT아카데미의 정보처리산업기사 과정(2024.12 – 2025.06)과 Aleph 과정(2026.08.11 – 11.13)에서 만든 프로젝트입니다. 인증 기능을 맡은 팀 프로젝트 HealthMe, 팀에서 제작 전반을 맡은 CTF 머신, 실험 도구를 직접 만든 논문, 마지막 과제의 앱을 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
+  <p class="intro">코리아IT아카데미의 (과정평가형) 정보처리산업기사 취득과정(2024.12 – 2025.06)과 SKT ALEPH K-뉴딜 아카데미(2026.08.11 – 11.13)에서 만든 프로젝트입니다. 인증 기능을 맡은 팀 프로젝트 HealthMe, 팀에서 제작 전반을 맡은 CTF 머신, 실험 도구를 직접 만든 논문, 마지막 과제의 앱을 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
   <h2>// 대표</h2>
   <ul class="cards">
     <li><button class="card" type="button" data-open="hm">
@@ -650,31 +672,35 @@
   </section>
 </article>
 
-<article data-id="record" data-kind="page" data-title="자격증·이력" data-path="~/portfolio/자격증·이력">
-  <div class="kick">~/portfolio/자격증·이력</div>
-  <h1>자격증과 이력</h1>
-  <p class="intro">수업과 과제를 하는 동안 자격증 준비를 함께 이어 갔습니다. <a href="files/resume.md" data-open="resume">이력서</a>는 문서로 읽고 .docx로 내려받을 수 있습니다.</p>
-  <h2>// 자격증</h2>
-  <table class="tbl"><tbody>
-    <tr><th>리눅스마스터 2급</th><td>합격 · 2026.10.02 발표 · 한국정보통신진흥협회</td></tr>
-    <tr><th>SQLD</th><td>취득 · 2025.06.27 · 한국데이터산업진흥원</td></tr>
-    <tr><th>정보처리기사</th><td>필기 합격 2026.03 · 실기 응시 2026.10.25 · 한국산업인력공단</td></tr>
-  </tbody></table>
+<article data-id="certs" data-kind="page" data-title="자격증" data-path="~/portfolio/자격증">
+  <div class="kick">~/portfolio/자격증</div>
+  <h1>자격증</h1>
+  <p class="intro">지원 직무와 관련된 자격증만 최신순으로 적었습니다.</p>
+  <ul class="certs">
+    <li class="cert"><b>리눅스마스터 2급</b><span class="st">합격</span><span class="mt">2026.10.02 발표 · 한국정보통신진흥협회</span><p>리눅스 서버 운영의 근거입니다. <a href="#" data-open="stack">기술 스택</a>의 인프라·서버 탭과 이어집니다.</p></li>
+    <li class="cert"><b>정보처리기사</b><span class="st w">필기 합격</span><span class="mt">2026.03 · 한국산업인력공단</span><p>실기는 2026.10.25에 응시했고, 결과를 기다리고 있습니다.</p></li>
+    <li class="cert"><b>SQLD</b><span class="st">취득</span><span class="mt">2025.06.27 · 한국데이터산업진흥원</span><p>SQL과 데이터 모델링의 근거입니다. <a href="#" data-open="stack">기술 스택</a>의 백엔드 탭과 이어집니다.</p></li>
+  </ul>
+</article>
+
+<article data-id="history" data-kind="page" data-title="이력" data-path="~/portfolio/이력">
+  <div class="kick">~/portfolio/이력</div>
+  <h1>이력</h1>
+  <p class="intro">교육과 학력을 최신순으로 적었습니다. 과정마다 배운 내용과 그 과정에서 만든 프로젝트를 함께 두었습니다.</p>
   <h2>// 교육 · 학력</h2>
-  <table class="tbl"><tbody>
-    <tr><th>코리아IT아카데미 Aleph 과정</th><td>2026.08.11 – 2026.11.13 · 수강 중</td></tr>
-    <tr><th>코리아IT아카데미 정보처리산업기사 과정</th><td>2024.12 – 2025.06 · 수료</td></tr>
-    <tr><th>영남대학교 기계공학부</th><td>2015.03 – 2020.02 · 졸업</td></tr>
-  </tbody></table>
-  <h2>// 정보처리산업기사 과정에서 배운 것</h2>
-  <table class="tbl"><tbody>
-    <tr><th>Java</th><td>기초 문법, 객체지향(클래스, 상속, 인터페이스), 예외 처리, 컬렉션 프레임워크</td></tr>
-    <tr><th>Database</th><td>SELECT · INSERT · UPDATE · DELETE, 테이블 생성, JOIN, 서브쿼리, 트랜잭션</td></tr>
-    <tr><th>Linux</th><td>기본 명령어, 계정과 권한 관리, 파일 시스템 탐색</td></tr>
-    <tr><th>Git</th><td>Git, GitHub, 소스트리로 버전 관리, 브랜치 전략, 병합 충돌 해결</td></tr>
-    <tr><th>HTML · CSS</th><td>HTML5 · CSS3 레이아웃, Flexbox · Grid, 반응형 웹</td></tr>
-    <tr><th>JavaScript</th><td>기본 문법, 제어문, 함수, 이벤트 처리, 비동기 처리</td></tr>
-  </tbody></table>
+  <ol class="tl">
+    <li><span class="when">2026.08 – 2026.11</span><div><b>SKT ALEPH K-뉴딜 아카데미</b><p class="org">코리아IT아카데미 · 2026.08.11 – 11.13 · 수강 중</p>
+      <div class="row"><span>배운 것</span><span>네트워크·방화벽(Cisco IOS, ASA, pfSense, IPsec VPN), 리눅스 서버(Apache, DNS, 로그·모니터링), 보안관제(Snort3, Suricata, Wazuh), DB 운영(MariaDB 복제·백업), AI 활용 개발</span></div>
+      <div class="row"><span>만든 것</span><span><a href="#" data-open="ow">Overwrite</a>(팀 CTF 머신) · <a href="#" data-open="t10">논문</a> · <a href="#" data-open="t02">Dodge</a> · <a href="#" data-open="t04">The Day Before</a> · <a href="#" data-open="t07">PinPoint</a></span></div></div></li>
+    <li><span class="when">2024.12 – 2025.06</span><div><b>(과정평가형) 정보처리산업기사 취득과정 A</b><p class="org">코리아IT아카데미 · 수료</p>
+      <div class="row"><span>배운 것</span><span>Java(객체지향, 예외 처리, 컬렉션), Database(SQL, JOIN, 트랜잭션), Linux(계정·권한), Git(브랜치 전략, 병합 충돌 해결), HTML·CSS·JavaScript</span></div>
+      <div class="row"><span>만든 것</span><span><a href="#" data-open="hm">HealthMe</a>(팀 프로젝트, 로그인·소셜 로그인·추천 담당)</span></div></div></li>
+    <li><span class="when">2015.03 – 2020.02</span><div><b>영남대학교 기계공학부</b><p class="org">졸업</p></div></li>
+  </ol>
+  <h2>// 병역</h2>
+  <ol class="tl">
+    <li><span class="when">2016.05 – 2018.02</span><div><b>육군 병장 만기 전역</b></div></li>
+  </ol>
 </article>
 
 <!-- ===== 세부 문서(.md) ===== -->
@@ -1289,131 +1315,6 @@
   <p>마지막 과제의 앱이 들어갈 자리입니다. 완성되면 이 문서를 채웁니다.</p>
   <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button></div>
 </article>
-
-<!-- ===== 이력 문서: docs/*.md에서 tools/build-docs.mjs가 만든다. 직접 고치지 않는다. ===== -->
-<!-- docs:start -->
-<article data-id="resume" data-kind="md" data-title="이력서.md" data-path="~/portfolio/자격증·이력/이력서.md" data-parent="record">
-  <h1><span class="md">#</span>이력서</h1>
-  <div class="fm"><span class="dl">---</span><br />
-    <span class="key">내려받기</span>: <span class="val"><a href="files/resume.docx" download>.docx</a> · <a href="files/resume.md">원문 .md</a></span><br />
-    <span class="dl">---</span></div>
-<h2><span class="md">##</span>인적 사항</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>항목</th>
-<th>내용</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>이름</td>
-<td>하태형</td>
-</tr>
-<tr>
-<td>이메일</td>
-<td><a href="mailto:xogud17931@gmail.com">xogud17931@gmail.com</a></td>
-</tr>
-<tr>
-<td>GitHub</td>
-<td><a href="https://github.com/HTH-0">https://github.com/HTH-0</a></td>
-</tr>
-<tr>
-<td>포트폴리오</td>
-<td><a href="https://alephhthportfolio.vercel.app">https://alephhthportfolio.vercel.app</a></td>
-</tr>
-<tr>
-<td>희망 분야</td>
-<td>백엔드 (보안 · 인프라)</td>
-</tr>
-</tbody></table></div>
-<h2><span class="md">##</span>학력</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>기간</th>
-<th>학교</th>
-<th>전공</th>
-<th>구분</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2015.03 ~ 2020.02</td>
-<td>영남대학교</td>
-<td>기계공학부</td>
-<td>졸업</td>
-</tr>
-</tbody></table></div>
-<h2><span class="md">##</span>교육</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>기간</th>
-<th>과정</th>
-<th>기관</th>
-<th>구분</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2026.08.11 ~ 2026.11.13</td>
-<td>Aleph 과정</td>
-<td>코리아IT아카데미</td>
-<td>수강 중</td>
-</tr>
-<tr>
-<td>2024.12 ~ 2025.06</td>
-<td>정보처리산업기사 과정</td>
-<td>코리아IT아카데미</td>
-<td>수료</td>
-</tr>
-</tbody></table></div>
-<p>정보처리산업기사 과정에서 Java(객체지향, 예외 처리, 컬렉션), Database(SQL, JOIN, 트랜잭션), Linux(명령어, 계정·권한 관리), Git(브랜치 전략, 병합 충돌 해결), HTML·CSS, JavaScript를 배웠습니다.</p>
-<h2><span class="md">##</span>자격증</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>취득일</th>
-<th>자격증</th>
-<th>발행</th>
-<th>비고</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2026.10.02</td>
-<td>리눅스마스터 2급</td>
-<td>한국정보통신진흥협회</td>
-<td>합격 발표</td>
-</tr>
-<tr>
-<td>2025.06.27</td>
-<td>SQLD</td>
-<td>한국데이터산업진흥원</td>
-<td>취득</td>
-</tr>
-<tr>
-<td>2026.03</td>
-<td>정보처리기사 필기</td>
-<td>한국산업인력공단</td>
-<td>합격 (실기 2026.10.25 응시)</td>
-</tr>
-</tbody></table></div>
-<h2><span class="md">##</span>병역</h2>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>기간</th>
-<th>구분</th>
-<th>비고</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2016.05 ~ 2018.02</td>
-<td>육군 병장</td>
-<td>만기 전역</td>
-</tr>
-</tbody></table></div>
-  <div class="nav2"><button type="button" data-open="record">← 자격증·이력</button><a href="files/resume.docx" download>.docx 내려받기</a></div>
-</article>
-<!-- docs:end -->
 </div>
 
 <script>
@@ -1429,8 +1330,8 @@
       { id: 't13', icon: 'doc', label: '앱.md' }, { id: 't02', icon: 'doc', label: 'Dodge.md' },
       { id: 't04', icon: 'doc', label: 'TheDayBefore.md' }, { id: 't07', icon: 'doc', label: 'PinPoint.md' } ] },
     { id: 'stack', icon: 'grid', label: '기술스택' },
-    { id: 'record', icon: 'grid', label: '자격증·이력/', kids: [
-      { id: 'resume', icon: 'doc', label: '이력서.md' } ] }
+    { id: 'certs', icon: 'grid', label: '자격증' },
+    { id: 'history', icon: 'grid', label: '이력' }
   ];
   var src = document.getElementById('src');
   var arts = {};
