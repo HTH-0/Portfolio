@@ -170,7 +170,8 @@
 | 자기소개서 | 사이트에서 뺐다. 회사에 낼 때 따로 쓴다. 재료: `참고자료/예전-문서/`, 예전 이력서 PDF의 자기소개서 4편. "전략 패턴" 사례가 어느 프로젝트인지 확인이 필요하다 |
 | 노션 링크 | 노션 학습 정리를 GitHub 링크처럼 "정리해 온 기록"으로 보여 주려고 한다. 링크하기 전에 노트의 실습망 IP와 Wazuh 관리자 비밀번호를 지워야 한다(4절 5차 결정). 링크 위치와 공개할 페이지 범위는 아직 정하지 않았다 |
 | 정보처리기사 | 2026-10-25 실기 응시. 결과가 나오면 자격증 페이지 카드를 고친다(터미널에서는 뺐다) |
-| 사운드 워크 문서 | 글은 채웠다. 남은 것: 실제 화면 스크린샷(지금은 ASCII 그림), 사용자가 "문제와 판단" 표의 판단 문장과 기술 스택 "할 수 있는 것" 문장 확인 |
+| 완성 후 저장소 정리 | 사이트를 다 만든 뒤 한 번 새로 정리한다(사용자 결정, 2026-10-27). 포트폴리오 구동과 상관없는 문서(`AGENTS.md`, `CLAUDE.md`, `HANDOFF.md`, `site/files/` 밖의 기록)를 지우고, 커밋 기록에 남은 작업 과정과 `Co-Authored-By` 표기가 공개되지 않게 한다. 방법은 둘 중 하나다: (1) 새 저장소를 만들어 `site/`와 `vercel.json`만 올리고 Vercel을 새 저장소에 연결한다(기록을 고치지 않아 가장 안전), (2) 지금 저장소의 이력을 지우고 강제 푸시한다(되돌릴 수 없고 다른 컴퓨터는 다시 받아야 함). 그때까지는 이 저장소가 공개 상태라 기록 문서가 보이므로, 급하면 저장소를 비공개로 바꿔 둔다 |
+| 사운드 워크 문서 | 글과 앱 화면 이미지 5장을 채웠다. 남은 것: 사용자가 "문제와 판단" 표의 판단 문장과 기술 스택 "할 수 있는 것" 문장 확인 |
 
 ## 8. 지금 해야 할 일
 
@@ -206,8 +207,8 @@
 ### 결정된 것
 
 - **구성:** 사운드 워크·Overwrite 문서와 같은 형식으로 바꾼다. 머리말(시기, 팀, 맡은 일, 기술, 링크) → 소개 한 문장과 대표 이미지 → 기본 정보 → 화면 → 설계와 판단 → 한계 → 작성 방식과 협업.
-- **대표 이미지:** 메인 화면. 캡션은 "팀 프로젝트 메인 화면"으로 쓴다. 메인 페이지와 헤더는 팀 README에서 팀장 몫이므로, 본인이 만든 화면이라고 쓰지 않는다. 지금 사이트의 설문 결과 화면(`assets/healthme/result.png`)은 본문 "화면" 구역으로 내린다.
-- **이미지 확보:** 메인 화면 전체 캡처는 저장소와 이 컴퓨터 어디에도 없다. 사용자가 로컬에서 실행해 직접 찍어 `site/assets/healthme/main.png`로 두거나, 없으면 임시로 저장소의 `healthme/READMEimg/healthmeTitle.png`(제목 배너)를 쓰고 나중에 바꾼다. README GIF의 장면은 전화번호·주소·팀원 이름이 보여서 쓰지 않는다.
+- **대표 이미지(사용자 결정):** 메인 화면(`assets/healthme/main.png`)을 맨 위에 둔다. 캡션은 "팀 프로젝트 메인 화면"이고 외부 광고 배너가 보이는 점은 그대로 둔다. 그 아래 "화면" 구역에 **설문 결과**(`assets/healthme/result.png`)와 **회원가입**(`assets/healthme/signup.png`)을 함께 넣는다. 메인 화면은 팀 프로젝트의 화면이고 본인이 만든 것이 아니라고 문서에 분명히 적는다.
+- **이미지 확보(완료):** 메인 화면은 `healthme/READMEimg/GIF/태형/회원가입.gif`의 **첫 프레임**이다(로그인 전이라 입력된 개인 정보가 없다). 브라우저 주소창과 아래 스크롤바를 잘라 `site/assets/healthme/main.png`(1897×943)로 저장해 두었다. 다시 만들려면 GIF를 `<img>`로 불러 `canvas.drawImage(im, 0, 50, 1897, 943, 0, 0, 1897, 943)`로 그린 뒤 `tools/cdp-ui.mjs`로 1897×943 화면을 촬영한다. 주의: 이 화면의 상단 배너("물가 걱정 없이 담는 장보기초특가", 카트 사진)는 외부 쇼핑몰 광고 이미지로 보이고 카트 손잡이에 업체 이름이 보인다. 그대로 쓰기로 했다(사용자 결정). 다른 장면의 README GIF는 전화번호·주소·팀원 이름이 보여서 쓰지 않는다.
 - **설계 자료로 쓸 수 있는 이미지(개인 정보 없음, 하태형 님이 2025-06-12에 올림):** `healthme/READMEimg/BackEndStructure.png`(패키지 구조), `ERD.png`(표 14개), `FrontEndStructure.png`. 문서의 "설계" 부분에 넣는다. 저장소 raw 주소에서 받는다: `https://raw.githubusercontent.com/HTH-0/Project_HealthMe/HEAD/healthme/READMEimg/<파일명>`.
 - **근거 표기:** "팀 전체 커밋 330개 중 77개" 문장을 뺀다. 학원에서 작업이 여러 번 유실되어 브랜치를 지우고 복구했고, 충돌을 정리하며 뒤엎는 일이 잦아 커밋 기록과 줄 단위 작성자가 섞였다(사용자 말). 대신 팀 README의 "담당 파트"와 각 기능의 GitHub 파일 링크를 근거로 한다. 협업 한 줄을 넣는다: 브랜치 복구와 충돌 해결 경험.
 - **한계 구역:** 사용자 승인 항목은 1, 2, 4번이다(아래). 개선 전이므로 "한계"로만 적는다. 고치지 않은 것을 고친 것처럼 쓰지 않는다.
@@ -260,3 +261,42 @@ git blame -w -M -C HEAD -- <파일>
 ```
 
 작성자별 줄 수 집계: 백엔드 Java 4,870줄 중 하태형 946줄, 프런트(js·jsx·css) 11,609줄 중 2,981줄이었지만, 위 협업 사정으로 기여를 가르는 근거로 쓰지 않는다.
+
+### 추가 예약: 기술 스택 근거에 노션 노트 링크 (사용자 요청, 2026-10-27)
+
+기술 스택의 인프라·서버, 네트워크·보안 탭 타일은 근거가 "Aleph 과정 실습"뿐이다. 이 근거에 노션 정리 노트 링크를 붙인다. 노션 복제본(`https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8`)의 데이터베이스에 노트 37개가 있고 각각 주소가 있다. 아래 매핑은 노트 제목으로 정한 것이라 타일마다 내용이 맞는지 한 번 훑어 확인한다. 주소는 `https://app.notion.com/p/<아이디>` 형태로 쓴다. 로그인 없이 열리는지 시크릿 창으로 확인한다(하위 노트가 부모 공유 설정을 따르는지가 확인되지 않았다).
+
+방법: 각 타일의 `.src`를 "근거: Aleph 과정 실습 · 노션 정리 [노트 제목 링크]"로 고친다. 링크는 `target="_blank" rel="noreferrer"`. 타일 점 색(회색 = 과정 실습)은 그대로. 이미 지운 타일(Apache, Bash, Windows Server, Cisco IOS)은 다시 넣지 않는다.
+
+| 타일 | 연결할 노트(아이디) |
+|---|---|
+| Linux | 리눅스 기초(2936b9a58d7a83f19a6501522ed1688c), Linux 계정·권한 심화(6356b9a58d7a8268a20781e7a327f312), 시스템 리소스 & 커널(8106b9a58d7a836f9ffd816b6aa8bf91), 리눅스마스터 2급 오답노트(e236b9a58d7a83889c5381906a72dd4e) |
+| VirtualBox | 가상머신 & OS 설치(4106b9a58d7a835cbfa681aeb0c02285) |
+| Ubuntu Server, Rocky Linux | 전용 노트 없음. 가상머신 & OS 설치(위)를 붙이거나 링크 없이 둔다 |
+| DNS · NFS · FTP | DNS 서버(28d6b9a58d7a834897b98152d3e2d493), 파일 공유 NFS/Samba(3a26b9a58d7a827cb1cf01fa2d16177b), 파일 전송 FTP/FTPS/SFTP(1ad6b9a58d7a82f986d3011d4b00e7cd) |
+| rsyslog | 로그 서버(7996b9a58d7a83ec9e4081f006c8051b) |
+| Zabbix · PMM | 시스템 모니터링(bb46b9a58d7a82e8b036015b52025b21) |
+| Docker (기초) | Docker 컨테이너(1426b9a58d7a835a8a93012899a3f320) |
+| ACL · NAT | ACL(1e46b9a58d7a822cbe718112dc01c540), NAT & PAT(da86b9a58d7a82789b4601424ba14b1c) |
+| Cisco ASA | ASAv 방화벽(a5c6b9a58d7a82a3b48b8166527ba289), ASA Failover(f366b9a58d7a826abab6811fcec90140), Zone-Based Firewall(a686b9a58d7a83b0b88b01a9e82ab120) |
+| pfSense | pfSense 방화벽(24a6b9a58d7a826a8ba18179dafd2cf0) |
+| IPsec VPN | GRE over IPsec VPN(2536b9a58d7a8382bb948174763c8027) |
+| Snort3 | IDS/IPS 구축 Snort3 & Suricata(3d56b9a58d7a830f8174813d931d6ca7), HIDS(OSSEC) & NIPS(Inline Snort)(67a6b9a58d7a83a3b013814ea8a6fc9b) |
+| Suricata | IDS/IPS 구축(위 3d56…) |
+| Wazuh | SOC·SIEM 개념 & Wazuh 구축(5966b9a58d7a8344ac95818c85afeba6) |
+| OSSEC | HIDS(OSSEC) & NIPS(위 67a6…) |
+| Kali Linux | IDS/IPS 구축(3d56…) 안에 hping3 내용이 있는지 확인. 없으면 링크 없이 둔다 |
+| Packet Tracer · GNS3 | Cisco CLI & 장비 기본·보안 설정(3be6b9a58d7a836a8f4b013390efe2c2), VLAN & Inter-VLAN & DHCP(1656b9a58d7a8365a278016d4c8aeb02), OSPF(f6d6b9a58d7a8397beba019da18b1020), EIGRP(8d86b9a58d7a834a82ad8139649dcce9) 중 몇 개 |
+
+백엔드 탭의 MariaDB 타일에도 쓸 수 있다: MariaDB 계정·권한 관리(4506b9a58d7a82c88fb201f507ef6923), MariaDB Replication & 백업(50d6b9a58d7a83ee89760117f7db8506), SQL 기초 & CRUD(48e6b9a58d7a833fbdca812f842772be). 해당 타일의 현재 근거(SQLD, 사용 경험)와 함께 적는다.
+
+그 밖에 홈이나 기술 스택 머리말에 "직접 정리한 학습 노트 37개" 한 줄과 노션 링크를 둘 수도 있다(터미널 `sites.txt`와 바탕화면 노션 아이콘은 이미 있음).
+
+### 사운드 워크 문서에 앱 화면 넣기 (완료, 2026-10-27)
+
+지금 사운드 워크 문서(`data-id="t13"`)에는 이미지가 없다(ASCII 그림뿐). 앱 화면을 넣는다. 배포 주소 `https://alephthesisapp.vercel.app/`는 접속된다(응답 200). 저장소 homepage 값의 `alephthesisapp-hth4.vercel.app`은 404라서 쓰지 않는다.
+
+- **넣은 이미지(`site/assets/soundwalk/`):** `home.png`(앱 첫 화면 위쪽, 1440×660, 대표 이미지), `map.png`(출발 전 지도와 소리 목록, 850×640), `play.png`(잠실 거리, 1440×900), `underpass3.png`·`underpass5.png`(반월당 지하도 3번·5번 입구, 1440×900). 인게임 이미지는 파일당 약 1MB다.
+- **구성(적용됨):** 소개 문단 아래 대표 이미지(`home.png`) → "화면" 구역(Overwrite와 같은 `.gallery`, 누르면 크게 보임)에 4장 → 출처 안내 한 줄. 기존 ASCII 그림은 지웠다. 인게임 화면은 지역과 장소를 캡션에 적었다.
+- **출처 표기(적용됨):** 인게임 화면에 Sketchfab(CC BY 4.0) 차량 모델과 Rocketbox 행인 모델이 보이므로, "화면" 구역 아래에 앱 링크와 "소리·3D 모델·텍스처 출처는 여기" 위치를 안내하는 한 줄을 두었다. 앱의 `#credits`는 링크를 눌러야 펼쳐지므로 `#credits` 주소로 직접 연결하지 않는다.
+- **촬영 방법(다시 찍을 때):** `node tools/cdp-ui.mjs 1440 900 "https://alephthesisapp.vercel.app/?test=1" steps.json`. 주소 뒤 `?test=1`을 붙이면 `window.__play`가 열려 `view(x, z, 1.6, yaw, 0)`로 카메라 방향을 정할 수 있다(yaw 4.7124가 잠실 출발점에서 거리가 가장 잘 보였다). 시작 안내 상자는 `#play-overlay`에 `hidden` 클래스를 넣어 숨기고, 점검용 글자 상자는 `#play-hud`의 `hidden`을 켠다. 반월당은 지도를 불러오는 시간이 15초 넘게 걸려 첫 촬영에 실패했다. 필요하면 더 기다려서 찍는다. 3D는 헤드리스 Chrome(`--disable-gpu`)에서도 정상으로 그려진다.

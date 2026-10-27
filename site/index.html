@@ -923,11 +923,30 @@
     <span class="dl">---</span></div>
   <p>논문에서 쓴 내용을 기반으로, 실제 서울·대구 지형과 비슷하게 만든 3D 거리에서 직접 체험해 볼 수 있게 만든 게임형 앱입니다. 소리를 단서로 길을 찾고, 소리가 있을 때와 없을 때의 기록을 논문의 비율 방식으로 비교해 보여 줍니다.</p>
   <p>논문과 앱은 하나의 프로젝트입니다. 논문이 가설과 소리 랜드마크 규칙을 정했고, 앱은 그 규칙을 실제 지형 위에서 누구나 체험하게 합니다. 바탕이 된 논문은 아래 <a href="#" data-thesis>바탕 논문</a>에서 볼 수 있습니다.</p>
-  <figure class="shot ascii"><pre>┌─────┬──────┐
-│ <i>♪</i>   │   ▶  │
-├──┐  └──┐   │
-│  │  <b>●</b>  │ <i>♪</i> │
-└──┴─────┴────┘</pre><figcaption>소리 장소(♪), 출발점(▶), 목적지(●)</figcaption></figure>
+  <figure class="shot"><img src="assets/soundwalk/home.png" alt="사운드 워크 첫 화면: 지역 네 곳과 그 동네에서 들리는 소리 목록" width="1440" height="660" loading="lazy" /><figcaption>앱 첫 화면: 지역을 고르고 소리를 미리 들어 봅니다</figcaption></figure>
+  <section>
+    <h2><span class="md">##</span>화면</h2>
+    <p>실제 지도로 만든 3D 거리를 직접 걷는 게임입니다. 한 판은 출발 전에 지도를 보고 장소를 기억한 뒤, 지도가 사라진 거리에서 목적지를 찾는 방식입니다. 화면을 누르면 크게 볼 수 있습니다.</p>
+    <div class="gallery">
+            <figure>
+              <button type="button" class="zoom" aria-label="크게 보기: 출발 전 지도"><img src="assets/soundwalk/map.png" alt="출발 전 지도: 출발점, 목적지, 소리가 나는 장소 세 곳" width="850" height="640" loading="lazy" /></button>
+              <figcaption><span class="label">출발 전 지도</span>잠실 지도에서 출발점·목적지·소리 장소를 기억합니다. 출발하면 지도는 사라집니다.</figcaption>
+            </figure>
+            <figure>
+              <button type="button" class="zoom" aria-label="크게 보기: 잠실 거리"><img src="assets/soundwalk/play.png" alt="잠실의 상가 거리를 걷는 장면: 행인과 차량이 보임" width="1440" height="900" loading="lazy" /></button>
+              <figcaption><span class="label">잠실 거리</span>상가 간판이 이어진 거리에 행인과 차량이 다닙니다.</figcaption>
+            </figure>
+            <figure>
+              <button type="button" class="zoom" aria-label="크게 보기: 반월당 지하도 3번"><img src="assets/soundwalk/underpass3.png" alt="반월당 지하도 3번 입구: 지하도 표지와 계단" width="1440" height="900" loading="lazy" /></button>
+              <figcaption><span class="label">반월당 지하도 3번</span>입구로 들어가면 나갈 출구를 고릅니다. 큰 차도는 횡단보도나 지하도로만 건널 수 있습니다.</figcaption>
+            </figure>
+            <figure>
+              <button type="button" class="zoom" aria-label="크게 보기: 반월당 지하도 5번"><img src="assets/soundwalk/underpass5.png" alt="반월당 지하도 5번 입구: 버스와 승용차가 다니는 큰 도로 옆" width="1440" height="900" loading="lazy" /></button>
+              <figcaption><span class="label">반월당 지하도 5번</span>버스와 승용차가 다니는 큰 도로 옆의 입구입니다.</figcaption>
+            </figure>
+    </div>
+    <p class="note">화면에 보이는 차량·행인·나무 3D 모델과 바닥·벽 텍스처의 출처와 라이선스는 <a href="https://alephthesisapp.vercel.app/" target="_blank" rel="noreferrer">앱</a> 첫 화면 아래쪽 "소리·3D 모델·텍스처 출처는 여기"를 누르면 보입니다.</p>
+  </section>
   <h2><span class="md">##</span>바탕 논문</h2>
   <p>정식 제목은 「미로형 3D 공간에서 고정 청각 랜드마크의 개수가 길찾기에 미치는 영향」(2026.10.01)입니다. 길을 잘 못 찾는 사람이 시각 정보가 제한된 3D 공간에서 소리를 단서로 쓸 수 있는지 궁금해서 시작했습니다. 서로 다른 음색의 고정 소리를 0개, 2개, 3개로 바꿔 가며 미로를 찾게 하는 브라우저 3D 시뮬레이터를 직접 만들었고, 지인 5명이 시행했습니다.</p>
   <p>3개 조건이 소리 없는 조건보다 빨랐던 참가자는 5명 중 4명이었습니다(시행 순서를 통제한 3명 중에서는 2명). 표본이 5명이라 가설의 지지와 기각은 판단하지 않았고, 결과는 탐색적 경향으로만 읽었습니다.</p>
