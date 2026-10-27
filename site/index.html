@@ -71,20 +71,14 @@
   .hero { position: relative; z-index: 1; margin: 0 0 0 70px; padding: 0 28px 22px 4px; width: min(760px, calc(100% - 100px)); background: linear-gradient(90deg, var(--win) 82%, rgba(251,251,248,0)); }
   .hero .ln { font: 13px/24px var(--mono); color: var(--muted); }
   .hero .ln .k { color: var(--c3); }
-  .hero h1 { margin: 2px 0 2px; font-size: 52px; line-height: 1.2; letter-spacing: -0.01em; }
-  .hero .role { margin: 0 0 12px; font: 600 18px/1.5 var(--mono); color: var(--c3); }
-  .hero .one { margin: 0 0 12px; font-size: 22px; font-weight: 600; line-height: 1.55; word-break: keep-all; }
-  .facts { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; padding: 0; list-style: none; }
-  .facts a { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #eef0ea; border: 1px solid #dfe2d8; font-size: 15px; color: #3b4046; text-decoration: none; }
-  .facts a:hover { border-color: var(--accent); }
-  .facts b { font-weight: 600; color: var(--text); }
+  .hero h1 { margin: 2px 0 4px; font-size: 60px; line-height: 1.2; letter-spacing: -0.01em; }
+  .hero .role { margin: 0 0 14px; font: 600 20px/1.5 var(--mono); color: var(--c3); }
+  .hero .one { margin: 0 0 26px; font-size: 26px; font-weight: 600; line-height: 1.55; word-break: keep-all; }
   .go { display: flex; flex-wrap: wrap; gap: 8px; }
   .go button, .go a { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 6px; font: 600 16px var(--sans); text-decoration: none; border: 1px solid #cfd4ca; background: #fff; }
   .go .pri { background: var(--text); color: #fff; border-color: var(--text); }
   .go button:hover, .go a:hover { border-color: var(--accent); }
   .go .pri:hover { background: #000; }
-  .mail { position: absolute; z-index: 1; left: 50%; bottom: 56px; transform: translateX(-30%); display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px; font: 13.5px var(--mono); background: #ecefe6; border: 1px solid #d7dccf; border-radius: 4px; color: var(--text); text-decoration: none; white-space: nowrap; }
-  .mail:hover { border-color: var(--accent); }
   .tip { position: absolute; z-index: 1; right: 16px; bottom: 12px; font: 11.5px var(--mono); color: var(--dim); }
 
   /* ── 목록 페이지 ── */
@@ -168,7 +162,8 @@
     .gut { display: none; }
     .hero { margin: 8px 0 0; padding: 0 18px 20px; width: 100%; background: linear-gradient(180deg, var(--win) 86%, rgba(251,251,248,0)); }
     .hero h1 { font-size: 36px; }
-    .mail { left: 16px; transform: none; bottom: 44px; }
+    .hero .role { font-size: 16px; }
+    .hero .one { font-size: 22px; margin-bottom: 18px; }
     .tip { display: none; }
     .page, .doc { padding: 20px 16px 40px; }
     .cards { grid-template-columns: minmax(0, 1fr); }
@@ -364,6 +359,9 @@
   .tm .g { color: #7ee787; } .tm .y { color: #f2c94c; } .tm .bl { color: #79c0ff; } .tm .m { color: #d2a8ff; } .tm .d { color: #8b949e; } .tm .w { color: #e6edf3; }
   .tm .cur { display: inline-block; width: 8px; height: 15px; vertical-align: -2px; background: #c9d1d9; animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
+  .toast { position: fixed; left: 50%; bottom: 64px; z-index: 60; max-width: calc(100vw - 32px); padding: 10px 16px; border-radius: 8px; background: #23272b; color: #fff; font: 14px/1.5 var(--sans); text-align: center; opacity: 0; transform: translate(-50%, 8px); pointer-events: none; transition: opacity .2s, transform .2s; }
+  .toast.on { opacity: 1; transform: translate(-50%, 0); }
+  @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
   .taskbar { position: fixed; left: 0; right: 0; bottom: 0; height: 46px; z-index: 30; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: rgba(35, 39, 43, .93); font: 12px var(--mono); color: #e9eee3; }
   .taskbar .st { width: 22px; height: 22px; border-radius: 5px; background: var(--path); display: grid; place-items: center; }
   .taskbar .st svg { width: 13px; height: 13px; color: #fff; }
@@ -372,12 +370,13 @@
   .taskbar button.on { background: rgba(255, 255, 255, .28); }
   .taskbar .ck { margin-left: auto; text-align: right; line-height: 1.35; font-size: 11.5px; }
   @media (prefers-reduced-motion: reduce) { .dwin { transition: none; } .tm .cur { animation: none; } }
+  .src-mail { display: none; }
 </style>
 <noscript><style>
   body { display: block; padding: 24px; }
   .win { display: none; }
   #src article { max-width: 960px; margin: 0 auto 48px; }
-  #src .mail { position: static; transform: none; margin: 12px 0; }
+  #src .src-mail { display: block; margin: 12px 0; font-size: 14px; }
   #src .tip, #src .go, #src .nav2 button, #src .tabs { display: none; }
   .desk-ui { display: none !important; }
   #src .stile { cursor: default; } #src .stile .ev { display: block; font-weight: 400; font-size: 12px; line-height: 1.6; color: #5a6066; } #src .tdet { display: none; }
@@ -402,7 +401,7 @@
     <ul class="tree" id="tree"></ul>
     <div class="pin" aria-label="연락처">
       <div class="cap">contact</div>
-      <a class="it" href="mailto:xogud17931@gmail.com"><svg class="ic-doc"><use href="#s-mail"/></svg>이메일</a>
+      <a class="it" href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com" title="누르면 이메일 주소가 복사됩니다"><svg class="ic-doc"><use href="#s-mail"/></svg>이메일</a>
       <a class="it" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><svg class="ic-doc"><use href="#s-gh"/></svg>github</a>
       <a class="it" href="#" data-open="history"><svg class="ic-doc"><use href="#s-file"/></svg>이력</a>
     </div>
@@ -422,7 +421,7 @@
   <a class="dicon" href="#" data-open="t13"><span class="ti th">♪</span>사운드워크</a>
   <span class="gap"></span>
   <a class="dicon" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-gh"/></svg></span>GitHub</a>
-  <a class="dicon" href="mailto:xogud17931@gmail.com"><span class="ti"><svg><use href="#s-mail"/></svg></span>메일</a>
+  <a class="dicon" href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com" title="누르면 이메일 주소가 복사됩니다"><span class="ti"><svg><use href="#s-mail"/></svg></span>메일</a>
   <a class="dicon" href="#" data-open="history"><span class="ti"><svg><use href="#s-file"/></svg></span>이력</a>
 </nav>
 
@@ -466,6 +465,8 @@
   <span class="ck" id="clock"></span>
 </div>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <!-- ===== 내용 (자바스크립트가 없으면 아래가 그대로 보인다) ===== -->
 <div id="src">
 
@@ -475,12 +476,6 @@
     <h1>하태형</h1>
     <p class="role">Backend Developer · Security &amp; Infra</p>
     <p class="one">모르는 것은 그날 찾아보고, 만들어서 확인한 사람</p>
-    <ul class="facts">
-      <li><a href="#" data-open="hm"><b>HealthMe</b> · 인증 담당</a></li>
-      <li><a href="#" data-open="ow"><b>Overwrite</b> · CTF 서버 구성</a></li>
-      <li><a href="#" data-open="certs">리눅스마스터 2급</a></li>
-      <li><a href="#" data-open="certs">SQLD</a></li>
-    </ul>
     <div class="go">
       <button class="pri" type="button" data-open="projects">프로젝트 보기 →</button>
       <button type="button" data-open="stack">기술 스택</button>
@@ -488,7 +483,7 @@
       <button type="button" data-open="history">이력</button>
     </div>
   </div>
-  <a class="mail" href="mailto:xogud17931@gmail.com"><svg width="14" height="14" aria-hidden="true"><use href="#s-mail"/></svg><span id="mailtxt">xogud17931@gmail.com</span></a>
+  <p class="src-mail">이메일 <a href="mailto:xogud17931@gmail.com">xogud17931@gmail.com</a></p>
   <div class="tip" aria-hidden="true">마우스를 움직여 보세요</div>
 </article>
 
@@ -1311,12 +1306,14 @@
     wrap.appendChild(a.cloneNode(true));
     var h = view.clientHeight, rows = Math.ceil(h / 24) + 2;
     if (kind === 'home') {
-      view.insertAdjacentHTML('beforeend', gutter(9, rows));
+      // 넓은 화면에서는 소개 글을 세로 가운데 쪽으로 내리고, 비워 둔 줄에도 줄 번호를 붙인다
+      var skip = innerWidth > 860 ? Math.max(0, Math.min(12, Math.floor((rows - 10) / 2) - 2)) : 0;
+      wrap.style.paddingTop = (14 + skip * 24) + 'px';
+      view.insertAdjacentHTML('beforeend', gutter(9 + skip, rows));
       var cv = el('canvas'); cv.id = 'art'; cv.setAttribute('aria-hidden', 'true');
       wrap.insertBefore(cv, wrap.firstChild);
       view.appendChild(wrap);
       stopArt = startArt(cv, wrap);
-      scrambleMail();
     } else {
       view.appendChild(wrap);
       var lines = Math.round(wrap.scrollHeight / 24);
@@ -1399,7 +1396,30 @@
     lb.showModal();
   });
 
+  /* ── 이메일 주소 복사와 안내 메시지 ── */
+  var toastEl = document.getElementById('toast'), toastTimer;
+  function toast(msg) {
+    toastEl.textContent = msg; toastEl.classList.add('on');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.classList.remove('on'); }, 2200);
+  }
+  function copyText(text) {
+    function fallback() {
+      var ok = false;
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(ta); ta.select(); ok = document.execCommand('copy'); document.body.removeChild(ta);
+      } catch (err) {}
+      return ok;
+    }
+    function done(ok) { toast(ok ? '이메일 주소를 복사했습니다' : '복사하지 못했습니다. 주소: ' + text); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallback()); });
+    else done(fallback());
+  }
+
   document.addEventListener('click', function (e) {
+    var cp = e.target.closest('[data-copy]');
+    if (cp) { e.preventDefault(); copyText(cp.dataset.copy); return; }
     var tl = e.target.closest('.tiles .stile');
     if (tl && !e.target.closest('a')) { pickTile(tl); return; }
     var tb = e.target.closest('.tabs [data-tab]');
@@ -1421,23 +1441,6 @@
   }, true);
   document.getElementById('burger').addEventListener('click', function () { win.classList.toggle('drawer'); });
 
-  /* ── 이메일 글자 섞기 ── */
-  var POOL = '<>{}[]#$%&*/\\|01!?~@';
-  function scrambleMail() {
-    var node = document.getElementById('mailtxt'); if (!node) return;
-    var real = 'xogud17931@gmail.com', t0 = performance.now(), dur = 1100;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { node.textContent = real; return; }
-    (function step(now) {
-      if (!document.body.contains(node)) return;
-      var k = Math.min(1, (now - t0) / dur), fix = Math.floor(k * real.length), s = '';
-      for (var i = 0; i < real.length; i++) s += i < fix ? real[i] : POOL[(Math.random() * POOL.length) | 0];
-      node.textContent = s;
-      if (k < 1) requestAnimationFrame(step);
-    })(t0);
-    var host = node.parentNode;
-    if (!host._bound) { host._bound = 1; host.addEventListener('mouseenter', scrambleMail); }
-  }
-
   /* ── 첫 화면 ASCII: 패킷이 흐르고, 포인터 근처에서 소용돌이 → 멈추면 자물쇠 ── */
   function startArt(cv, host) {
     var ctx = cv.getContext('2d');
@@ -1452,10 +1455,10 @@
       ctx.font = '13px "JetBrains Mono", Consolas, monospace'; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
     }
     size();
-    var heroEl = host.querySelector('.hero'), mailEl = host.querySelector('.mail');
+    var heroEl = host.querySelector('.hero');
     function rectOf(e2) { var r = e2.getBoundingClientRect(), b = host.getBoundingClientRect(); return { x: r.left - b.left, y: r.top - b.top, w: r.width, h: r.height }; }
     var tipEl = host.querySelector('.tip');
-    var hero = rectOf(heroEl), mail = rectOf(mailEl), tip = tipEl ? rectOf(tipEl) : { x: -1e4, y: -1e4, w: 0, h: 0 };
+    var hero = rectOf(heroEl), tip = tipEl ? rectOf(tipEl) : { x: -1e4, y: -1e4, w: 0, h: 0 };
 
     // 패킷(보이드)
     // 떠다니는 것: Packet Tracer(Cisco IOS) 명령, 리눅스 명령, SQL, Java (색으로 종류 구분)
@@ -1483,7 +1486,7 @@
     host.addEventListener('mousemove', onMove);
     host.addEventListener('touchmove', onMove, { passive: true });
     window.addEventListener('resize', onResize);
-    function onResize() { size(); hero = rectOf(heroEl); mail = rectOf(mailEl); if (tipEl) tip = rectOf(tipEl); gutW = W > 860 ? 60 : 0; }
+    function onResize() { size(); hero = rectOf(heroEl); if (tipEl) tip = rectOf(tipEl); gutW = W > 860 ? 60 : 0; }
 
     /* 명암 문자로 만든 자물쇠: 고리는 원통처럼, 몸통은 = 바탕에 + 테두리, 열쇠 구멍은 #과 X */
     var LCW = 6, LCH = 11, LC = 26, LR = 19, KX = (LC - 1) / 2, KY = LCH / LCW;
@@ -1526,24 +1529,23 @@
     var gutW = W > 860 ? 60 : 0;
     function blocked(x, y) { // 글자 영역과 줄 번호 위에는 그리지 않는다
       return x < gutW || (x > hero.x - 6 && x < hero.x + hero.w && y > hero.y - 6 && y < hero.y + hero.h + 4) ||
-             (x > mail.x - 10 && x < mail.x + mail.w + 10 && y > mail.y - 8 && y < mail.y + mail.h + 8) ||
              (tip.w > 0 && x > tip.x - 8 && x < tip.x + tip.w + 8 && y > tip.y - 8 && y < tip.y + tip.h + 8);
     }
-    // 자물쇠가 글자를 가리지 않는 위치: 넓으면 소개 글 오른쪽, 좁으면 소개 글과 이메일 사이
+    // 자물쇠가 글자를 가리지 않는 위치: 넓으면 소개 글 오른쪽, 좁으면 소개 글 아래
     function safeSpot(px, py) {
       var wide = W - (hero.x + hero.w) > LBW * .75 + 30;
-      var aw = wide ? W - (hero.x + hero.w) - 16 : W - 16, ah = wide ? H - 16 : mail.y - (hero.y + hero.h) - 16;
+      var aw = wide ? W - (hero.x + hero.w) - 16 : W - 16, ah = wide ? H - 16 : H - 16 - (hero.y + hero.h) - 16;
       LS = Math.max(.6, Math.min(1, aw / LBW, ah / LBH));
       var hw = LBW * LS / 2 + 8, hh = LBH * LS / 2 + 8, x0, x1, y0, y1;
       if (wide) { x0 = hero.x + hero.w + hw; x1 = W - hw; y0 = hh; y1 = H - hh; }
-      else { x0 = x1 = W / 2; y0 = hero.y + hero.h + hh; y1 = mail.y - hh; }
+      else { x0 = x1 = W / 2; y0 = hero.y + hero.h + hh; y1 = H - 16 - hh; }
       if (y1 < y0) y0 = y1 = (y0 + y1) / 2;
       if (x1 < x0) x0 = x1 = (x0 + x1) / 2;
       return { x: Math.min(x1, Math.max(x0, px)), y: Math.min(y1, Math.max(y0, py)), cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 };
     }
     Lc = safeSpot(P.x, P.y);
 
-    // 자물쇠 상자가 글자, 이메일, 줄 번호와 겹치지 않는 무작위 자리
+    // 자물쇠 상자가 글자, 줄 번호와 겹치지 않는 무작위 자리
     function overlap(ax, ay, aw, ah, b, pad) { return ax < b.x + b.w + pad && ax + aw > b.x - pad && ay < b.y + b.h + pad && ay + ah > b.y - pad; }
     function randomSpot() {
       safeSpot(0, 0); // LS 갱신
@@ -1551,7 +1553,7 @@
       for (var n = 0; n < 40; n++) {
         var x = gutW + w / 2 + 10 + Math.random() * Math.max(0, W - gutW - w - 20);
         var y = h / 2 + 10 + Math.random() * Math.max(0, H - h - 20);
-        if (!overlap(x - w / 2, y - h / 2, w, h, hero, 10) && !overlap(x - w / 2, y - h / 2, w, h, mail, 10)) return { x: x, y: y };
+        if (!overlap(x - w / 2, y - h / 2, w, h, hero, 10)) return { x: x, y: y };
       }
       var c = safeSpot(0, 0); return { x: c.cx, y: c.cy };
     }
