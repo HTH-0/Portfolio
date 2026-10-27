@@ -71,11 +71,11 @@
   .hero { position: relative; z-index: 1; margin: 0 0 0 70px; padding: 0 28px 22px 4px; width: min(760px, calc(100% - 100px)); background: linear-gradient(90deg, var(--win) 82%, rgba(251,251,248,0)); }
   .hero .ln { font: 13px/24px var(--mono); color: var(--muted); }
   .hero .ln .k { color: var(--c3); }
-  .hero h1 { margin: 2px 0 4px; font-size: 60px; line-height: 1.2; letter-spacing: -0.01em; }
-  .hero .role { margin: 0 0 14px; font: 600 20px/1.5 var(--mono); color: var(--c3); }
-  .hero .one { margin: 0 0 26px; font-size: 26px; font-weight: 600; line-height: 1.55; word-break: keep-all; }
+  .hero h1 { margin: 4px 0 10px; font-size: 72px; line-height: 1.15; letter-spacing: -0.02em; }
+  .hero .role { margin: 0 0 28px; font: 600 22px/1.5 var(--mono); letter-spacing: 0.01em; color: var(--c3); }
+  .hero .one { margin: 0 0 40px; font-size: 28px; font-weight: 600; line-height: 1.5; word-break: keep-all; }
   .go { display: flex; flex-wrap: wrap; gap: 8px; }
-  .go button, .go a { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 6px; font: 600 16px var(--sans); text-decoration: none; border: 1px solid #cfd4ca; background: #fff; }
+  .go button, .go a { display: inline-flex; align-items: center; gap: 6px; padding: 12px 22px; border-radius: 6px; font: 600 16px var(--sans); text-decoration: none; border: 1px solid #cfd4ca; background: #fff; }
   .go .pri { background: var(--text); color: #fff; border-color: var(--text); }
   .go button:hover, .go a:hover { border-color: var(--accent); }
   .go .pri:hover { background: #000; }
@@ -161,9 +161,9 @@
     .bar .fps { display: none; }
     .gut { display: none; }
     .hero { margin: 8px 0 0; padding: 0 18px 20px; width: 100%; background: linear-gradient(180deg, var(--win) 86%, rgba(251,251,248,0)); }
-    .hero h1 { font-size: 36px; }
-    .hero .role { font-size: 16px; }
-    .hero .one { font-size: 22px; margin-bottom: 18px; }
+    .hero h1 { font-size: 40px; margin-bottom: 6px; }
+    .hero .role { font-size: 16px; margin-bottom: 18px; }
+    .hero .one { font-size: 22px; margin-bottom: 24px; }
     .tip { display: none; }
     .page, .doc { padding: 20px 16px 40px; }
     .cards { grid-template-columns: minmax(0, 1fr); }
@@ -357,6 +357,7 @@
   .dwin.tm .wb { padding: 12px 18px 16px; }
   .dwin.tm pre { margin: 0; font: inherit; white-space: pre; }
   .tm .g { color: #7ee787; } .tm .y { color: #f2c94c; } .tm .bl { color: #79c0ff; } .tm .m { color: #d2a8ff; } .tm .d { color: #8b949e; } .tm .w { color: #e6edf3; }
+  .tm .tl2 { color: #79c0ff; text-decoration: none; } .tm .tl2:hover { text-decoration: underline; }
   .tm .cur { display: inline-block; width: 8px; height: 15px; vertical-align: -2px; background: #c9d1d9; animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
   .toast { position: fixed; left: 50%; bottom: 64px; z-index: 60; max-width: calc(100vw - 32px); padding: 10px 16px; border-radius: 8px; background: #23272b; color: #fff; font: 14px/1.5 var(--sans); text-align: center; opacity: 0; transform: translate(-50%, 8px); pointer-events: none; transition: opacity .2s, transform .2s; }
@@ -392,6 +393,7 @@
   <symbol id="s-lock" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7.5" rx="1.5" fill="currentColor"/><path d="M5.2 7V5.2a2.8 2.8 0 015.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
   <symbol id="s-mail" viewBox="0 0 16 16"><rect x="1.5" y="3.5" width="13" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2 4.5l6 4.5 6-4.5" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
   <symbol id="s-gh" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1a7 7 0 00-2.2 13.6c.35.07.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.03-.78-1.03-.64-.44.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.55-.18-3.19-.78-3.19-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.89.07-1.85 0 0 .59-.19 1.92.72a6.6 6.6 0 013.5 0c1.33-.91 1.92-.72 1.92-.72.38.96.14 1.67.07 1.85.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.45.25.22.47.64.47 1.29v1.92c0 .19.13.41.48.34A7 7 0 008 1z"/></symbol>
+  <symbol id="s-notion" viewBox="0 0 24 24"><path fill="currentColor" d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></symbol>
   <symbol id="s-file" viewBox="0 0 16 16"><path d="M3.5 1.5h6l3 3v10h-9z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9.5 1.5v3h3" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
 </svg>
 
@@ -421,6 +423,7 @@
   <a class="dicon" href="#" data-open="t13"><span class="ti th">♪</span>사운드워크</a>
   <span class="gap"></span>
   <a class="dicon" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-gh"/></svg></span>GitHub</a>
+  <a class="dicon" href="https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-notion"/></svg></span>노션</a>
   <a class="dicon" href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com" title="누르면 이메일 주소가 복사됩니다"><span class="ti"><svg><use href="#s-mail"/></svg></span>메일</a>
   <a class="dicon" href="#" data-open="history"><span class="ti"><svg><use href="#s-file"/></svg></span>이력</a>
 </nav>
@@ -435,25 +438,17 @@
   <span class="d">2</span>  <span class="y">2024.12   </span>  정보처리산업기사 취득과정 시작 · Java, Spring, DB
   <span class="d">3</span>  <span class="y">2025.04   </span>  HealthMe 팀 프로젝트 · 로그인·소셜 로그인·추천 담당
   <span class="d">4</span>  <span class="y">2025.06   </span>  SQLD 취득
-  <span class="d">5</span>  <span class="y">2026.03   </span>  정보처리기사 필기 합격
-  <span class="d">6</span>  <span class="y">2026.08   </span>  SKT ALEPH K-뉴딜 아카데미 시작 · 네트워크·보안 실습
-  <span class="d">7</span>  <span class="y">2026.10   </span>  리눅스마스터 2급 합격 · 팀 CTF 머신 Overwrite
-  <span class="d">8</span>  <span class="y">2026.10.25</span>  정보처리기사 실기 응시
-<span class="g">$</span> tree -L 1 ~/aleph-notes   <span class="d"># 직접 정리한 실습 노트 37개</span>
-<span class="bl">aleph-notes</span>
-├── <span class="y">network/</span>    16  OSPF·EIGRP·VLAN·ACL·NAT
-│                 ASA Failover·ZFW·pfSense
-│                 GRE over IPsec·FHRP·IPv6
-├── <span class="y">system/</span>     13  계정·권한·커널, Bash
-│                 Apache·DNS·NFS·Samba·FTP
-│                 rsyslog·Zabbix·Docker
-├── <span class="y">detection/</span>   3  Snort3·Suricata·Wazuh·OSSEC
-├── <span class="y">database/</span>    3  MariaDB 권한·복제·백업
-└── <span class="y">etc/</span>         2  모의해킹 방식, 리눅스마스터 오답
+  <span class="d">5</span>  <span class="y">2026.08   </span>  SKT ALEPH K-뉴딜 아카데미 시작 · 네트워크·보안 실습
+  <span class="d">6</span>  <span class="y">2026.10   </span>  리눅스마스터 2급 합격 · 팀 CTF 머신 Overwrite
+<span class="g">$</span> cat sites.txt
+<span class="y">notion</span>  <a class="tl2" href="https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8" target="_blank" rel="noreferrer">직접 정리한 학습 노트 37개 ↗</a>
+        네트워크 16 · 시스템 13 · 탐지 3 · DB 3 · 기타 2
+<span class="y">github</span>  <a class="tl2" href="https://github.com/HTH-0" target="_blank" rel="noreferrer">github.com/HTH-0 ↗</a>
+        프로젝트와 과정 실습 저장소
 <span class="g">$</span> cat projects.txt
 <span class="m">Overwrite</span>  팀 CTF 머신 · 취약점 5단계 설계, 서버 구성
 <span class="g">$</span> cat certs.txt
-리눅스마스터 2급 · SQLD · 정보처리기사 필기
+리눅스마스터 2급 · SQLD
 <span class="g">$</span> <span class="cur"></span></pre></div>
   </section>
 </div>
@@ -1307,12 +1302,13 @@
     var h = view.clientHeight, rows = Math.ceil(h / 24) + 2;
     if (kind === 'home') {
       // 넓은 화면에서는 소개 글을 세로 가운데 쪽으로 내리고, 비워 둔 줄에도 줄 번호를 붙인다
-      var skip = innerWidth > 860 ? Math.max(0, Math.min(12, Math.floor((rows - 10) / 2) - 2)) : 0;
-      wrap.style.paddingTop = (14 + skip * 24) + 'px';
-      view.insertAdjacentHTML('beforeend', gutter(9 + skip, rows));
       var cv = el('canvas'); cv.id = 'art'; cv.setAttribute('aria-hidden', 'true');
       wrap.insertBefore(cv, wrap.firstChild);
       view.appendChild(wrap);
+      var hn = Math.ceil((wrap.querySelector('.hero').offsetHeight + 14) / 24);
+      var skip = innerWidth > 860 ? Math.max(0, Math.min(12, Math.floor((rows - hn) / 2) - 2)) : 0;
+      wrap.style.paddingTop = (14 + skip * 24) + 'px';
+      view.insertAdjacentHTML('afterbegin', gutter(hn + skip, rows));
       stopArt = startArt(cv, wrap);
     } else {
       view.appendChild(wrap);
