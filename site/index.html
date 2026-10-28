@@ -751,7 +751,7 @@
     </tr>
   </table></div>
   <h2><span class="md">##</span>CTF: VulnHub The Planets Earth</h2>
-  <p>난이도 Easy 머신입니다. 정보 수집과 디렉터리 탐색으로 유출된 노트를 찾고, 노트의 평문으로 XOR 암호를 복원해 관리자 포털에 로그인했습니다. 명령 실행 기능에 base64로 감싼 리버스 셸을 넣어 셸을 얻었고, SUID 바이너리를 역분석해 root까지 올라갔습니다.</p>
+  <p>난이도 Easy 머신입니다. 정보 수집과 디렉터리 탐색으로 유출된 노트를 찾고, 노트의 평문으로 XOR 암호를 복원해 관리자 포털에 로그인했습니다. 명령 실행 기능에 base64로 감싼 리버스 셸을 넣어 셸을 얻었고, SUID 바이너리를 역분석해 root까지 올라갔습니다. 이 문제를 포함한 워게임 풀이는 <a href="https://app.notion.com/p/4076b9a58d7a80268ed4e30ee2f1b48e" target="_blank" rel="noreferrer">노션 CTF 워게임 풀이 로그 ↗</a>에 단계별로 정리했습니다.</p>
   <ul class="feat">
     <li><b>정보 노출</b><code>robots.txt</code>에 민감 경로를 적으면 오히려 존재를 알려 줍니다. 접근 통제는 인증과 권한으로 하고 민감 파일은 웹 루트 밖에 둬야 합니다.</li>
     <li><b>암호</b>XOR은 평문 일부가 알려지면 그대로 풀립니다. 직접 구현하지 않고 검증된 알고리즘(AES-GCM 등)을 써야 합니다.</li>
