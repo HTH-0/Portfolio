@@ -624,25 +624,72 @@
   <h1><span class="md">#</span>HealthMe · 영양 큐레이션 쇼핑몰</h1>
   <div class="fm"><span class="dl">---</span><br />
     <span class="key">시기</span>: <span class="val">2025.04 – 06 (커밋 기록 기준) · 정보처리산업기사 과정 팀 프로젝트 (팀원 4명)</span><br />
-    <span class="key">맡은 일</span>: <span class="val">로그인·회원가입, 소셜 로그인, 아이디·비밀번호 찾기, 설문 결과 분석과 추천 로직</span><br />
+    <span class="key">맡은 일</span>: <span class="val">프런트·백엔드 분리와 Spring Boot 기초 세팅, 로그인·회원가입, 소셜 로그인(OAuth2), 아이디·비밀번호 찾기, 설문 결과 분석, 추천 로직</span><br />
     <span class="key">기술</span>: <span class="val">Java 21, Spring Boot 3.4, Spring Security, OAuth2, JWT, JPA, MyBatis, MySQL, React</span><br />
     <span class="key">링크</span>: <span class="val"><a href="https://github.com/HTH-0/Project_HealthMe" target="_blank" rel="noreferrer">GitHub ↗</a></span><br />
     <span class="dl">---</span></div>
-  <p>사용자 설문으로 영양 성향을 분석하고, 그 결과에 맞는 식품을 추천해 장바구니와 결제까지 이어지는 쇼핑몰입니다.</p>
-  <figure class="shot"><img src="assets/healthme/result.png" alt="HealthMe 설문 결과 화면, 영양소별 막대그래프" width="1200" height="630" loading="lazy" /><figcaption>설문 결과 화면</figcaption></figure>
-  <h2><span class="md">##</span>맡은 기능</h2>
+  <p>사용자 설문으로 영양 성향을 분석하고, 그 결과에 맞는 식품을 추천해 장바구니와 결제까지 이어지는 쇼핑몰입니다. 팀 프로젝트에서 프로젝트 구조 세팅, 인증과 계정, 설문 결과 분석과 추천을 맡았습니다. 아래 메인 화면은 팀 프로젝트의 화면이고, 제가 만든 부분이 아닙니다.</p>
+  <figure class="shot"><img src="assets/healthme/main.png" alt="HealthMe 메인 화면" width="1897" height="943" loading="lazy" /><figcaption>팀 프로젝트 메인 화면입니다. 이 화면은 제가 만든 부분이 아닙니다.</figcaption></figure>
+  <section>
+    <h2><span class="md">##</span>기본 정보</h2>
+    <div class="table-wrap"><table>
+      <tr><th>구분</th><th>내용</th></tr>
+      <tr><td>구성</td><td>백엔드(Spring Boot)와 프런트엔드(React)를 나눈 팀 프로젝트입니다. 4명이 화면과 기능을 나눠 맡았습니다.</td></tr>
+      <tr><td><b>내가 맡음</b></td><td>프로젝트 구조 세팅, 로그인·회원가입, 소셜 로그인, 아이디·비밀번호 찾기, 설문 결과 분석, 추천 로직, 전체 사용자 흐름 시험과 예외 디버깅</td></tr>
+      <tr><td>팀원이 맡음</td><td>메인·설문·추천 재료·상품 화면, 장바구니·결제, 마이페이지·관리자·공지사항</td></tr>
+    </table></div>
+  </section>
+  <section>
+    <h2><span class="md">##</span>화면</h2>
+    <p>제가 맡은 기능의 화면입니다. 움직이는 화면이고, 누르면 크게 볼 수 있습니다.</p>
+    <div class="gallery">
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: 회원가입"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/healthme/signup-flow-still.webp" /><img src="assets/healthme/signup-flow.webp" alt="HealthMe 회원가입 화면: 이메일 중복 확인, 비밀번호 입력, 우편번호 검색으로 주소 입력 후 가입" width="1100" height="547" loading="lazy" /></picture></button>
+        <figcaption><span class="label">회원가입</span>이메일 중복 확인, 비밀번호 확인, 우편번호 검색으로 주소를 입력하고 가입합니다. 가입이 끝나면 알림이 나옵니다.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: 아이디·비밀번호 찾기"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/healthme/find-account-still.webp" /><img src="assets/healthme/find-account.webp" alt="HealthMe 아이디·비밀번호 찾기 화면: 이름으로 아이디 찾기, 이름과 이메일로 임시 비밀번호 요청" width="1100" height="553" loading="lazy" /></picture></button>
+        <figcaption><span class="label">아이디·비밀번호 찾기</span>이름으로 아이디를 찾고, 이름과 이메일을 입력하면 임시 비밀번호를 메일로 보내 줍니다.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: 설문 결과"><picture><source media="(prefers-reduced-motion: reduce)" srcset="assets/healthme/survey-result-still.webp" /><img src="assets/healthme/survey-result.webp" alt="HealthMe 설문 결과 화면: 영양소별 달성률 막대그래프와 영양소 설명, 추천 재료" width="1100" height="537" loading="lazy" /></picture></button>
+        <figcaption><span class="label">설문 결과</span>설문 점수를 영양소별 달성률로 바꿔 막대그래프로 보여 줍니다. 영양소를 누르면 설명과 개선 팁, 추천 식품이 나옵니다.</figcaption>
+      </figure>
+    </div>
+  </section>
+  <h2><span class="md">##</span>설계와 판단</h2>
   <ul class="feat">
-    <li><b>로그인과 회원가입</b>JWT 기반 로그인과 회원가입, 이메일·휴대폰 인증, 비밀번호 재설정 흐름을 만들었습니다.</li>
-    <li><b>소셜 로그인</b>카카오, 네이버, 구글 OAuth2 로그인을 연동하고, 제공자마다 다른 사용자 정보를 하나로 합쳐 처리했습니다.</li>
-    <li><b>설문 결과 분석</b>설문 응답으로 영양 성향 점수를 계산하는 로직을 만들었습니다.</li>
-    <li><b>추천 로직</b>영양소 유사도와 가중치로 상품을 고르는 콘텐츠 기반 추천을 설계했습니다.</li>
-    <li><b>흐름 점검</b>전체 사용자 흐름을 시험하고 예외 상황을 디버깅했습니다.</li>
+    <li><b>프로젝트 구조 세팅</b>백엔드와 프런트엔드를 나누고 Spring Boot 기초 세팅을 먼저 해서, 팀원이 각자 페이지 작업만 하면 되게 했습니다. HTML 화면을 React로 옮기는 작업도 먼저 시작해 전체 구조를 옮겼고, 이후 각자 맡은 화면을 직접 변환했습니다.</li>
+    <li><b>도메인별 패키지와 데이터 구조</b>기능별로 <code>user</code>, <code>result</code>, <code>survey</code>, <code>product</code>, <code>shoppingcart</code>, <code>mypage</code>, <code>admin</code> 패키지를 나누고, 인증과 보안 설정은 <code>global/config</code>에 두었습니다. 데이터는 표 12개로 구성했습니다.</li>
   </ul>
-  <figure class="shot"><img src="assets/healthme/signup.png" alt="HealthMe 회원가입 화면" width="900" height="470" loading="lazy" /><figcaption>회원가입 화면</figcaption></figure>
-  <h2><span class="md">##</span>작성 방식</h2>
+  <div class="gallery">
+    <figure>
+      <button type="button" class="zoom" aria-label="크게 보기: 백엔드 패키지 구조"><img src="assets/healthme/structure.png" alt="백엔드 패키지 구조: domain 아래 기능별 패키지와 global 설정" width="394" height="696" loading="lazy" /></button>
+      <figcaption><span class="label">백엔드 패키지 구조</span>도메인별로 나누고 전역 설정은 따로 둡니다.</figcaption>
+    </figure>
+    <figure>
+      <button type="button" class="zoom" aria-label="크게 보기: ERD"><img src="assets/healthme/erd.png" alt="데이터베이스 ERD, 표 12개" width="914" height="1229" loading="lazy" /></button>
+      <figcaption><span class="label">ERD</span>사용자, 설문, 상품, 주문, 토큰 등 표 12개입니다.</figcaption>
+    </figure>
+  </div>
+  <ul class="feat">
+    <li><b>토큰을 쿠키에 보관</b>JWT는 Access 1시간, Refresh 7일입니다. 요청마다 필터가 Access 토큰을 검사하고, 만료되면 Refresh 토큰으로 다시 발급하며, 둘 다 만료되면 쿠키를 지웁니다. 토큰은 처음에 로컬스토리지에 담고 요청 헤더로 보냈다가, XSS(스크립트가 삽입되는 공격)로 토큰이 유출되는 것을 막으려고 HttpOnly 쿠키 방식으로 바꿨습니다. 쿠키는 자바스크립트로 읽을 수 없기 때문입니다. <a href="https://github.com/HTH-0/Project_HealthMe/blob/HEAD/healthme/backend/src/main/java/com/example/healthme/global/config/auth/jwt/JwtTokenProvider.java" target="_blank" rel="noreferrer">JwtTokenProvider</a> · <a href="https://github.com/HTH-0/Project_HealthMe/blob/HEAD/healthme/backend/src/main/java/com/example/healthme/global/config/auth/jwt/JwtAuthorizationFilter.java" target="_blank" rel="noreferrer">JwtAuthorizationFilter</a></li>
+    <li><b>소셜 로그인은 공통 형태로 통합</b>카카오, 네이버, 구글은 사용자 정보의 모양이 서로 달라서 하나의 공통 형태(<code>OAuth2UserInfo</code>)로 바꿔 처리했습니다. 계정 아이디는 <code>제공자_고유번호</code>이고, 처음이면 자동으로 가입하며, 로그인에 성공하면 토큰을 쿠키로 내려 줍니다. OAuth2 부분은 전부 직접 구현했습니다. <a href="https://github.com/HTH-0/Project_HealthMe/blob/HEAD/healthme/backend/src/main/java/com/example/healthme/global/config/auth/principal/PrincipalDetailsOAuth2Service.java" target="_blank" rel="noreferrer">PrincipalDetailsOAuth2Service</a> · <a href="https://github.com/HTH-0/Project_HealthMe/blob/HEAD/healthme/backend/src/main/java/com/example/healthme/global/config/auth/handler/loginHandler/OAuth2LoginSuccessHandler.java" target="_blank" rel="noreferrer">OAuth2LoginSuccessHandler</a></li>
+    <li><b>계정 처리와 비밀번호 찾기</b>입력 오류와 비밀번호 확인 불일치는 400, 아이디 중복은 409, 그 밖의 오류는 500으로 구분했습니다. 비밀번호는 암호화해 저장하고, 가입할 때 기본 배송지도 함께 만듭니다. 비밀번호 찾기는 임시 비밀번호를 만들어 암호화해 저장하고 메일로 보내는 방식입니다. 메일 기능을 써 보고 싶어서 이 방식을 골랐고, 당시에는 이전 비밀번호를 확인하는 방식을 선택지로 생각하지 못했습니다. <a href="https://github.com/HTH-0/Project_HealthMe/blob/HEAD/healthme/backend/src/main/java/com/example/healthme/domain/user/service/UserService.java" target="_blank" rel="noreferrer">UserService</a> · <a href="https://github.com/HTH-0/Project_HealthMe/blob/HEAD/healthme/backend/src/main/java/com/example/healthme/domain/user/controller/UserController.java" target="_blank" rel="noreferrer">UserController</a></li>
+    <li><b>설문 결과는 5구간으로</b>설문 점수를 영양소별 최대 점수(18점 또는 12점)로 나눠 달성률(%)로 바꾸고, 20% 단위 5구간마다 설명, 팁, 식품을 데이터베이스에서 조회합니다. 20%가 눈에 가장 잘 들어왔고, 단계가 적으면 구분이 의미 없고 많으면 복잡해져서 직관성이 떨어진다고 판단했습니다. 점수 단위를 맞추려는 목적도 있었습니다. <a href="https://github.com/HTH-0/Project_HealthMe/blob/HEAD/healthme/backend/src/main/java/com/example/healthme/domain/result/service/NutrientResultService.java" target="_blank" rel="noreferrer">NutrientResultService</a></li>
+    <li><b>부족한 영양소를 채우는 상품에 높은 점수</b>영양소 10개마다 (1 − 달성률) × 상품의 영양소 함량 × 영양소별 가중치를 더한 점수로 상품을 정렬합니다. 가중치는 영양소마다 다르게 두었습니다(예: 비오틴 20, 비타민 D 15, 철분 5). 상품과 영양소는 한 번의 쿼리(<code>JOIN FETCH</code>)로 가져옵니다. <a href="https://github.com/HTH-0/Project_HealthMe/blob/HEAD/healthme/backend/src/main/java/com/example/healthme/domain/result/service/RecommendService.java" target="_blank" rel="noreferrer">RecommendService</a></li>
+    <li><b>휴대폰 인증은 제외</b>비슷하게 구현했지만 데이터베이스 설정에서 고생했고 자잘한 오류가 많았습니다. 시간 대비 효과가 낮다고 판단해 폐기했습니다.</li>
+  </ul>
+  <h2><span class="md">##</span>한계</h2>
+  <p>배포용 설정(<code>Secure</code> 등)은 하지 않은 상태의 코드입니다. 지금 코드를 다시 읽으며 확인한 한계입니다.</p>
+  <ul>
+    <li><b>소셜 가입자의 초기 비밀번호가 모두 같은 고정값입니다.</b> 암호화해서 저장하지만 값이 같아서, 일반 로그인 창에 <code>제공자_고유번호</code>와 그 고정값을 넣으면 들어갈 수 있는 구조입니다.</li>
+    <li><b>아이디 찾기가 이름만으로 아이디(이메일)를 알려 줍니다.</b> 본인 확인 단계가 없습니다.</li>
+    <li><b>서버가 토큰을 폐기할 수 없습니다.</b> 토큰을 저장하는 표(<code>jwt_token</code>)와 로그아웃 핸들러가 있지만, 핸들러는 보안 설정에서 주석 처리되어 있고 토큰을 저장하는 코드도 없어서 쓰이지 않습니다. 로그아웃은 브라우저의 쿠키를 지우는 방식이라, 복사해 둔 토큰은 만료(Refresh 7일)될 때까지 서버가 거부하지 못합니다.</li>
+  </ul>
+  <h2><span class="md">##</span>작성 방식과 협업</h2>
   <p>패키지 구조와 인증 흐름은 직접 설계했고, 코드는 수업 실습에서 작성한 코드를 가져와 이 구조에 맞게 붙여 완성했습니다.</p>
-  <h2><span class="md">##</span>확인</h2>
-  <p>팀 전체 커밋 330개 가운데 77개가 제 커밋입니다.</p>
+  <p>학원에서 작업이 여러 번 유실되어 브랜치를 지우고 복구했고, 병합 충돌을 정리하며 구조를 다시 맞추는 일이 잦았습니다. 그래서 커밋 수로 기여를 보이지 않고, 위의 담당 구분과 코드 링크로 보였습니다.</p>
   <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button><a href="https://github.com/HTH-0/Project_HealthMe" target="_blank" rel="noreferrer">소스 GitHub ↗</a></div>
 </article>
 
