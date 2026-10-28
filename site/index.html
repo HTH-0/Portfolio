@@ -334,15 +334,29 @@
     html .dicons, html .taskbar { display: flex; }
     html .dlayer { display: block; }
   }
-  .dicons { position: fixed; left: 16px; top: 22px; z-index: 3; display: flex; flex-direction: column; gap: 14px; }
-  .dicons .gap { height: 18px; }
+  .dicons { position: fixed; left: 16px; top: 22px; z-index: 3; display: flex; flex-direction: column; gap: 26px; }
+  .dgrp { display: flex; flex-direction: column; gap: 14px; }
   .dicon { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 80px; padding: 6px 2px; border-radius: 6px; font: 12px/1.3 var(--sans); color: #22301b; text-decoration: none; text-align: center; }
-  .dicon:hover, .dicon:focus-visible { background: rgba(255, 255, 255, .45); outline: none; }
+  .dicon:hover, .dicon:focus-visible { background: rgba(255, 255, 255, .5); outline: none; }
   .dicon .ti { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #fff; border: 1px solid #c8cfbf; box-shadow: 0 2px 5px rgba(40, 60, 30, .12); font: 700 14px var(--mono); }
   .dicon .ti svg { width: 22px; height: 22px; color: #3b4046; }
-  .dicon .ti.hm { background: #2b8a3e; border-color: #2b8a3e; color: #fff; }
-  .dicon .ti.ow { background: #23272b; border-color: #23272b; color: #ff8a8a; }
-  .dicon .ti.th { background: #7048e8; border-color: #7048e8; color: #fff; font-size: 18px; }
+  .dgrp.g1 .ti { background: #2b8a3e; border-color: #2b8a3e; color: #fff; }
+  .dgrp.g1 .ti.sym { font-size: 18px; }
+  .dgrp.g3 .ti { background: #7048e8; border-color: #7048e8; color: #fff; }
+  .dgrp.g3 .ti svg { color: #fff; }
+  .dgrp.g2 .ti.flag svg { width: 26px; height: 26px; }
+  @media (max-height: 1000px) {
+    .dicons { gap: 18px; }
+    .dgrp { gap: 6px; }
+    .dicon { gap: 3px; padding: 4px 2px; }
+    .dicon .ti { width: 40px; height: 40px; }
+  }
+  @media (max-height: 860px) {
+    .dicons { gap: 12px; }
+    .dgrp { gap: 3px; }
+    .dicon { padding: 3px 2px; }
+    .dicon .ti { width: 36px; height: 36px; }
+  }
   .dlayer { position: fixed; left: 0; top: 0; right: 0; bottom: 46px; overflow: hidden; pointer-events: none; z-index: 4; }
   .dlayer.front { z-index: 20; }
   .dwin { position: absolute; left: calc(var(--wl) + var(--ew, 1240px) - 360px); width: 600px; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; pointer-events: auto; cursor: pointer; font-family: var(--mono); transition: left .25s, top .25s, width .25s, height .25s, box-shadow .25s; }
@@ -398,6 +412,8 @@
   <symbol id="s-mail" viewBox="0 0 16 16"><rect x="1.5" y="3.5" width="13" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2 4.5l6 4.5 6-4.5" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
   <symbol id="s-gh" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1a7 7 0 00-2.2 13.6c.35.07.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.03-.78-1.03-.64-.44.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.55-.18-3.19-.78-3.19-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.89.07-1.85 0 0 .59-.19 1.92.72a6.6 6.6 0 013.5 0c1.33-.91 1.92-.72 1.92-.72.38.96.14 1.67.07 1.85.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.45.25.22.47.64.47 1.29v1.92c0 .19.13.41.48.34A7 7 0 008 1z"/></symbol>
   <symbol id="s-notion" viewBox="0 0 24 24"><path fill="currentColor" d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></symbol>
+  <symbol id="s-flag" viewBox="0 0 16 16"><path d="M4 2v12.5" fill="none" stroke="#c92a2a" stroke-width="1.5" stroke-linecap="round"/><path d="M4.6 2.6c2.6-1.3 4.2 1.3 7.4 0v5.6c-3.2 1.3-4.8-1.3-7.4 0z" fill="#c92a2a"/></symbol>
+  <symbol id="s-check" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="s-file" viewBox="0 0 16 16"><path d="M3.5 1.5h6l3 3v10h-9z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9.5 1.5v3h3" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
 </svg>
 
@@ -409,7 +425,6 @@
       <div class="cap">contact</div>
       <a class="it" href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com" title="누르면 이메일 주소가 복사됩니다"><svg class="ic-doc"><use href="#s-mail"/></svg>이메일</a>
       <a class="it" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><svg class="ic-doc"><use href="#s-gh"/></svg>github</a>
-      <a class="it" href="#" data-open="history"><svg class="ic-doc"><use href="#s-file"/></svg>이력</a>
     </div>
   </aside>
 
@@ -422,14 +437,22 @@
 
 <!-- ===== 바탕화면(넓은 화면 전용): 아이콘, 편집기 뒤 창 두 개, 작업 표시줄 ===== -->
 <nav class="desk-ui dicons" aria-label="바탕화면 바로가기">
-  <a class="dicon" href="#" data-open="hm"><span class="ti hm">HM</span>HealthMe</a>
-  <a class="dicon" href="#" data-open="ow"><span class="ti ow">OW</span>Overwrite</a>
-  <a class="dicon" href="#" data-open="t13"><span class="ti th">♪</span>사운드워크</a>
-  <span class="gap"></span>
-  <a class="dicon" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-gh"/></svg></span>GitHub</a>
-  <a class="dicon" href="https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-notion"/></svg></span>노션</a>
-  <a class="dicon" href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com" title="누르면 이메일 주소가 복사됩니다"><span class="ti"><svg><use href="#s-mail"/></svg></span>메일</a>
-  <a class="dicon" href="#" data-open="history"><span class="ti"><svg><use href="#s-file"/></svg></span>이력</a>
+  <div class="dgrp g1">
+    <a class="dicon" href="#" data-open="hm"><span class="ti">HM</span>HealthMe</a>
+    <a class="dicon" href="#" data-open="ow"><span class="ti">OW</span>Overwrite</a>
+    <a class="dicon" href="#" data-open="t13"><span class="ti sym">♪</span>사운드워크</a>
+    <a class="dicon" href="#" data-open="t07"><span class="ti">PP</span>PinPoint</a>
+  </div>
+  <div class="dgrp g2">
+    <a class="dicon" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-gh"/></svg></span>GitHub</a>
+    <a class="dicon" href="https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-notion"/></svg></span>노션</a>
+    <a class="dicon" href="https://app.notion.com/p/4076b9a58d7a80268ed4e30ee2f1b48e" target="_blank" rel="noreferrer"><span class="ti flag"><svg><use href="#s-flag"/></svg></span>CTF</a>
+  </div>
+  <div class="dgrp g3">
+    <a class="dicon" href="#" data-open="history"><span class="ti"><svg><use href="#s-file"/></svg></span>이력</a>
+    <a class="dicon" href="#" data-open="certs"><span class="ti"><svg><use href="#s-check"/></svg></span>자격증</a>
+    <a class="dicon" href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com" title="누르면 이메일 주소가 복사됩니다"><span class="ti"><svg><use href="#s-mail"/></svg></span>메일</a>
+  </div>
 </nav>
 
 <div class="desk-ui dlayer" data-w="tm">
@@ -650,10 +673,19 @@
       </figure>
     </div>
   </section>
-  <h2><span class="md">##</span>상황</h2>
-  <p>코르크보드와 픽셀에 이어 Win95 테마까지 구현했지만, 기능을 고칠 때마다 무료 이미지의 저작권을 확인하는 일이 작업량을 크게 늘렸습니다.</p>
-  <h2><span class="md">##</span>해결</h2>
-  <p>팀원들에게 보였을 때 칭찬은 들었지만 관심이 다른 테마에 몰려서, 구현 사흘 만에 모든 페이지에서 제거했습니다. 달성 이벤트 디자인은 여러 안을 나란히 만들어 비교한 뒤 정했고, 핀 모드는 복잡하게 만들었다가 줄이고 다시 조정했습니다.</p>
+  <h2><span class="md">##</span>기능 판단</h2>
+  <p>직접 자격증 공부에 쓰고 동료들에게도 써 보게 하며 개선한 부분입니다. 기능을 넣거나 뺄 때 내린 판단을 적었습니다.</p>
+  <div class="table-wrap"><table>
+    <tr><th>기능</th><th>판단</th><th>결과</th></tr>
+    <tr><td>목표 아래 계획 계층</td><td>만들어서 써 보니 필요 없다고 판단했습니다.</td><td>같은 날 제거하고 평면 구조로 되돌렸습니다.</td></tr>
+    <tr><td>오늘 할 일의 세부 기능</td><td>세부 기능이 많이 있었지만, 직접 써 보니 대부분 필요 없었습니다. 단순하고 간단한 기능만 남기는 것이 맞다고 판단했습니다.</td><td>목표 예약(매일, 특정 날짜 등)만 남기고 나머지는 모두 없앴습니다. 없앤 것은 우선순위, 실행 기록(막힌 일·실제 소요 시간), 마감 시각, 목표별 예상 시간, 태그입니다.</td></tr>
+    <tr><td>달력에서 목표 추가</td><td>달력을 보다가 바로 목표를 추가할 수 있으면 좋겠다고 생각했습니다.</td><td>달력에서 날짜를 눌러 그날의 목표를 보고 추가할 수 있게 했습니다.</td></tr>
+    <tr><td>달력의 토·일 색 표식</td><td>토요일과 일요일이 한눈에 구분되면 좋겠다고 생각했습니다.</td><td>일요일은 붉은색, 토요일은 푸른색으로 표시했습니다.</td></tr>
+    <tr><td>목표 달성 이벤트</td><td>목표를 달성했을 때 새로운 기능이 있었으면 좋겠다고 생각했습니다. 디자인은 여러 안을 나란히 만들어 비교한 뒤 골랐습니다.</td><td>달성 이벤트를 추가했습니다.</td></tr>
+    <tr><td>D-day 전용 이벤트</td><td>마감일(D-day)이 걸린 목표라면 달성했을 때 더 특별해야 한다고 판단했습니다.</td><td>D-day 전용 이벤트를 따로 추가했습니다.</td></tr>
+    <tr><td>핀 모드</td><td>처음 계획할 때부터 있던 아이디어입니다. 스티커 메모처럼 위젯 느낌으로 체크하면서 진행하는 기능을 원했습니다.</td><td>비슷한 기능을 찾아 Document PiP로 구현했습니다.</td></tr>
+    <tr><td>Win95 테마</td><td>다른 테마에 비해 손이 많이 가는 것에 비해 사용자 만족도가 낮아 보였습니다. 다들 관심이 거의 없었고, 기능을 고칠 때마다 무료 이미지의 저작권을 확인해야 해서 작업량도 컸습니다.</td><td>구현 사흘 만에 모든 페이지에서 제거했습니다.</td></tr>
+  </table></div>
   <h2><span class="md">##</span>확인</h2>
   <p>로그인 뒤 다른 사람의 자료가 열리지 않는 것을 확인한 기록과, 막지 못한 것(무차별 대입 방어 등)의 목록을 제출 문서에 남겼습니다.</p>
   <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button><a href="https://aleph-pinpoint.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></div>
@@ -759,7 +791,7 @@
     <li><b>SUID</b>바이너리에 숨긴 조건은 역분석으로 풀립니다. 필요 없는 SUID를 없애고 root 로직은 인증된 경로로만 실행해야 합니다.</li>
   </ul>
   <h2><span class="md">##</span>하지 않은 것</h2>
-  <p>ACL은 설정과 적용까지만 했고, 차단 동작(hit-count 증가)을 확인하지는 못했습니다. GNS3 설계망과 VirtualBox 구축망은 분리되어 있고, GNS3의 서버와 NIDS 노드는 구축한 가상머신에 1대 1로 대응하는 배치입니다.</p>
+  <p>GNS3에서는 네트워크 토폴로지만 구현했고, 보안 서비스는 가상머신에 직접 구축해 Kali 리눅스 한 대에서 설정했습니다. 그래서 가상머신의 IP 주소는 토폴로지에 적힌 대로 구성하지 못했습니다.</p>
   <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button></div>
 </article>
 
