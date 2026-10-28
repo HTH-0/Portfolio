@@ -108,6 +108,10 @@
   .steps { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; padding: 0; margin: 0; font-size: 13px; color: #50565c; }
   .steps b { font: 600 11.5px var(--mono); color: var(--c3); margin-right: 6px; }
   .note { margin: 14px 0 0; padding: 14px 16px; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; font-size: 14px; line-height: 1.85; color: #444; word-break: keep-all; max-width: 860px; }
+  .note.toy ul { list-style: none; padding: 0; margin: 0 0 10px; }
+  .note.toy li { padding: 4px 0; }
+  .note.toy li b { margin-right: 6px; color: #222; }
+  .note.toy p { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid #e6e9df; color: #50565c; }
   .pills { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
   .pills li { font-size: 14px; padding: 3px 10px; border-radius: 999px; background: #fff; border: 1px solid #d5dacd; color: #444; }
   .tbl { width: 100%; max-width: 760px; border-collapse: collapse; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; overflow: hidden; font-size: 14px; }
@@ -449,6 +453,7 @@
 <span class="m">HealthMe</span>  팀 쇼핑몰 · 로그인·소셜 로그인, 설문 결과·추천
 <span class="m">Overwrite</span>  팀 CTF 머신 · 취약점 5단계 설계, 서버 구성
 <span class="m">사운드 워크</span>  논문 규칙으로 만든 3D 소리 길찾기 앱
+<span class="m">Full-Security Labs</span>  VLAN 설계 · 보안 서비스 8개 구축
 <span class="m">PinPoint</span>  목표 관리 앱 재설계 · 로그인, 코르크보드·픽셀 테마
 <span class="g">$</span> cat certs.txt
 리눅스마스터 2급 · SQLD
@@ -488,7 +493,7 @@
 <article data-id="projects" data-kind="page" data-title="프로젝트" data-path="~/portfolio/프로젝트">
   <div class="kick">~/portfolio/프로젝트</div>
   <h1>프로젝트</h1>
-  <p class="intro">코리아IT아카데미의 (과정평가형) 정보처리산업기사 취득과정(2024.12 – 2025.06)과 SKT ALEPH K-뉴딜 아카데미(2026.08.11 – 11.13)에서 만든 프로젝트입니다. 인증 기능을 맡은 팀 프로젝트 HealthMe, 팀에서 제작 전반을 맡은 CTF 머신, 실험 도구를 직접 만든 논문과 그 규칙으로 만든 앱을 하나로 묶은 사운드 워크를 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
+  <p class="intro">코리아IT아카데미의 (과정평가형) 정보처리산업기사 취득과정(2024.12 – 2025.06)과 SKT ALEPH K-뉴딜 아카데미(2026.08.11 – 11.13)에서 만든 프로젝트입니다. 인증 기능을 맡은 팀 프로젝트 HealthMe, 팀에서 제작 전반을 맡은 CTF 머신, 실험 도구를 직접 만든 논문과 그 규칙으로 만든 앱을 하나로 묶은 사운드 워크, 네트워크와 보안 서비스를 직접 구축한 종합 실습 Full-Security Labs를 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
   <h2>// 대표</h2>
   <ul class="cards">
     <li><button class="card" type="button" data-open="hm">
@@ -504,17 +509,22 @@
 │  │  <b>●</b>  │ <i>♪</i> │
 └──┴─────┴────┘</pre></span>
       <span class="cb"><span class="top">대표 · 앱<span class="tag">2026.10</span></span><b>사운드 워크</b><p>논문에서 쓴 소리 랜드마크 규칙으로 만든, 실제 서울·대구 지도 위의 3D 소리 길찾기 게임입니다.</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="fsl">
+      <span class="thumb"><img src="assets/fsl/topology-built.webp" alt="" loading="lazy" /></span>
+      <span class="cb"><span class="top">대표 · 개인 실습<span class="tag">보안·인프라</span></span><b>Full-Security Labs</b><p>VLAN을 설계·구현하고 보안 서비스 8개를 가상머신에 구축해 확인한 종합 실습입니다.</p><span class="more">문서 열기 →</span></span></button></li>
   </ul>
   <h2>// AI를 활용한 개인 과제</h2>
   <ul class="cards">
     <li><button class="card" type="button" data-open="t07"><span class="thumb"><img src="assets/pinpoint/cork-dashboard.webp" alt="" loading="lazy" /></span><span class="cb"><span class="top">개인 · AI 활용<span class="tag">STEP 3·4</span></span><b>PinPoint 재설계</b><p>로그인과 전체 재설계</p><span class="more">문서 열기 →</span></span></button></li>
   </ul>
-  <p class="intro">그 밖에 어제 생성된 GitHub 저장소 수를 매일 기록하는 대시보드 <b>The Day Before</b>를 만들었습니다. 외부 API가 실패하면 가짜 값 대신 지연 상태를 보여 주고, GitHub Actions 자동 기록은 54일 중 52일 이어졌습니다. <a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a> · <a href="https://github.com/HTH-0/aleph_the_day_before" target="_blank" rel="noreferrer">GitHub ↗</a></p>
-  <h2>// AI 사용 방식의 단계</h2>
-  <ol class="steps"><li><b>STEP 1</b>대화형으로 요구하기</li><li><b>STEP 2</b>프로젝트 단위로 대화하기</li><li><b>STEP 3</b>폴더 안에서 명세로 일하기</li><li><b>STEP 4</b>외부 도구와 연결하기</li></ol>
-  <p class="note">처음에는 요구사항을 그대로 AI에게 넣는 것으로 시작했고, 이후 요구를 구체적으로 나누고, 설계서와 계획을 먼저 두고, 외부 도구까지 연결하는 방식으로 달라졌습니다. AI가 빠르게 만들어 주는 만큼 무엇을 만들지 정하고, 결과를 직접 써 보고, 맞는 것을 고르는 일이 더 중요하다는 점을 배웠습니다.</p>
-  <h2>// 지금 할 수 있는 것</h2>
-  <ul class="pills"><li>써 보고 판단해서 되돌린다</li><li>여러 안을 받아 직접 고른다</li><li>요구를 문서로 바꿔서 준다</li><li>작업의 맥락을 이어 간다</li><li>확인한 기록을 남긴다</li><li>못 한 것을 숨기지 않는다</li></ul>
+  <div class="note toy">
+    <ul>
+      <li><b>The Day Before</b> 어제 생성된 GitHub 저장소 수를 매일 기록하는 대시보드입니다. 외부 API가 실패하면 가짜 값 대신 지연 상태를 보여 줍니다. <a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a> · <a href="https://github.com/HTH-0/aleph_the_day_before" target="_blank" rel="noreferrer">GitHub ↗</a></li>
+      <li><b>Dodge</b> 30초 동안 탄막을 피하는 생존 게임입니다. <a href="https://aleph-project-dodge.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></li>
+      <li><b>밈 스튜디오</b> 이미지에 글자를 얹어 짤과 카드를 만드는 도구입니다. <a href="https://aleph-meme-studio.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></li>
+    </ul>
+    <p>AI 사용 방식은 대화로 요구하는 것에서 시작해 설계서와 계획을 먼저 두고 외부 도구를 연결하는 쪽으로 달라졌습니다. AI가 빠르게 만들어 주는 만큼, 무엇을 만들지 정하고 결과를 직접 써 보고 고르는 일이 더 중요하다는 점을 배웠습니다.</p>
+  </div>
 </article>
 
 <article data-id="stack" data-kind="page" data-title="기술스택" data-path="~/portfolio/기술스택">
@@ -592,7 +602,7 @@
   <ol class="tl">
     <li><span class="when">2026.08 – 2026.11</span><div><b>SKT ALEPH K-뉴딜 아카데미</b><p class="org">코리아IT아카데미 · 2026.08.11 – 11.13 · 수강 중</p>
       <div class="row"><span>배운 것</span><span>네트워크·방화벽(Cisco IOS, ASA, pfSense, IPsec VPN), 리눅스 서버(Apache, DNS, 로그·모니터링), 보안관제(Snort3, Suricata, Wazuh), DB 운영(MariaDB 복제·백업), AI 활용 개발</span></div>
-      <div class="row"><span>만든 것</span><span><a href="#" data-open="ow">Overwrite</a>(팀 CTF 머신) · <a href="#" data-open="t13">사운드 워크</a>(논문 포함) · <a href="#" data-open="t07">PinPoint</a> · <a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">The Day Before ↗</a></span></div></div></li>
+      <div class="row"><span>만든 것</span><span><a href="#" data-open="ow">Overwrite</a>(팀 CTF 머신) · <a href="#" data-open="t13">사운드 워크</a>(논문 포함) · <a href="#" data-open="fsl">Full-Security Labs</a>(종합 실습) · <a href="#" data-open="t07">PinPoint</a> · <a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">The Day Before ↗</a></span></div></div></li>
     <li><span class="when">2024.12 – 2025.06</span><div><b>(과정평가형) 정보처리산업기사 취득과정 A</b><p class="org">코리아IT아카데미 · 수료</p>
       <div class="row"><span>배운 것</span><span>Java(객체지향, 예외 처리, 컬렉션), Database(SQL, JOIN, 트랜잭션), Linux(계정·권한), Git(브랜치 전략, 병합 충돌 해결), HTML·CSS·JavaScript</span></div>
       <div class="row"><span>만든 것</span><span><a href="#" data-open="hm">HealthMe</a>(팀 프로젝트, 로그인·소셜 로그인·추천 담당)</span></div></div></li>
@@ -647,6 +657,110 @@
   <h2><span class="md">##</span>확인</h2>
   <p>로그인 뒤 다른 사람의 자료가 열리지 않는 것을 확인한 기록과, 막지 못한 것(무차별 대입 방어 등)의 목록을 제출 문서에 남겼습니다.</p>
   <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button><a href="https://aleph-pinpoint.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></div>
+</article>
+
+<article data-id="fsl" data-kind="md" data-title="FullSecurityLabs.md" data-path="~/portfolio/프로젝트/FullSecurityLabs.md" data-parent="projects">
+  <h1><span class="md">#</span>Full-Security Labs · 네트워크와 보안 서비스 구축</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">시기</span>: <span class="val">2026.09 (약 1주일, 제출 09.30) · Aleph 과정 상반기 종합 실습 · 개인 작업</span><br />
+    <span class="key">맡은 일</span>: <span class="val">VLAN 설계·구현, 보안 서비스 8개 구축과 검증, CTF(Earth) 풀이</span><br />
+    <span class="key">기술</span>: <span class="val">GNS3, VirtualBox, Cisco ASAv, VLAN, OSPF, BIND9, Apache, MariaDB, OSSEC, Wazuh, Zabbix, PMM, Snort 3, pfSense, OpenVPN</span><br />
+    <span class="dl">---</span></div>
+  <p>Aleph 과정 상반기 종합 실습입니다. 제공받은 기본 토폴로지 위에서 VLAN을 설계·구현하고, 보안 서비스 8개를 가상머신에 구축해 동작을 확인했으며, CTF 한 문제를 풀었습니다. 공격자 Kali를 제외한 모든 가상머신을 새로 만들었습니다.</p>
+  <figure class="shot"><img src="assets/fsl/topology-built.webp" alt="GNS3로 구현한 토폴로지: 내부망은 ASAv 방화벽과 라우터 R1·R2, 외부망은 R3와 스위치 3대, VLAN 3개로 나뉨" width="1500" height="706" loading="lazy" /><figcaption>GNS3로 구현한 네트워크 토폴로지입니다.</figcaption></figure>
+  <section>
+    <h2><span class="md">##</span>기본 정보</h2>
+    <div class="table-wrap"><table>
+      <tr><th>구분</th><th>내용</th></tr>
+      <tr><td>구성</td><td>네트워크 장비는 GNS3로 설계·구현하고, 보안 서비스는 VirtualBox 가상머신에 실제로 구축했습니다.</td></tr>
+      <tr><td><b>내가 한 일</b></td><td>VLAN 설계와 구현, 보안 서비스 8개 구축과 검증, CTF 풀이</td></tr>
+      <tr><td>제공받은 것</td><td>기본 토폴로지</td></tr>
+    </table></div>
+  </section>
+  <section>
+    <h2><span class="md">##</span>네트워크</h2>
+    <p>외부망 <code>10.10.10.0/24</code>를 /26 네 개로 나눠 VLAN 10(Network), 20(System), 30(Pentest)에 배정하고, 나머지 한 대역은 장비 연결용으로 남겼습니다. 스위치 사이는 802.1Q 트렁크로 잇고, VLAN 간 라우팅은 R3의 서브인터페이스(Router-on-a-Stick)로 처리했습니다. 내부는 OSPF로 경로를 교환하고, ASAv의 인터페이스 3개(dmz, inside, outside)에 ACL 5개를 적용했습니다. 화면을 누르면 크게 볼 수 있습니다.</p>
+    <div class="gallery">
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: 설계 요구 토폴로지"><img src="assets/fsl/topology-design.webp" alt="설계 요구 토폴로지: 내부망 192.168.0.0/16과 외부망 10.10.10.0/24를 ASAv와 NIDS 노드로 나눈 그림" width="1254" height="759" loading="lazy" /></button>
+        <figcaption><span class="label">설계 요구 토폴로지</span>제공받은 기본 구성입니다. 내부망과 외부망을 방화벽(ASAv)과 NIDS 노드로 나눕니다.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: 구현 토폴로지"><img src="assets/fsl/topology-built.webp" alt="GNS3로 구현한 토폴로지: 장비마다 인터페이스 이름과 IP가 표시됨" width="1500" height="706" loading="lazy" /></button>
+        <figcaption><span class="label">구현 토폴로지</span>구현한 결과입니다. 장비마다 인터페이스와 IP, VLAN을 배치했습니다.</figcaption>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2><span class="md">##</span>보안 서비스</h2>
+    <p>8개 서비스를 가상머신에 구축하고, 서비스마다 동작을 확인한 방법을 남겼습니다.</p>
+    <div class="table-wrap"><table>
+      <tr><th>서비스</th><th>구축한 것</th><th>확인한 방법</th></tr>
+      <tr><td>DNS (BIND9)</td><td>내부 도메인의 정방향 존, 외부 도메인 재귀 질의</td><td><code>nslookup</code>으로 서비스 호스트 이름이 해석되는지 확인했습니다.</td></tr>
+      <tr><td>Web/DB</td><td>Apache와 MariaDB를 한 서버에 구성</td><td>기본 페이지 접속과 테이블 조회를 확인했습니다.</td></tr>
+      <tr><td>OSSEC</td><td>매니저와 에이전트</td><td><code>agent_control</code>에서 에이전트가 Active인지 확인했습니다.</td></tr>
+      <tr><td>Wazuh</td><td>Manager, Indexer, Dashboard 통합 설치와 에이전트</td><td>대시보드에서 에이전트가 Active인지 확인했습니다.</td></tr>
+      <tr><td>Zabbix</td><td>서버와 에이전트</td><td>호스트의 최신 데이터가 수집되는지 확인했습니다.</td></tr>
+      <tr><td>PMM</td><td>Docker 서버와 에이전트</td><td>대시보드에서 노드와 PostgreSQL 지표 수집을 확인했습니다.</td></tr>
+      <tr><td>Snort 3</td><td>커스텀 탐지 룰 2개</td><td>Kali에서 공격을 흉내 내면 경보가 출력되는지 확인했습니다.</td></tr>
+      <tr><td>pfSense</td><td>OpenVPN 원격 접속 서버</td><td>클라이언트가 접속해 AES-256-GCM으로 연결되는지 확인했습니다.</td></tr>
+    </table></div>
+  </section>
+  <section>
+    <h2><span class="md">##</span>화면</h2>
+    <div class="gallery">
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: DNS 존 파일"><img src="assets/fsl/dns-zone.webp" alt="DNS 존 파일: 서비스별 A 레코드가 등록되어 있음" width="631" height="510" loading="lazy" /></button>
+        <figcaption><span class="label">DNS 존 파일</span><code>hth.com</code> 존 파일에 서비스별 A 레코드를 등록했습니다.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: OSSEC 에이전트"><img src="assets/fsl/ossec-agent.webp" alt="OSSEC agent_control 출력: 에이전트 webdb가 Active이고 1514 포트를 수신함" width="1040" height="545" loading="lazy" /></button>
+        <figcaption><span class="label">OSSEC 에이전트</span>에이전트 <code>webdb</code>가 Active이고, 서버가 1514 포트를 수신합니다.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: Wazuh 대시보드"><img src="assets/fsl/wazuh-agent.webp" alt="Wazuh 대시보드: 에이전트 victim-agent가 Active" width="1364" height="529" loading="lazy" /></button>
+        <figcaption><span class="label">Wazuh 대시보드</span>에이전트 <code>victim-agent</code>(Ubuntu 24.04)가 Active입니다.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: PMM 대시보드"><img src="assets/fsl/pmm-dashboard.webp" alt="PMM 홈 대시보드: 모니터링 노드 1개와 PostgreSQL 지표" width="1345" height="673" loading="lazy" /></button>
+        <figcaption><span class="label">PMM 대시보드</span>노드 1개와 PostgreSQL의 쿼리 지표가 수집됩니다.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: pfSense OpenVPN"><img src="assets/fsl/pfsense-openvpn.webp" alt="pfSense OpenVPN 상태: 클라이언트 hth가 AES-256-GCM으로 접속" width="1175" height="245" loading="lazy" /></button>
+        <figcaption><span class="label">pfSense OpenVPN</span>클라이언트가 접속해 AES-256-GCM으로 암호화됩니다.</figcaption>
+      </figure>
+    </div>
+  </section>
+  <h2><span class="md">##</span>막혔던 일과 해결</h2>
+  <div class="table-wrap"><table>
+    <tr><th>증상</th><th>원인</th><th>해결</th></tr>
+    <tr>
+      <td>Packet Tracer에서 배운 <code>show vlan brief</code>가 GNS3의 스위치 모듈에서 되지 않았습니다.</td>
+      <td>시뮬레이터마다 지원하는 명령이 다릅니다.</td>
+      <td>GNS3의 스위치 모듈에서는 <code>show vlan-switch brief</code>를 사용했습니다.</td>
+    </tr>
+    <tr>
+      <td>Packet Tracer처럼 L3 스위치 포트를 <code>0/0</code>, <code>0/1</code>로 연결할 수 없었습니다.</td>
+      <td>GNS3의 스위치 모듈 노드는 포트 번호가 <code>1/x</code>부터 시작합니다.</td>
+      <td>모듈의 포트(<code>Fa1/0</code>, <code>Fa1/2</code> 등)로 연결했습니다.</td>
+    </tr>
+    <tr>
+      <td>DNS에 Zabbix 호스트를 등록해도 이름만으로는 화면이 열리지 않았습니다.</td>
+      <td>DNS는 호스트 이름만 IP로 바꾸고, 접속 경로(<code>/zabbix</code>)는 처리하지 못합니다.</td>
+      <td>Zabbix 서버의 Apache에서 <code>/</code>를 <code>/zabbix</code>로 리다이렉트(<code>RedirectMatch ^/$ /zabbix</code>)하도록 설정했습니다. 경로가 필요한 Zabbix에만 한 설정입니다.</td>
+    </tr>
+  </table></div>
+  <h2><span class="md">##</span>CTF: VulnHub The Planets Earth</h2>
+  <p>난이도 Easy 머신입니다. 정보 수집과 디렉터리 탐색으로 유출된 노트를 찾고, 노트의 평문으로 XOR 암호를 복원해 관리자 포털에 로그인했습니다. 명령 실행 기능에 base64로 감싼 리버스 셸을 넣어 셸을 얻었고, SUID 바이너리를 역분석해 root까지 올라갔습니다.</p>
+  <ul class="feat">
+    <li><b>정보 노출</b><code>robots.txt</code>에 민감 경로를 적으면 오히려 존재를 알려 줍니다. 접근 통제는 인증과 권한으로 하고 민감 파일은 웹 루트 밖에 둬야 합니다.</li>
+    <li><b>암호</b>XOR은 평문 일부가 알려지면 그대로 풀립니다. 직접 구현하지 않고 검증된 알고리즘(AES-GCM 등)을 써야 합니다.</li>
+    <li><b>커맨드 인젝션</b>base64로 블랙리스트를 우회할 수 있습니다. 셸 실행 자체를 없애고 화이트리스트를 적용해야 합니다.</li>
+    <li><b>SUID</b>바이너리에 숨긴 조건은 역분석으로 풀립니다. 필요 없는 SUID를 없애고 root 로직은 인증된 경로로만 실행해야 합니다.</li>
+  </ul>
+  <h2><span class="md">##</span>하지 않은 것</h2>
+  <p>ACL은 설정과 적용까지만 했고, 차단 동작(hit-count 증가)을 확인하지는 못했습니다. GNS3 설계망과 VirtualBox 구축망은 분리되어 있고, GNS3의 서버와 NIDS 노드는 구축한 가상머신에 1대 1로 대응하는 배치입니다.</p>
+  <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button></div>
 </article>
 
 <article data-id="hm" data-kind="md" data-title="HealthMe.md" data-path="~/portfolio/프로젝트/HealthMe.md" data-parent="projects">
@@ -1360,7 +1474,7 @@
     { id: 'home', icon: 'home', label: 'home' },
     { id: 'projects', icon: 'grid', label: '프로젝트/', kids: [
       { id: 'hm', icon: 'doc', label: 'HealthMe.md' }, { id: 'ow', icon: 'doc', label: 'Overwrite.md' },
-      { id: 't13', icon: 'doc', label: '사운드워크.md' }, { id: 't07', icon: 'doc', label: 'PinPoint.md' } ] },
+      { id: 't13', icon: 'doc', label: '사운드워크.md' }, { id: 'fsl', icon: 'doc', label: 'FullSecurityLabs.md' }, { id: 't07', icon: 'doc', label: 'PinPoint.md' } ] },
     { id: 'stack', icon: 'grid', label: '기술스택' },
     { id: 'certs', icon: 'grid', label: '자격증' },
     { id: 'history', icon: 'grid', label: '이력' }
