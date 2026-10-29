@@ -155,6 +155,27 @@
   .doc .feat li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 14.5px; line-height: 1.8; color: #3b4046; word-break: keep-all; }
   .doc .feat b { display: block; margin-bottom: 2px; color: var(--text); }
 
+  /* ── 작은 화면 홈: 바탕화면 아이콘과 터미널을 소개 아래에 둔다(1440×800 이상에서는 진짜 바탕화면이 있어 숨김) ── */
+  .mdesk { margin: 34px 0 0; max-width: 640px; }
+  .mdesk .mlab { margin: 0 0 12px; font: 13px/1.4 var(--mono); color: var(--muted); }
+  .mdesk .mic { display: flex; flex-wrap: wrap; gap: 8px 26px; margin: 0 0 22px; }
+  .mdesk .dgrp { flex-direction: row; flex-wrap: wrap; gap: 4px 6px; }
+  .mdesk .dicon { width: 76px; padding: 6px 2px; gap: 5px; }
+  .mdesk .dicon .ti { width: 48px; height: 48px; }
+  .mdesk .mterm { display: block; border-radius: 10px; overflow: hidden; background: #1e2227; color: #c9d1d9; font: 12.5px/1.7 var(--mono); box-shadow: 0 10px 28px rgba(0, 0, 0, .18); }
+  .mdesk .mt-bar { display: flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; background: #2a2f36; color: #8b949e; font-size: 12px; }
+  .mdesk .mt-bar i { width: 10px; height: 10px; border-radius: 50%; }
+  .mdesk .mt-bar i:nth-child(1) { background: #ff5f56; } .mdesk .mt-bar i:nth-child(2) { background: #ffbd2e; } .mdesk .mt-bar i:nth-child(3) { background: #27c93f; }
+  .mdesk .mt-bar span { margin-left: auto; }
+  .mdesk summary.mt-bar { cursor: pointer; list-style: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+  .mdesk summary.mt-bar::-webkit-details-marker { display: none; }
+  .mdesk summary.mt-bar::after { content: "펼치기 ▾"; margin-left: 10px; color: #7ee787; }
+  .mdesk details[open] > summary.mt-bar::after { content: "접기 ▴"; }
+  .mdesk summary.mt-bar:focus-visible { outline: 2px solid #7ee787; outline-offset: -2px; }
+  .mdesk .mterm pre { margin: 0; padding: 12px 14px 14px; font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; }
+  @media (min-width: 1440px) and (min-height: 800px) { .mdesk { display: none; } }
+  @media (max-width: 860px) { .mdesk { margin-top: 26px; } .mdesk .mic { gap: 6px 14px; } .mdesk .mterm { font-size: 12px; } }
+
   /* ── 모바일 ── */
   @media (max-width: 860px) {
     body { display: block; }
@@ -262,6 +283,7 @@
   .view.pv .doc h2 { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 21px; }
   .view.pv .pv-hero { max-width: none; padding: 0; margin: 0 0 18px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
   .view.pv .pv-hero img { display: block; width: 100%; height: clamp(180px, 34vw, 360px); max-height: none; object-fit: cover; object-position: center 30%; cursor: zoom-in; }
+  .view.pv .pv-hero.diagram img { height: auto; object-fit: contain; object-position: center; }
   .view.pv .pv-hero.ascii { display: grid; place-items: center; padding: 26px 0; }
   .view.pv .pv-hero figcaption { display: none; }
   .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 0 0 22px; }
@@ -697,7 +719,7 @@
     <span class="key">기술</span>: <span class="val">GNS3, VirtualBox, Cisco ASAv, VLAN, OSPF, BIND9, Apache, MariaDB, OSSEC, Wazuh, Zabbix, PMM, Snort 3, pfSense, OpenVPN</span><br />
     <span class="dl">---</span></div>
   <p>Aleph 과정 상반기 종합 실습입니다. 제공받은 기본 토폴로지 위에서 VLAN을 설계·구현하고, 보안 서비스 8개를 가상머신에 구축해 동작을 확인했으며, CTF 한 문제를 풀었습니다. 공격자 Kali를 제외한 모든 가상머신을 새로 만들었습니다.</p>
-  <figure class="shot"><img src="assets/fsl/topology-built.webp" alt="GNS3로 구현한 토폴로지: 내부망은 ASAv 방화벽과 라우터 R1·R2, 외부망은 R3와 스위치 3대, VLAN 3개로 나뉨" width="1500" height="706" loading="lazy" /><figcaption>GNS3로 구현한 네트워크 토폴로지입니다.</figcaption></figure>
+  <figure class="shot diagram"><img src="assets/fsl/topology-built.webp" alt="GNS3로 구현한 토폴로지: 내부망은 ASAv 방화벽과 라우터 R1·R2, 외부망은 R3와 스위치 3대, VLAN 3개로 나뉨" width="1500" height="706" loading="lazy" /><figcaption>GNS3로 구현한 네트워크 토폴로지입니다.</figcaption></figure>
   <section>
     <h2><span class="md">##</span>기본 정보</h2>
     <div class="table-wrap"><table>
@@ -1554,9 +1576,18 @@
       // 넓은 화면에서는 소개 글을 세로 가운데 쪽으로 내리고, 비워 둔 줄에도 줄 번호를 붙인다
       var cv = el('canvas'); cv.id = 'art'; cv.setAttribute('aria-hidden', 'true');
       wrap.insertBefore(cv, wrap.firstChild);
+      var hero0 = wrap.querySelector('.hero'), ic0 = document.querySelector('.dicons'), pre0 = document.querySelector('.dwin.tm .wb pre');
+      if (hero0 && (ic0 || pre0)) {
+        // 작은 화면에는 바탕화면이 없으므로 같은 아이콘과 터미널 내용을 소개 아래에 복제해 둔다
+        var md = el('div', 'mdesk');
+        md.innerHTML = '<div class="mlab">// 바탕화면</div>';
+        if (ic0) { var mic = ic0.cloneNode(true); mic.className = 'mic'; mic.removeAttribute('aria-label'); md.appendChild(mic); }
+        if (pre0) md.insertAdjacentHTML('beforeend', '<details class="mterm tm"><summary class="mt-bar"><i></i><i></i><i></i><span>hth@lab: ~</span></summary><pre>' + pre0.innerHTML + '</pre></details>');
+        hero0.appendChild(md);
+      }
       view.appendChild(wrap);
       var hn = Math.ceil((wrap.querySelector('.hero').offsetHeight + 14) / 24);
-      var skip = innerWidth > 860 ? Math.max(0, Math.min(12, Math.floor((rows - hn) / 2) - 2)) : 0;
+      var skip = innerWidth > 860 ? Math.max(0, Math.min(12, Math.floor((rows - hn) / 2) - 2)) : 1;
       wrap.style.paddingTop = (14 + skip * 24) + 'px';
       view.insertAdjacentHTML('afterbegin', gutter(hn + skip, rows));
       stopArt = startArt(cv, wrap);
@@ -1592,7 +1623,7 @@
     }
     if (shot) { // 첫 이미지를 대표 이미지로
       var hero = shot.cloneNode(true);
-      hero.className = 'pv-hero hero-slot' + (shot.classList.contains('ascii') ? ' ascii' : '');
+      hero.className = 'pv-hero hero-slot' + (shot.classList.contains('ascii') ? ' ascii' : '') + (shot.classList.contains('diagram') ? ' diagram' : '');
       h1.before(hero); shot.classList.add('hero-src');
     }
     var gut = view.querySelector('.gut'); if (gut) gut.style.top = bar.offsetHeight + 'px';
