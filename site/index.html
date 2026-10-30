@@ -94,6 +94,8 @@
   .card:disabled { cursor: default; }
   .thumb { aspect-ratio: 16 / 9; background: #eef0ea; border-bottom: 1px solid #e6e8e1; overflow: hidden; display: grid; place-items: center; }
   .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .thumb.dia { background: #fff; }
+  .thumb.dia img { object-fit: contain; object-position: center; }
   .thumb pre { margin: 0; font: 11px/1.25 var(--mono); color: #8d949a; }
   .thumb pre b { color: var(--c2); font-weight: 600; } .thumb pre i { color: var(--c3); font-style: normal; }
   .cb { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px; flex: 1; }
@@ -552,14 +554,10 @@
       <span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span>
       <span class="cb"><span class="top">대표 · 팀 CTF<span class="tag">Hard</span></span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span></button></li>
     <li><button class="card" type="button" data-open="t13">
-      <span class="thumb"><pre>┌─────┬──────┐
-│ <i>♪</i>   │   ▶  │
-├──┐  └──┐   │
-│  │  <b>●</b>  │ <i>♪</i> │
-└──┴─────┴────┘</pre></span>
+      <span class="thumb"><img src="assets/soundwalk/home.png" alt="" loading="lazy" /></span>
       <span class="cb"><span class="top">대표 · 앱<span class="tag">2026.10</span></span><b>사운드 워크</b><p>논문에서 쓴 소리 랜드마크 규칙으로 만든, 실제 서울·대구 지도 위의 3D 소리 길찾기 게임입니다.</p><span class="more">문서 열기 →</span></span></button></li>
     <li><button class="card" type="button" data-open="fsl">
-      <span class="thumb"><img src="assets/fsl/topology-built.webp" alt="" loading="lazy" /></span>
+      <span class="thumb dia"><img src="assets/fsl/topology-built.webp" alt="" loading="lazy" /></span>
       <span class="cb"><span class="top">대표 · 개인 실습<span class="tag">보안·인프라</span></span><b>Full-Security Labs</b><p>VLAN을 설계·구현하고 보안 서비스 8개를 가상머신에 구축해 확인한 종합 실습입니다.</p><span class="more">문서 열기 →</span></span></button></li>
   </ul>
   <h2>// AI를 활용한 개인 과제</h2>
