@@ -155,26 +155,7 @@
   .doc .feat li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 14.5px; line-height: 1.8; color: #3b4046; word-break: keep-all; }
   .doc .feat b { display: block; margin-bottom: 2px; color: var(--text); }
 
-  /* ── 작은 화면 홈: 바탕화면 아이콘과 터미널을 소개 아래에 둔다(1440×800 이상에서는 진짜 바탕화면이 있어 숨김) ── */
-  .mdesk { margin: 34px 0 0; max-width: 640px; }
-  .mdesk .mlab { margin: 0 0 12px; font: 13px/1.4 var(--mono); color: var(--muted); }
-  .mdesk .mic { display: flex; flex-wrap: wrap; gap: 8px 26px; margin: 0 0 22px; }
-  .mdesk .dgrp { flex-direction: row; flex-wrap: wrap; gap: 4px 6px; }
-  .mdesk .dicon { width: 76px; padding: 6px 2px; gap: 5px; }
-  .mdesk .dicon .ti { width: 48px; height: 48px; }
-  .mdesk .mterm { display: block; border-radius: 10px; overflow: hidden; background: #1e2227; color: #c9d1d9; font: 12.5px/1.7 var(--mono); box-shadow: 0 10px 28px rgba(0, 0, 0, .18); }
-  .mdesk .mt-bar { display: flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; background: #2a2f36; color: #8b949e; font-size: 12px; }
-  .mdesk .mt-bar i { width: 10px; height: 10px; border-radius: 50%; }
-  .mdesk .mt-bar i:nth-child(1) { background: #ff5f56; } .mdesk .mt-bar i:nth-child(2) { background: #ffbd2e; } .mdesk .mt-bar i:nth-child(3) { background: #27c93f; }
-  .mdesk .mt-bar span { margin-left: auto; }
-  .mdesk summary.mt-bar { cursor: pointer; list-style: none; user-select: none; -webkit-tap-highlight-color: transparent; }
-  .mdesk summary.mt-bar::-webkit-details-marker { display: none; }
-  .mdesk summary.mt-bar::after { content: "펼치기 ▾"; margin-left: 10px; color: #7ee787; }
-  .mdesk details[open] > summary.mt-bar::after { content: "접기 ▴"; }
-  .mdesk summary.mt-bar:focus-visible { outline: 2px solid #7ee787; outline-offset: -2px; }
-  .mdesk .mterm pre { margin: 0; padding: 12px 14px 14px; font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; }
-  @media (min-width: 1440px) and (min-height: 800px) { .mdesk { display: none; } }
-  @media (max-width: 860px) { .mdesk { margin-top: 26px; } .mdesk .mic { gap: 6px 14px; } .mdesk .mterm { font-size: 12px; } }
+  @media (max-width: 380px) { .home .hero .role { font-size: 14px; } }
 
   /* ── 모바일 ── */
   @media (max-width: 860px) {
@@ -186,9 +167,9 @@
     .bar .fps { display: none; }
     .gut { display: none; }
     .hero { margin: 8px 0 0; padding: 0 18px 20px; width: 100%; background: linear-gradient(180deg, var(--win) 86%, rgba(251,251,248,0)); }
-    .hero h1 { font-size: 40px; margin-bottom: 6px; }
+    .hero h1 { font-size: 56px; margin-bottom: 8px; }
     .hero .role { font-size: 16px; margin-bottom: 18px; }
-    .hero .one { font-size: 22px; margin-bottom: 24px; }
+    .hero .one { font-size: 27px; margin-bottom: 32px; }
     .tip { display: none; }
     .page, .doc { padding: 20px 16px 40px; }
     .cards { grid-template-columns: minmax(0, 1fr); }
@@ -404,7 +385,7 @@
   .toast.on { opacity: 1; transform: translate(-50%, 0); }
   @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
   .taskbar { position: fixed; left: 0; right: 0; bottom: 0; height: 46px; z-index: 30; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: rgba(35, 39, 43, .93); font: 12px var(--mono); color: #e9eee3; }
-  .taskbar .st { width: 22px; height: 22px; border-radius: 5px; background: var(--path); display: grid; place-items: center; }
+  .taskbar .st { width: 22px; height: 22px; padding: 0; border-radius: 5px; background: var(--path); display: grid; place-items: center; }
   .taskbar .st svg { width: 13px; height: 13px; color: #fff; }
   .taskbar button { padding: 6px 12px; border-radius: 4px; background: rgba(255, 255, 255, .1); color: #e9eee3; font: inherit; }
   .taskbar button:hover { background: rgba(255, 255, 255, .2); }
@@ -412,6 +393,29 @@
   .taskbar .ck { margin-left: auto; text-align: right; line-height: 1.35; font-size: 11.5px; }
   @media (prefers-reduced-motion: reduce) { .dwin { transition: none; } .tm .cur { animation: none; } }
   .src-mail { display: none; }
+
+  /* ── 패드(폭 600px 이상, 진짜 바탕화면이 아닌 화면): 작업 표시줄만 둔다. 시작 버튼은 아이콘 창, 터미널 버튼은 터미널 창을 연다 ── */
+  @media (min-width: 600px) and (max-width: 1439px), (min-width: 1440px) and (max-height: 799px) {
+    html .taskbar { display: flex; }
+    body { padding-bottom: 46px; }
+    .win { height: min(780px, calc(100vh - 46px - 64px)); }
+    .taskbar .st { width: 32px; height: 32px; }
+    .taskbar .st svg { width: 16px; height: 16px; }
+    .taskbar button:not(.st) { padding: 9px 14px; }
+    .dicons { top: auto; left: 10px; bottom: 54px; z-index: 31; gap: 6px; padding: 12px; background: #f7f8f2; border: 1px solid #cdd3c4; border-radius: 14px; box-shadow: 0 18px 44px rgba(20, 30, 15, .32); }
+    html .dicons.open { display: flex; }
+    .dicons .dgrp { flex-direction: row; gap: 6px; }
+    .dicons .dicon { width: 76px; padding: 6px 2px; gap: 5px; }
+    .dicons .dicon .ti { width: 44px; height: 44px; }
+    html .dlayer.front { display: block; }
+    .dlayer.front .dwin { left: 50%; top: 50%; width: min(720px, calc(100vw - 32px)); height: min(560px, calc(100% - 32px)); max-height: none; transform: translate(-50%, -50%); cursor: default; }
+    .dlayer.front .dwin .wt { cursor: default; }
+    .dwin.tm pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  }
+  @media (min-width: 600px) and (max-width: 860px) {
+    body { padding-bottom: 0; }
+    .win { height: calc(100vh - 46px); height: calc(100dvh - 46px); }
+  }
 </style>
 <noscript><style>
   body { display: block; padding: 24px; }
@@ -507,7 +511,7 @@
 </div>
 
 <div class="desk-ui taskbar" aria-label="작업 표시줄">
-  <span class="st"><svg><use href="#s-lock"/></svg></span>
+  <button type="button" class="st" aria-label="바로가기 열기" aria-expanded="false"><svg><use href="#s-lock"/></svg></button>
   <button type="button" class="on" data-task="code">portfolio — VS Code</button>
   <button type="button" data-task="tm">hth@lab: ~</button>
   <span class="ck" id="clock"></span>
@@ -1576,18 +1580,9 @@
       // 넓은 화면에서는 소개 글을 세로 가운데 쪽으로 내리고, 비워 둔 줄에도 줄 번호를 붙인다
       var cv = el('canvas'); cv.id = 'art'; cv.setAttribute('aria-hidden', 'true');
       wrap.insertBefore(cv, wrap.firstChild);
-      var hero0 = wrap.querySelector('.hero'), ic0 = document.querySelector('.dicons'), pre0 = document.querySelector('.dwin.tm .wb pre');
-      if (hero0 && (ic0 || pre0)) {
-        // 작은 화면에는 바탕화면이 없으므로 같은 아이콘과 터미널 내용을 소개 아래에 복제해 둔다
-        var md = el('div', 'mdesk');
-        md.innerHTML = '<div class="mlab">// 바탕화면</div>';
-        if (ic0) { var mic = ic0.cloneNode(true); mic.className = 'mic'; mic.removeAttribute('aria-label'); md.appendChild(mic); }
-        if (pre0) md.insertAdjacentHTML('beforeend', '<details class="mterm tm"><summary class="mt-bar"><i></i><i></i><i></i><span>hth@lab: ~</span></summary><pre>' + pre0.innerHTML + '</pre></details>');
-        hero0.appendChild(md);
-      }
       view.appendChild(wrap);
       var hn = Math.ceil((wrap.querySelector('.hero').offsetHeight + 14) / 24);
-      var skip = innerWidth > 860 ? Math.max(0, Math.min(12, Math.floor((rows - hn) / 2) - 2)) : 1;
+      var skip = Math.max(0, Math.min(innerWidth > 860 ? 12 : 8, Math.floor((rows - hn) / 2) - 2));
       wrap.style.paddingTop = (14 + skip * 24) + 'px';
       view.insertAdjacentHTML('afterbegin', gutter(hn + skip, rows));
       stopArt = startArt(cv, wrap);
@@ -1976,6 +1971,15 @@
     if (document.querySelector('.dlayer.front')) front(null);
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.querySelector('.dlayer.front')) front(null); });
+  /* ── 패드: 시작 버튼을 누르면 바로가기 아이콘 창이 열리고, 아이콘·바깥·Esc로 닫힌다 ── */
+  var startBox = document.querySelector('.dicons'), startBtn = document.querySelector('.taskbar .st');
+  function startMenu(on) { if (!startBox) return; startBox.classList.toggle('open', on); if (startBtn) startBtn.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+  document.addEventListener('click', function (e) {
+    if (!startBox) return;
+    if (e.target.closest('.taskbar .st')) { startMenu(!startBox.classList.contains('open')); return; }
+    if (startBox.classList.contains('open') && (e.target.closest('.dicons .dicon') || !e.target.closest('.dicons'))) startMenu(false);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && startBox && startBox.classList.contains('open')) startMenu(false); });
   /* ── 바탕화면: 제목 표시줄을 잡고 창 옮기기(앞으로 나온 터미널, 편집기) ── */
   var deskMQ = window.matchMedia('(min-width: 1440px) and (min-height: 800px)');
   var dragged = false;
