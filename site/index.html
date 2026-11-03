@@ -20,6 +20,7 @@
     --accent: #0b6aa8; --accent-bg: #0b6aa8; --path: #0e7490; --c3: #0e7490;
     --tint: #e3f1f6; --tintg: #e6f2e6; --greent: #2b6a1f;
     --pick: #d6e9f8; --pick-text: #0b3a6a; --pri-hover: #000000; --toast: #0f1b2d;
+    --dt-p: #2b8a3e; --dt-c: #e08a00; --dt-q: #2f6fe0;
     --act: #e1e7ef; --acttext: #6b7a8e; --actico: #0f1b2d;
     --side: #f1f4f8; --tabbar: #e8ecf2; --tab: #dde3ec; --status: #2f5f86;
   }
@@ -32,6 +33,7 @@
     --accent: #3794ff; --accent-bg: #0e639c; --path: #4ec9b0; --c3: #4ec9b0;
     --tint: #1b3a45; --tintg: #1f3a26; --greent: #89d185;
     --pick: #094771; --pick-text: #ffffff; --pri-hover: #ffffff; --toast: #3c3c3c;
+    --dt-p: #4cc26a; --dt-c: #f0a23b; --dt-q: #5aa9ff;
     --act: #333333; --acttext: #858585; --actico: #d7d7d7;
     --side: #252526; --tabbar: #252526; --tab: #2d2d2d; --status: #16466a;
   }
@@ -153,38 +155,38 @@
   }
 
   /* ── 목록 페이지 ── */
-  .page { padding: 28px 36px 48px 70px; max-width: 1280px; }
+  .page { padding: 36px 40px 56px; max-width: 1040px; margin: 0 auto; }
   .page .kick { font: 600 12.5px var(--mono); color: var(--path); }
   .page h1 { margin: 6px 0 8px; font-size: 36px; line-height: 1.3; word-break: keep-all; }
   .page .intro { margin: 0 0 22px; max-width: 860px; font-size: 16px; line-height: 1.85; color: var(--text3); word-break: keep-all; }
   .page h2 { margin: 30px 0 12px; font: 600 12.5px var(--mono); color: var(--muted); letter-spacing: 0.02em; }
-  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
-  .card { width: 100%; height: 100%; display: flex; flex-direction: column; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; }
-  button.card:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(15, 27, 45, 0.12); border-color: var(--line2); }
-  .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .card:disabled { cursor: default; }
-  .thumb { aspect-ratio: 16 / 9; background: var(--f1); border-bottom: 1px solid var(--f3); overflow: hidden; display: grid; place-items: center; }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-  .thumb.dia { background: #fff; }
-  .thumb.dia img { object-fit: contain; object-position: center; }
-  .thumb pre { margin: 0; font: 11px/1.25 var(--mono); color: var(--dim); }
-  .thumb pre b { color: var(--c2); font-weight: 600; } .thumb pre i { color: var(--c3); font-style: normal; }
-  .cb { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px; flex: 1; }
-  .cb .top { display: flex; align-items: center; gap: 8px; font: 600 12px var(--mono); color: var(--path); }
-  .cb .tag { margin-left: auto; font: 500 11px var(--mono); padding: 1px 8px; border-radius: 999px; background: var(--f1); color: var(--accent); }
-  .cb .tag.g { background: var(--f1); color: var(--dim); }
-  .cb b { font-size: 18px; line-height: 1.4; word-break: keep-all; }
-  .cb p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text3); word-break: keep-all; }
-  .cb .more { margin-top: auto; padding-top: 6px; font: 12px var(--mono); color: var(--accent); }
-  .cb .more.g { color: var(--dim); }
-  .card.plan { border-style: dashed; background: transparent; }
+  /* 프로젝트 목록: 한 줄에 하나, 왼쪽 썸네일 + 오른쪽 설명 */
+  .plist { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .pr { display: grid; grid-template-columns: 260px minmax(0, 1fr); width: 100%; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; transition: border-color .15s, transform .15s, box-shadow .15s; }
+  .pr:hover, .pr:focus-visible { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(15, 27, 45, .10); outline: none; }
+  .pt { display: block; aspect-ratio: 16 / 10; background: var(--f1); border-right: 1px solid var(--line); overflow: hidden; }
+  .pt img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .pb { display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 16px 22px; }
+  .pm { font: 600 12px var(--mono); color: var(--path); }
+  .pb b { font-size: 21px; line-height: 1.35; word-break: keep-all; }
+  .pb p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text3); word-break: keep-all; }
+  .pb .more { margin-top: 4px; font: 12.5px var(--mono); color: var(--accent); }
+  .plist.sm .pr { grid-template-columns: 170px minmax(0, 1fr); }
+  .plist.sm .pb { padding: 12px 20px; gap: 4px; }
+  .plist.sm .pb b { font-size: 18px; }
+  .plist.sm .pb p { font-size: 14px; }
+  .slist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .slist li { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 6px 20px; align-items: baseline; padding: 12px 4px; border-bottom: 1px solid var(--line); font-size: 14.5px; line-height: 1.7; }
+  .slist b { color: var(--text); }
+  .slist .sd { color: var(--text3); word-break: keep-all; }
+  .slist .sl { display: flex; gap: 14px; white-space: nowrap; font-size: 13.5px; }
+  .slist a { color: var(--accent); text-decoration: none; }
+  .slist a:hover { text-decoration: underline; }
+  .aino { margin: 22px 0 0; max-width: 860px; font-size: 13.5px; line-height: 1.8; color: var(--muted); word-break: keep-all; }
+  @media (max-width: 720px) { .pr, .plist.sm .pr { grid-template-columns: minmax(0, 1fr); } .pt { border-right: 0; border-bottom: 1px solid var(--line); } .slist li { grid-template-columns: minmax(0, 1fr); } }
   .steps { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; padding: 0; margin: 0; font-size: 13px; color: var(--text3); }
   .steps b { font: 600 11.5px var(--mono); color: var(--c3); margin-right: 6px; }
   .note { margin: 14px 0 0; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; font-size: 14px; line-height: 1.85; color: var(--text2); word-break: keep-all; max-width: 860px; }
-  .note.toy ul { list-style: none; padding: 0; margin: 0 0 10px; }
-  .note.toy li { padding: 4px 0; }
-  .note.toy li b { margin-right: 6px; color: var(--text); }
-  .note.toy p { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--f3); color: var(--text3); }
   .pills { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
   .pills li { font-size: 14px; padding: 3px 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--line2); color: var(--text2); }
   .tbl { width: 100%; max-width: 760px; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; font-size: 14px; }
@@ -195,7 +197,7 @@
   .tabs { display: flex; gap: 4px; max-width: 760px; border-bottom: 1px solid var(--line); }
   .tabs button { padding: 9px 16px; margin-bottom: -1px; font: 600 13.5px var(--sans); color: var(--muted); border-bottom: 2px solid transparent; }
   .tabs button:hover { color: var(--text); }
-  .tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+  .tabs button[aria-selected="true"] { color: var(--accent); background: var(--tint); border-bottom-color: var(--accent); border-radius: 6px 6px 0 0; }
   .tabs button:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
   .page .tabp h2 { display: none; }
   .stack { list-style: none; max-width: 760px; margin: 16px 0 0; padding: 0; background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
@@ -380,10 +382,10 @@
   @media (max-width: 600px) { .tl > li { grid-template-columns: minmax(0, 1fr); } }
 
   /* ── 기술 스택 로고 타일 ── */
-  .legend2 { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 4px; font-size: 12.5px; color: var(--text3); }
-  .legend2 span { display: inline-flex; align-items: center; gap: 5px; }
-  .dt { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
-  .dt.p { background: #2b8a3e; } .dt.c { background: var(--dim); } .dt.q { background: var(--accent); }
+  .legend2 { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; font-size: 13px; color: var(--text3); }
+  .legend2 span { display: inline-flex; align-items: center; gap: 7px; padding: 4px 12px 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--text2); }
+  .dt { display: inline-block; width: 11px; height: 11px; border-radius: 50%; }
+  .dt.p { background: var(--dt-p); } .dt.c { background: var(--dt-c); } .dt.q { background: var(--dt-q); }
   .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; max-width: 860px; margin: 16px 0 0; }
   .stile { position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 16px 6px 11px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; font-size: 12.5px; font-weight: 600; color: var(--text); text-align: center; cursor: pointer; transition: border-color .15s, box-shadow .15s, transform .15s; }
   .stile:hover { border-color: var(--line2); transform: translateY(-1px); }
@@ -391,7 +393,7 @@
   .stile.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
   .stile img, .stile .tx { width: 36px; height: 36px; object-fit: contain; }
   .stile .tx { display: grid; place-items: center; border-radius: 9px; background: var(--f1); font: 700 11px var(--mono); color: var(--text2); }
-  .stile .dots { position: absolute; top: 7px; right: 7px; display: flex; gap: 3px; }
+  .stile .dots { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; }
   .stile .ev { display: none; }
   .tdet { max-width: 860px; margin: 12px 0 0; padding: 12px 16px; min-height: 48px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; font-size: 14px; line-height: 1.75; color: var(--text2); word-break: keep-all; }
   .tdet b { display: block; margin-bottom: 2px; color: var(--text); }
@@ -407,6 +409,17 @@
   .src-mail { display: none; }
 
 
+
+  /* ── 연락처 ── */
+  .contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; max-width: 960px; margin: 20px 0 8px; }
+  .ct { display: flex; flex-direction: column; gap: 8px; padding: 22px 22px 20px; background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 8px; color: var(--text); text-decoration: none; transition: transform .15s, border-color .15s; }
+  .ct:hover, .ct:focus-visible { transform: translateY(-3px); border-color: var(--accent); outline: none; }
+  .ct svg { width: 30px; height: 30px; color: var(--accent); }
+  .ct b { font-size: 18px; }
+  .ct .v { font: 14px var(--mono); color: var(--text3); word-break: break-all; }
+  .ct p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--text2); word-break: keep-all; }
+  .ct .go2 { margin-top: auto; font-weight: 600; font-size: 14px; color: var(--accent); }
+  @media (prefers-reduced-motion: reduce) { .ct { transition: none; } }
 
   /* ── 패드 ── */
   @media (min-width: 600px) and (max-width: 860px) {
@@ -538,39 +551,43 @@
 <article data-id="projects" data-kind="page" data-title="프로젝트" data-path="~/portfolio/프로젝트">
   <div class="kick">~/portfolio/프로젝트</div>
   <h1>프로젝트</h1>
-  <p class="intro">SKT ALEPH K-뉴딜 아카데미(2026.08.11 – 11.13)와 코리아IT아카데미의 (과정평가형) 정보처리산업기사 취득과정(2024.12 – 2025.06)에서 만든 프로젝트입니다. 네트워크와 보안 서비스를 직접 구축한 종합 실습 Full-Security Labs, 팀에서 제작 전반을 맡은 CTF 머신 Overwrite, 외부 AI로 나가는 민감한 값을 가리거나 막는 게이트웨이 Curtain, 로그인과 인증을 맡은 팀 프로젝트 HealthMe를 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
   <h2>// 대표</h2>
-  <ul class="cards">
-    <li><button class="card" type="button" data-open="fsl">
-      <span class="thumb dia"><img src="assets/fsl/topology-built.webp" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">대표 · 개인 실습<span class="tag">보안·인프라</span></span><b>Full-Security Labs</b><p>VLAN을 설계·구현하고 보안 서비스 8개를 가상머신에 구축해 확인한 종합 실습입니다.</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="ow">
-      <span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">대표 · 팀 CTF<span class="tag">Hard</span></span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="curtain">
-      <span class="thumb"><img src="assets/curtain/hero.webp" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">대표 · 개인 프로젝트<span class="tag">Spring Boot</span></span><b>Curtain</b><p>외부 AI로 보내는 문장에서 전화번호, 비밀번호 같은 민감한 값을 가리거나 막는 정보 유출 방지 게이트웨이입니다.</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="hm">
-      <span class="thumb"><img src="assets/healthme/result.png" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">대표 · 팀 백엔드<span class="tag">Spring Boot</span></span><b>HealthMe</b><p>설문으로 영양 성향을 분석해 식품을 추천하는 쇼핑몰입니다. 로그인·회원가입, 소셜 로그인(OAuth2)과 토큰 인증, 추천 로직을 맡았습니다.</p><span class="more">문서 열기 →</span></span></button></li>
+  <ul class="plist">
+    <li><button class="pr" type="button" data-open="fsl">
+      <span class="pt"><img src="assets/home/fsl.webp" alt="" loading="lazy" /></span>
+      <span class="pb"><span class="pm">개인 실습 · 보안·인프라</span><b>Full-Security Labs</b><p>VLAN을 설계·구현하고 보안 서비스 8개를 가상머신에 구축해 확인한 종합 실습입니다.</p><span class="more">문서 열기 →</span></span>
+    </button></li>
+    <li><button class="pr" type="button" data-open="ow">
+      <span class="pt"><img src="assets/home/overwrite.webp" alt="" loading="lazy" /></span>
+      <span class="pb"><span class="pm">팀 CTF · Hard</span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span>
+    </button></li>
+    <li><button class="pr" type="button" data-open="curtain">
+      <span class="pt"><img src="assets/home/curtain.webp" alt="" loading="lazy" /></span>
+      <span class="pb"><span class="pm">개인 프로젝트 · Spring Boot</span><b>Curtain</b><p>외부 AI로 보내는 문장에서 전화번호, 비밀번호 같은 민감한 값을 가리거나 막는 정보 유출 방지 게이트웨이입니다.</p><span class="more">문서 열기 →</span></span>
+    </button></li>
+    <li><button class="pr" type="button" data-open="hm">
+      <span class="pt"><img src="assets/home/healthme.webp" alt="" loading="lazy" /></span>
+      <span class="pb"><span class="pm">팀 백엔드 · Spring Boot</span><b>HealthMe</b><p>설문으로 영양 성향을 분석해 식품을 추천하는 쇼핑몰입니다. 로그인·회원가입, 소셜 로그인(OAuth2)과 토큰 인증, 추천 로직을 맡았습니다.</p><span class="more">문서 열기 →</span></span>
+    </button></li>
   </ul>
   <h2>// 그 밖의 프로젝트</h2>
-  <ul class="cards">
-    <li><button class="card" type="button" data-open="t13">
-      <span class="thumb"><img src="assets/soundwalk/home.png" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">앱<span class="tag">2026.10</span></span><b>사운드 워크</b><p>논문에서 쓴 소리 랜드마크 규칙으로 만든, 실제 서울·대구 지도 위의 3D 소리 길찾기 게임입니다.</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="t07">
-      <span class="thumb"><img src="assets/pinpoint/cork-dashboard.webp" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">개인 프로젝트</span><b>PinPoint</b><p>목표를 꽂아 두고 매일 할 일을 체크하며 연속 기록을 채우는 목표 관리 앱입니다.</p><span class="more">문서 열기 →</span></span></button></li>
+  <ul class="plist sm">
+    <li><button class="pr" type="button" data-open="t13">
+      <span class="pt"><img src="assets/soundwalk/home.png" alt="" loading="lazy" /></span>
+      <span class="pb"><span class="pm">앱 · 2026.10</span><b>사운드 워크</b><p>논문에서 쓴 소리 랜드마크 규칙으로 만든, 실제 서울·대구 지도 위의 3D 소리 길찾기 게임입니다.</p><span class="more">문서 열기 →</span></span>
+    </button></li>
+    <li><button class="pr" type="button" data-open="t07">
+      <span class="pt"><img src="assets/pinpoint/cork-dashboard.webp" alt="" loading="lazy" /></span>
+      <span class="pb"><span class="pm">개인 프로젝트</span><b>PinPoint</b><p>목표를 꽂아 두고 매일 할 일을 체크하며 연속 기록을 채우는 목표 관리 앱입니다.</p><span class="more">문서 열기 →</span></span>
+    </button></li>
   </ul>
-  <div class="note toy">
-    <ul>
-      <li><b>The Day Before</b> 어제 생성된 GitHub 저장소 수를 매일 기록하는 대시보드입니다. 외부 API가 실패하면 가짜 값 대신 지연 상태를 보여 줍니다. <a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a> · <a href="https://github.com/HTH-0/aleph_the_day_before" target="_blank" rel="noreferrer">GitHub ↗</a></li>
-      <li><b>Dodge</b> 30초 동안 탄막을 피하는 생존 게임입니다. <a href="https://aleph-project-dodge.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></li>
-      <li><b>밈 스튜디오</b> 이미지에 글자를 얹어 짤과 카드를 만드는 도구입니다. <a href="https://aleph-meme-studio.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></li>
-    </ul>
-    <p>AI 사용 방식은 대화로 요구하는 것에서 시작해 설계서와 계획을 먼저 두고 외부 도구를 연결하는 쪽으로 달라졌습니다. AI가 빠르게 만들어 주는 만큼, 무엇을 만들지 정하고 결과를 직접 써 보고 고르는 일이 더 중요하다는 점을 배웠습니다.</p>
-  </div>
+  <h2>// 작은 프로젝트</h2>
+  <ul class="slist">
+    <li><b>The Day Before</b><span class="sd">어제 생성된 GitHub 저장소 수를 매일 기록하는 대시보드입니다. 외부 API가 실패하면 가짜 값 대신 지연 상태를 보여 줍니다.</span><span class="sl"><a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a><a href="https://github.com/HTH-0/aleph_the_day_before" target="_blank" rel="noreferrer">GitHub ↗</a></span></li>
+    <li><b>Dodge</b><span class="sd">30초 동안 탄막을 피하는 생존 게임입니다.</span><span class="sl"><a href="https://aleph-project-dodge.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></span></li>
+    <li><b>밈 스튜디오</b><span class="sd">이미지에 글자를 얹어 짤과 카드를 만드는 도구입니다.</span><span class="sl"><a href="https://aleph-meme-studio.vercel.app/" target="_blank" rel="noreferrer">배포 사이트 ↗</a></span></li>
+  </ul>
+  <p class="aino">AI 사용 방식은 대화로 요구하는 것에서 시작해 설계서와 계획을 먼저 두고 외부 도구를 연결하는 쪽으로 달라졌습니다. AI가 빠르게 만들어 주는 만큼, 무엇을 만들지 정하고 결과를 직접 써 보고 고르는 일이 더 중요하다는 점을 배웠습니다.</p>
 </article>
 
 <article data-id="stack" data-kind="page" data-title="기술스택" data-path="~/portfolio/기술스택">
@@ -621,7 +638,7 @@
       <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">JSP</span>JSP / Servlet<span class="ev">JSP와 Servlet으로 요청을 받아 처리하는 웹 페이지를 만들 수 있습니다. <span class="src">근거: 정보처리산업기사 과정 실습 · GitHub 저장소 <a href="https://github.com/HTH-0/JSP_SERVLET" target="_blank" rel="noreferrer">JSP_SERVLET</a> (2025)</span></span></div>
       <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/mysql.svg" alt="" loading="lazy" />MySQL<span class="ev">MySQL을 연결해 서비스의 데이터를 저장하고 조회할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>의 데이터베이스</span></span></div>
       <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/mariadb.svg" alt="" loading="lazy" />MariaDB<span class="ev">계정과 권한을 관리하고, Master-Slave 복제를 구성하고, mysqldump로 백업할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/4506b9a58d7a82c88fb201f507ef6923" target="_blank" rel="noreferrer">MariaDB 계정·권한 관리</a> · <a href="https://app.notion.com/p/50d6b9a58d7a83ee89760117f7db8506" target="_blank" rel="noreferrer">MariaDB Replication &amp; 백업</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt q"></i></span><span class="tx">SQL</span>SQL<span class="ev">JOIN, 서브쿼리, 트랜잭션을 사용해 SQL을 작성할 수 있습니다. <span class="src">근거: SQLD 취득 (2025.06.27) · 정보처리산업기사 과정 · 노션 노트 <a href="https://app.notion.com/p/48e6b9a58d7a833fbdca812f842772be" target="_blank" rel="noreferrer">SQL 기초 &amp; CRUD</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt q"></i></span><span class="tx">SQL</span>SQL<span class="ev">JOIN, 서브쿼리, 트랜잭션을 사용해 SQL을 작성할 수 있습니다. <span class="src">근거: SQLD 합격 (2025.06.27) · 정보처리산업기사 과정 · 노션 노트 <a href="https://app.notion.com/p/48e6b9a58d7a833fbdca812f842772be" target="_blank" rel="noreferrer">SQL 기초 &amp; CRUD</a></span></span></div>
       <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i><i class="dt c"></i></span><img src="assets/stack/git.svg" alt="" loading="lazy" />Git<span class="ev">브랜치를 나눠 협업하고, 병합 충돌을 해결할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a> 팀 협업 · 정보처리산업기사 과정</span></span></div>
       <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/github.svg" alt="" loading="lazy" />GitHub<span class="ev">저장소를 만들어 과제와 프로젝트를 관리할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0" target="_blank" rel="noreferrer">github.com/HTH-0</a></span></span></div>
     </div>
@@ -634,9 +651,9 @@
   <h1>자격증</h1>
   <p class="intro">지원 직무와 관련된 자격증만 최신순으로 적었습니다.</p>
   <ul class="certs">
-    <li class="cert"><b>리눅스마스터 2급</b><span class="st">합격</span><span class="mt">2026.10.02 발표 · 한국정보통신진흥협회</span><p>리눅스 서버 운영의 근거입니다. <a href="#" data-open="stack">기술 스택</a>의 인프라·서버 탭과 이어집니다.</p></li>
+    <li class="cert"><b>리눅스마스터 2급</b><span class="st">합격</span><span class="mt">2026.10.02 발표 · 한국정보통신진흥협회</span><p>리눅스 시스템의 기본 사용과 서버 운영·관리 지식을 평가하는 자격증입니다.</p></li>
     <li class="cert"><b>정보처리기사</b><span class="st w">필기 합격</span><span class="mt">2026.03 · 한국산업인력공단</span></li>
-    <li class="cert"><b>SQLD</b><span class="st">취득</span><span class="mt">2025.06.27 · 한국데이터산업진흥원</span><p>SQL과 데이터 모델링의 근거입니다. <a href="#" data-open="stack">기술 스택</a>의 백엔드 탭과 이어집니다.</p></li>
+    <li class="cert"><b>SQLD</b><span class="st">합격</span><span class="mt">2025.06.27 · 한국데이터산업진흥원</span><p>SQL 작성과 데이터 모델링 지식을 평가하는 자격증입니다.</p></li>
   </ul>
 </article>
 
@@ -658,6 +675,35 @@
   <ol class="tl">
     <li><span class="when">2016.05 – 2018.02</span><div><b>육군 병장 만기 전역</b></div></li>
   </ol>
+</article>
+
+<article data-id="contact" data-kind="page" data-title="연락처" data-path="~/portfolio/연락처">
+  <div class="kick">~/portfolio/연락처</div>
+  <h1>연락처</h1>
+  <p class="intro">지원이나 문의는 이메일로 보내 주세요. 프로젝트의 소스 코드와 공부한 기록은 아래 링크에서 볼 수 있습니다.</p>
+  <div class="contacts">
+    <a class="ct" href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com">
+      <svg><use href="#s-mail"/></svg>
+      <b>이메일</b>
+      <span class="v">xogud17931@gmail.com</span>
+      <p>이메일 주소입니다. 클릭하면 클립보드에 복사됩니다.</p>
+      <span class="go2">주소 복사 →</span>
+    </a>
+    <a class="ct" href="https://github.com/HTH-0" target="_blank" rel="noreferrer">
+      <svg><use href="#s-gh"/></svg>
+      <b>GitHub</b>
+      <span class="v">github.com/HTH-0</span>
+      <p>프로젝트 소스 코드와 과정 실습 저장소입니다.</p>
+      <span class="go2">GitHub 열기 ↗</span>
+    </a>
+    <a class="ct" href="https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8" target="_blank" rel="noreferrer">
+      <svg><use href="#s-notion"/></svg>
+      <b>노션 학습 노트</b>
+      <span class="v">ALEPH 보안 학습 정리</span>
+      <p>과정에서 직접 정리한 학습 노트 37개입니다. 네트워크, 시스템, 탐지, DB를 다룹니다.</p>
+      <span class="go2">노션 열기 ↗</span>
+    </a>
+  </div>
 </article>
 
 <!-- ===== 세부 문서(.md) ===== -->
@@ -1645,7 +1691,8 @@
       { id: 'hm', icon: 'doc', label: 'HealthMe.md' }, { id: 't13', icon: 'doc', label: '사운드워크.md' }, { id: 't07', icon: 'doc', label: 'PinPoint.md' } ] },
     { id: 'stack', icon: 'grid', label: '기술스택' },
     { id: 'certs', icon: 'grid', label: '자격증' },
-    { id: 'history', icon: 'grid', label: '이력' }
+    { id: 'history', icon: 'grid', label: '이력' },
+    { id: 'contact', icon: 'grid', label: '연락처' }
   ];
   var src = document.getElementById('src');
   var arts = {};
