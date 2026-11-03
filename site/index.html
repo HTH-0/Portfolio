@@ -3,139 +3,210 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="인증과 서버 보안을 다뤄 본 백엔드 개발자 지망생 하태형의 포트폴리오" />
+<meta name="description" content="네트워크와 보안 서비스를 직접 구축해 본 보안·인프라 엔지니어 지망생 하태형의 포트폴리오" />
 <title>하태형 포트폴리오</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #e3eadb;          /* 창 바깥 바탕 */
-    --win: #fbfbf8;         /* 창 */
-    --side: #f3f4ef;
-    --line: #dfe2d8;
-    --text: #23272b;
-    --muted: #6b7178;
-    --dim: #a5abb1;
-    --path: #7c4dcc;        /* 경로(보라) */
-    --accent: #1f6feb;
-    --pick: #d9edc8;        /* 선택 막대(연두) */
-    --c1: #d6336c; --c2: #e8590c; --c3: #7048e8; --c4: #2b8a3e;
+    color-scheme: light;
     --mono: "JetBrains Mono", "IBM Plex Sans KR", Consolas, monospace;
     --sans: "IBM Plex Sans KR", system-ui, sans-serif;
+    --c1: #d6336c; --c2: #e8590c; --c4: #2b8a3e;
+    /* 라이트(기본) */
+    --win: #f9fbfd; --win-a: rgba(249, 251, 253, .94); --card: #ffffff;
+    --text: #0f1b2d; --text2: #2a3a50; --text3: #46546a; --muted: #5b6778; --dim: #94a0b3;
+    --line: #dde3ec; --line2: #cbd5e1; --f1: #eef2f7; --f2: #f4f6fa; --f3: #e5eaf1;
+    --accent: #0b6aa8; --accent-bg: #0b6aa8; --path: #0e7490; --c3: #0e7490;
+    --tint: #e3f1f6; --tintg: #e6f2e6; --greent: #2b6a1f;
+    --pick: #d6e9f8; --pick-text: #0b3a6a; --pri-hover: #000000; --toast: #0f1b2d;
+    --act: #e1e7ef; --acttext: #6b7a8e; --actico: #0f1b2d;
+    --side: #f1f4f8; --tabbar: #e8ecf2; --tab: #dde3ec; --status: #2f5f86;
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    /* 다크(VS Code Dark+ 기준) */
+    --win: #1e1e1e; --win-a: rgba(30, 30, 30, .94); --card: #252526;
+    --text: #d4d4d4; --text2: #cccccc; --text3: #a6a6a6; --muted: #9da1a6; --dim: #6e7681;
+    --line: #3c3c3c; --line2: #4a4a4a; --f1: #2a2d2e; --f2: #252526; --f3: #2d2d2d;
+    --accent: #3794ff; --accent-bg: #0e639c; --path: #4ec9b0; --c3: #4ec9b0;
+    --tint: #1b3a45; --tintg: #1f3a26; --greent: #89d185;
+    --pick: #094771; --pick-text: #ffffff; --pri-hover: #ffffff; --toast: #3c3c3c;
+    --act: #333333; --acttext: #858585; --actico: #d7d7d7;
+    --side: #252526; --tabbar: #252526; --tab: #2d2d2d; --status: #16466a;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; }
-  body { background: var(--bg); color: var(--text); font-family: var(--sans); display: grid; place-items: center; }
+  body { background: var(--win); color: var(--text); font-family: var(--sans); }
   button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
   a { color: inherit; }
 
   /* ── 창 ── */
-  .win { width: min(1240px, calc(100vw - 64px)); height: min(780px, calc(100vh - 64px)); display: grid; grid-template-columns: 270px minmax(0, 1fr); background: var(--win); border: 1px solid #cdd3c4; border-radius: 10px; overflow: hidden; box-shadow: 0 24px 60px rgba(40, 60, 30, 0.16), 0 2px 6px rgba(40, 60, 30, 0.08); }
+  .win { width: 100vw; height: 100vh; height: 100dvh; display: grid; grid-template-columns: 48px 270px minmax(0, 1fr); background: var(--win); overflow: hidden; }
+  .act { display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 6px; background: var(--act); }
+  .act a, .act button { position: relative; display: grid; place-items: center; width: 48px; height: 46px; color: var(--acttext); }
+  .act a:hover, .act button:hover, .act .on { color: var(--actico); }
+  .act .on::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: var(--actico); }
+  .act svg { width: 22px; height: 22px; }
+  .act .sep { width: 24px; height: 1px; margin: 8px 0; background: var(--acttext); opacity: .35; }
 
   /* 왼쪽: 파일 트리 + 고정 연락처 */
   .side { display: flex; flex-direction: column; min-height: 0; background: var(--side); border-right: 1px solid var(--line); font: 13px/1 var(--mono); }
-  .side-head { display: flex; align-items: center; gap: 8px; padding: 14px 14px 10px; color: var(--path); font-weight: 600; }
+  .side-head { display: flex; align-items: center; gap: 8px; padding: 18px 16px 14px; color: var(--path); font-weight: 600; }
   .side-head svg { width: 16px; height: 16px; }
-  .tree { flex: 1; overflow: auto; list-style: none; margin: 0; padding: 0 0 10px; }
+  .tree { flex: 1; overflow: auto; list-style: none; margin: 0; padding: 2px 0 14px; }
+  .tree > li + li { margin-top: 4px; }
   .tree ul { list-style: none; margin: 0; padding: 0; }
-  .it { display: flex; align-items: center; gap: 8px; width: 100%; height: 25px; padding: 0 12px 0 calc(14px + var(--d, 0) * 16px); text-align: left; white-space: nowrap; color: #3b4046; }
-  .it:hover { background: #e8ebe2; }
-  .it.on { background: var(--pick); color: #1d2a12; }
+  .it { display: flex; align-items: center; gap: 10px; font-size: 13.5px; width: 100%; height: 32px; padding: 0 12px 0 calc(16px + var(--d, 0) * 18px); text-align: left; white-space: nowrap; color: var(--text2); }
+  .it:hover { background: var(--f3); }
+  .it.on { background: var(--pick); color: var(--pick-text); }
   .it:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
   .it:disabled { color: var(--dim); cursor: default; }
   .it:disabled:hover { background: none; }
   .it svg { width: 14px; height: 14px; flex: none; }
-  .ic-dir { color: #8a8f73; } .ic-doc { color: #6b7178; } .ic-home { color: var(--path); } .ic-grid { color: var(--accent); }
+  .ic-dir { color: var(--dim); } .ic-doc { color: var(--muted); } .ic-home { color: var(--path); } .ic-grid { color: var(--accent); }
   .it .lbl { overflow: hidden; text-overflow: ellipsis; }
-  .pin { border-top: 1px solid var(--line); padding: 6px 0 10px; }
-  .pin .it { color: #3b4046; text-decoration: none; }
+  .pin { display: none; border-top: 1px solid var(--line); padding: 6px 0 10px; }
+  .pin .it { color: var(--text2); text-decoration: none; }
   .pin .cap { padding: 8px 14px 6px; font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
 
   /* 오른쪽: 화면 */
-  .main { position: relative; display: grid; grid-template-rows: 30px minmax(0, 1fr) 26px; min-width: 0; min-height: 0; }
-  .bar { display: flex; align-items: center; padding: 0 14px; font: 12px var(--mono); color: var(--muted); border-bottom: 1px solid var(--line); }
-  .bar .buf { margin: 0 auto; color: var(--text); }
-  .bar .fps { min-width: 64px; text-align: right; }
-  .burger { display: none; width: 26px; height: 22px; font-size: 15px; margin-right: 6px; }
+  .main { position: relative; display: grid; grid-template-rows: 35px minmax(0, 1fr) 24px; min-width: 0; min-height: 0; }
+  .bar { display: flex; align-items: stretch; background: var(--tabbar); border-bottom: 1px solid var(--line); overflow: hidden; }
+  .etabs { display: flex; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .etabs::-webkit-scrollbar { display: none; }
+  .etab { display: flex; flex: none; align-items: center; gap: 8px; height: 35px; padding: 0 8px 0 14px; border: 0; border-right: 1px solid var(--line); border-top: 1px solid transparent; background: var(--tab); color: var(--muted); font: 13px var(--sans); white-space: nowrap; cursor: pointer; }
+  .etab:hover { color: var(--text); }
+  .etab.on { background: var(--win); color: var(--text); border-top-color: var(--accent); margin-bottom: -1px; height: 36px; }
+  .etab svg { width: 14px; height: 14px; flex: none; }
+  .etab .tx { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 4px; font-size: 14px; line-height: 1; color: var(--muted); opacity: 0; }
+  .etab.on .tx, .etab:hover .tx { opacity: 1; }
+  .etab .tx:hover { background: var(--f3); color: var(--text); }
+  .etab.first .tx { display: none; }
+  .etab.first { padding-right: 14px; }
+  .burger { display: none; flex: none; width: 36px; font-size: 16px; color: var(--muted); }
   .view { position: relative; overflow: auto; }
-  .foot { display: flex; align-items: center; gap: 14px; padding: 0 14px; font: 11.5px var(--mono); color: var(--muted); border-top: 1px solid var(--line); white-space: nowrap; overflow: hidden; }
-  .foot .mode { padding: 2px 8px; border-radius: 3px; background: var(--pick); color: #1d2a12; font-weight: 600; }
+  .foot { display: flex; align-items: center; gap: 14px; padding: 0 10px; background: var(--status); color: #fff; font: 12px var(--sans); white-space: nowrap; overflow: hidden; }
+  .foot .mode { padding: 0 6px; font: 600 11.5px var(--mono); letter-spacing: .02em; }
+  .foot button { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 8px; color: #fff; font: 12px var(--sans); }
+  .foot button:hover { background: rgba(255, 255, 255, .18); }
+  .foot button svg { width: 13px; height: 13px; }
   .foot .r { margin-left: auto; }
 
   /* 줄 번호 + Vim의 빈 줄(~) */
-  .gut { position: absolute; left: 0; top: 0; bottom: 0; width: 54px; padding-top: 14px; text-align: right; font: 13px/24px var(--mono); color: #b9bec3; pointer-events: none; user-select: none; overflow: hidden; }
+  .gut { position: absolute; left: 0; top: 0; bottom: 0; width: 54px; padding-top: 14px; text-align: right; font: 13px/24px var(--mono); color: var(--dim); pointer-events: none; user-select: none; overflow: hidden; }
 
   /* ── 홈 ── */
-  .home { position: relative; min-height: 100%; padding-top: 14px; overflow: hidden; }
-  #art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .hero { position: relative; z-index: 1; margin: 0 0 0 70px; padding: 0 28px 22px 4px; width: min(760px, calc(100% - 100px)); background: linear-gradient(90deg, var(--win) 82%, rgba(251,251,248,0)); }
-  .hero .ln { font: 13px/24px var(--mono); color: var(--muted); }
+  .home { position: relative; min-height: 100%; padding: 14px 0 24px 54px; overflow: hidden; }
+  .stage2 { position: relative; z-index: 1; display: flex; align-items: center; gap: clamp(20px, 2.4vw, 40px); max-width: 1400px; margin: 0 auto; padding: 0 clamp(20px, 2.4vw, 44px) 0 clamp(12px, 1.4vw, 24px); }
+  .hero { position: relative; z-index: 1; flex: 1 1 0; min-width: 0; margin: 0; padding: 0 0 22px 4px; }
+  .hero .ln { font: 14px/24px var(--mono); color: var(--muted); }
   .hero .ln .k { color: var(--c3); }
-  .hero h1 { margin: 4px 0 10px; font-size: 72px; line-height: 1.15; letter-spacing: -0.02em; }
-  .hero .role { margin: 0 0 28px; font: 600 22px/1.5 var(--mono); letter-spacing: 0.01em; color: var(--c3); }
-  .hero .one { margin: 0 0 40px; font-size: 28px; font-weight: 600; line-height: 1.5; word-break: keep-all; }
+  .hero h1 { margin: 4px 0 12px; font-size: clamp(56px, 5.8vw, 104px); line-height: 1.12; letter-spacing: -0.03em; }
+  .hero .role { margin: 0 0 24px; font: 600 clamp(18px, 1.6vw, 34px)/1.4 var(--mono); letter-spacing: 0; color: var(--c3); }
+  .hero .one { margin: 0 0 40px; font-size: clamp(18px, 1.6vw, 28px); font-weight: 500; line-height: 1.5; word-break: keep-all; }
   .go { display: flex; flex-wrap: wrap; gap: 8px; }
-  .go button, .go a { display: inline-flex; align-items: center; gap: 6px; padding: 12px 22px; border-radius: 6px; font: 600 16px var(--sans); text-decoration: none; border: 1px solid #cfd4ca; background: #fff; }
-  .go .pri { background: var(--text); color: #fff; border-color: var(--text); }
+  .go button, .go a { display: inline-flex; align-items: center; gap: 6px; padding: 14px clamp(16px, 1.5vw, 26px); border-radius: 6px; font: 600 18px var(--sans); text-decoration: none; border: 1px solid var(--line2); background: var(--card); }
+  .go .pri { background: var(--text); color: var(--win); border-color: var(--text); }
   .go button:hover, .go a:hover { border-color: var(--accent); }
-  .go .pri:hover { background: #000; }
-  .tip { position: absolute; z-index: 1; right: 16px; bottom: 12px; font: 11.5px var(--mono); color: var(--dim); }
+  .go .pri:hover { background: var(--pri-hover); }
+  /* 오른쪽 대표 프로젝트 카드: 손에 쥔 카드처럼 겹쳐 펼친다. 겹친 위쪽 띠에 이름과 결과를 적고, 올리면 앞으로 나와 똑바로 선다 */
+  .fan { --fw: clamp(300px, 22vw, 400px); position: relative; flex: none; width: var(--fw); height: calc(272px + var(--fw) * .52); }
+  .fc { position: absolute; left: 4%; width: 92%; display: block; padding: 0; text-align: left; background: var(--card); border: 1px solid var(--line2); border-radius: 10px; overflow: hidden; box-shadow: 0 8px 22px rgba(15, 27, 45, .13); transform-origin: 50% 100%; transition: transform .2s, box-shadow .2s, border-color .2s; }
+  .fc .fh { display: block; height: 58px; padding: 9px 14px 0; background: var(--f2); border-bottom: 1px solid var(--line); }
+  .fc .fh b { display: block; font: 700 14px var(--mono); color: var(--text); }
+  .fc .fh span { display: block; margin-top: 3px; font: 12.5px var(--sans); color: var(--muted); }
+  .fc img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 8; object-fit: cover; object-position: top; background: #fff; }
+  .fc .fd { display: block; padding: 10px 14px 12px; font-size: 13px; line-height: 1.55; color: var(--text2); word-break: keep-all; }
+  .fc .fd em { display: block; margin-top: 6px; font-style: normal; font-weight: 600; color: var(--accent); }
+  .fc.f1 { top: 0; z-index: 1; transform: rotate(-2.5deg); }
+  .fc.f2 { top: 64px; z-index: 2; transform: rotate(0deg); }
+  .fc.f3 { top: 128px; z-index: 3; transform: rotate(2.5deg); }
+  .fc:hover, .fc:focus-visible { z-index: 4; transform: translateY(-14px) rotate(0deg); box-shadow: 0 18px 36px rgba(15, 27, 45, .24); border-color: var(--accent); outline: none; }
+  @media (prefers-reduced-motion: reduce) { .fc { transition: none; } }
+  /* 패드(폭 600~1200px): 카드를 겹치지 않고 소개 아래에 3열로 나란히 둔다 */
+  @media (min-width: 600px) and (max-width: 1200px) {
+    .fan { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; width: 100%; height: auto; margin-top: 8px; }
+    .fan .fc, .fan .fc.f1, .fan .fc.f2, .fan .fc.f3 { position: static; width: auto; left: auto; top: auto; transform: none; z-index: auto; }
+    .fan .fc:hover, .fan .fc:focus-visible { transform: translateY(-4px); }
+    .fc img { aspect-ratio: 16 / 9; }
+    .fc .fd { display: none; }
+    .fc .fh { height: auto; min-height: 76px; padding-bottom: 10px; }
+    .stage2 { display: block; max-width: 1040px; padding: 0 clamp(24px, 4vw, 48px) 0 clamp(24px, 3vw, 36px); }
+    .stage2 .hero { padding-bottom: 28px; }
+  }
+  @media (max-width: 599px) { .fan { display: none; } }
+  /* 홈 아래쪽 키워드 띠: 목록을 두 번 이어 붙이고 자기 폭만큼 옮겨서 끊김 없이 흐른다 */
+  .belt { position: relative; margin: 52px 0 0; z-index: 1; display: flex; align-items: center; min-height: 76px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--win); }
+  .belt .bt { flex: 1; min-width: 0; display: flex; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 36px, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(90deg, transparent, #000 36px, #000 calc(100% - 36px), transparent); }
+  .bk { flex: none; display: flex; margin: 0; padding: 0; list-style: none; animation: belt 90s linear infinite; }
+  .bk li { flex: none; position: relative; padding: 0 24px; font: 500 22px var(--mono); color: var(--text); white-space: nowrap; }
+  .bk li::after { content: ""; position: absolute; right: 0; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: var(--line2); }
+  .belt:hover .bk { animation-play-state: paused; }
+  @keyframes belt { to { transform: translateX(-100%); } }
+  @media (max-width: 860px) { .home { padding: 14px 0 24px; } .bk li { font-size: 18px; } .stage2 { display: block; margin: 0; } }
+  @media (max-width: 599px) { .home { padding: 14px 0 136px; } .belt { position: absolute; left: 0; right: 0; bottom: 48px; margin: 0; min-height: 64px; } .stage2 { padding: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .bk { animation: none; flex: 1 1 0; min-width: 0; flex-wrap: wrap; padding: 10px 0; }
+    .bk[aria-hidden] { display: none; }
+    .belt .bt { -webkit-mask-image: none; mask-image: none; }
+  }
 
   /* ── 목록 페이지 ── */
   .page { padding: 28px 36px 48px 70px; max-width: 1280px; }
   .page .kick { font: 600 12.5px var(--mono); color: var(--path); }
   .page h1 { margin: 6px 0 8px; font-size: 36px; line-height: 1.3; word-break: keep-all; }
-  .page .intro { margin: 0 0 22px; max-width: 860px; font-size: 16px; line-height: 1.85; color: #50565c; word-break: keep-all; }
+  .page .intro { margin: 0 0 22px; max-width: 860px; font-size: 16px; line-height: 1.85; color: var(--text3); word-break: keep-all; }
   .page h2 { margin: 30px 0 12px; font: 600 12.5px var(--mono); color: var(--muted); letter-spacing: 0.02em; }
   .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
-  .card { width: 100%; height: 100%; display: flex; flex-direction: column; text-align: left; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; }
-  button.card:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(40, 60, 30, 0.12); border-color: #b9c2ad; }
+  .card { width: 100%; height: 100%; display: flex; flex-direction: column; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; }
+  button.card:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(15, 27, 45, 0.12); border-color: var(--line2); }
   .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .card:disabled { cursor: default; }
-  .thumb { aspect-ratio: 16 / 9; background: #eef0ea; border-bottom: 1px solid #e6e8e1; overflow: hidden; display: grid; place-items: center; }
+  .thumb { aspect-ratio: 16 / 9; background: var(--f1); border-bottom: 1px solid var(--f3); overflow: hidden; display: grid; place-items: center; }
   .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
   .thumb.dia { background: #fff; }
   .thumb.dia img { object-fit: contain; object-position: center; }
-  .thumb pre { margin: 0; font: 11px/1.25 var(--mono); color: #8d949a; }
+  .thumb pre { margin: 0; font: 11px/1.25 var(--mono); color: var(--dim); }
   .thumb pre b { color: var(--c2); font-weight: 600; } .thumb pre i { color: var(--c3); font-style: normal; }
   .cb { display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px; flex: 1; }
   .cb .top { display: flex; align-items: center; gap: 8px; font: 600 12px var(--mono); color: var(--path); }
-  .cb .tag { margin-left: auto; font: 500 11px var(--mono); padding: 1px 8px; border-radius: 999px; background: #eef2fb; color: var(--accent); }
-  .cb .tag.g { background: #f0f0ed; color: #868b90; }
+  .cb .tag { margin-left: auto; font: 500 11px var(--mono); padding: 1px 8px; border-radius: 999px; background: var(--f1); color: var(--accent); }
+  .cb .tag.g { background: var(--f1); color: var(--dim); }
   .cb b { font-size: 18px; line-height: 1.4; word-break: keep-all; }
-  .cb p { margin: 0; font-size: 15px; line-height: 1.7; color: #5a6066; word-break: keep-all; }
+  .cb p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--text3); word-break: keep-all; }
   .cb .more { margin-top: auto; padding-top: 6px; font: 12px var(--mono); color: var(--accent); }
   .cb .more.g { color: var(--dim); }
   .card.plan { border-style: dashed; background: transparent; }
-  .steps { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; padding: 0; margin: 0; font-size: 13px; color: #50565c; }
+  .steps { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; padding: 0; margin: 0; font-size: 13px; color: var(--text3); }
   .steps b { font: 600 11.5px var(--mono); color: var(--c3); margin-right: 6px; }
-  .note { margin: 14px 0 0; padding: 14px 16px; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; font-size: 14px; line-height: 1.85; color: #444; word-break: keep-all; max-width: 860px; }
+  .note { margin: 14px 0 0; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; font-size: 14px; line-height: 1.85; color: var(--text2); word-break: keep-all; max-width: 860px; }
   .note.toy ul { list-style: none; padding: 0; margin: 0 0 10px; }
   .note.toy li { padding: 4px 0; }
-  .note.toy li b { margin-right: 6px; color: #222; }
-  .note.toy p { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid #e6e9df; color: #50565c; }
+  .note.toy li b { margin-right: 6px; color: var(--text); }
+  .note.toy p { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--f3); color: var(--text3); }
   .pills { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
-  .pills li { font-size: 14px; padding: 3px 10px; border-radius: 999px; background: #fff; border: 1px solid #d5dacd; color: #444; }
-  .tbl { width: 100%; max-width: 760px; border-collapse: collapse; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; overflow: hidden; font-size: 14px; }
-  .tbl th, .tbl td { text-align: left; padding: 11px 16px; border-bottom: 1px solid #eef0ea; }
+  .pills li { font-size: 14px; padding: 3px 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--line2); color: var(--text2); }
+  .tbl { width: 100%; max-width: 760px; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; font-size: 14px; }
+  .tbl th, .tbl td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--f1); }
   .tbl tr:last-child > * { border-bottom: 0; }
   .tbl th { width: 44%; font-weight: 600; }
-  .tbl td { color: #5a6066; }
+  .tbl td { color: var(--text3); }
   .tabs { display: flex; gap: 4px; max-width: 760px; border-bottom: 1px solid var(--line); }
   .tabs button { padding: 9px 16px; margin-bottom: -1px; font: 600 13.5px var(--sans); color: var(--muted); border-bottom: 2px solid transparent; }
   .tabs button:hover { color: var(--text); }
   .tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
   .tabs button:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
   .page .tabp h2 { display: none; }
-  .stack { list-style: none; max-width: 760px; margin: 16px 0 0; padding: 0; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; overflow: hidden; }
-  .stack li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 2px 16px; padding: 12px 16px; border-bottom: 1px solid #eef0ea; font-size: 14px; line-height: 1.7; }
+  .stack { list-style: none; max-width: 760px; margin: 16px 0 0; padding: 0; background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .stack li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 2px 16px; padding: 12px 16px; border-bottom: 1px solid var(--f1); font-size: 14px; line-height: 1.7; }
   .stack li:last-child { border-bottom: 0; }
   .stack b { font-weight: 600; }
-  .stack span { color: #5a6066; word-break: keep-all; }
+  .stack span { color: var(--text3); word-break: keep-all; }
   .stack a { color: var(--accent); }
   .src { display: inline-block; margin-right: 4px; padding: 0 6px; border-radius: 3px; font: 600 11px/18px var(--mono); font-style: normal; vertical-align: 1px; }
-  .src.p { background: #e4efe0; color: #2b6a1f; }
-  .src.c { background: #eef0f6; color: #4a5470; }
+  .src.p { background: var(--tintg); color: var(--greent); }
+  .src.c { background: var(--f1); color: var(--text3); }
   @media (max-width: 600px) { .stack li { grid-template-columns: minmax(0, 1fr); } }
 
   /* ── 세부 문서(.md) ── */
@@ -144,20 +215,20 @@
   .doc h1 { margin: 0 0 10px; font-size: 34px; line-height: 1.35; }
   .doc h2 { margin: 26px 0 8px; font-size: 20px; }
   .doc p { margin: 0 0 12px; font-size: 16px; line-height: 1.85; word-break: keep-all; }
-  .fm { margin: 4px 0 16px; padding: 10px 14px; background: #f4f5f0; border: 1px solid #e3e6dc; border-radius: 6px; font: 12.5px/1.9 var(--mono); }
-  .fm .dl { color: var(--dim); } .fm .key { color: var(--c3); } .fm .val { color: #3d4a2f; }
+  .fm { margin: 4px 0 16px; padding: 10px 14px; background: var(--f2); border: 1px solid var(--line); border-radius: 6px; font: 12.5px/1.9 var(--mono); }
+  .fm .dl { color: var(--dim); } .fm .key { color: var(--c3); } .fm .val { color: var(--text2); }
   .fm .val a { color: var(--accent); }
   .shot { margin: 12px 0 18px; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; max-width: 720px; background: #fff; }
   .shot img { display: block; width: 100%; height: auto; }
   .shot figcaption { padding: 6px 12px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); }
   .nav2 { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-  .nav2 button, .nav2 a { font: 600 13px var(--sans); padding: 7px 12px; border-radius: 6px; border: 1px solid #cfd4ca; background: #fff; text-decoration: none; }
+  .nav2 button, .nav2 a { font: 600 13px var(--sans); padding: 7px 12px; border-radius: 6px; border: 1px solid var(--line2); background: var(--card); text-decoration: none; }
   .nav2 button:hover, .nav2 a:hover { border-color: var(--accent); }
   .doc .feat { list-style: none; padding: 0; margin: 0 0 14px; max-width: 760px; }
-  .doc .feat li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 14.5px; line-height: 1.8; color: #3b4046; word-break: keep-all; }
+  .doc .feat li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 14.5px; line-height: 1.8; color: var(--text2); word-break: keep-all; }
   .doc .feat b { display: block; margin-bottom: 2px; color: var(--text); }
 
-  @media (max-width: 380px) { .home .hero .role { font-size: 14px; } }
+  @media (max-width: 380px) { .home .hero .role { font-size: 18px; } }
 
   /* ── 모바일 ── */
   @media (max-width: 860px) {
@@ -166,51 +237,53 @@
     .side { position: fixed; z-index: 30; top: 0; bottom: 0; left: 0; width: min(290px, 84vw); transform: translateX(-102%); transition: transform .2s; box-shadow: 6px 0 24px rgba(0,0,0,.14); }
     .win.drawer .side { transform: none; }
     .burger { display: block; }
-    .bar .fps { display: none; }
+    .act { display: none; }
+    .pin { display: block; }
+    .foot #where, .foot .r { display: none; }
+    .foot #theme { margin-left: auto; }
     .gut { display: none; }
-    .hero { margin: 8px 0 0; padding: 0 18px 20px; width: 100%; background: linear-gradient(180deg, var(--win) 86%, rgba(251,251,248,0)); }
-    .hero h1 { font-size: 56px; margin-bottom: 8px; }
-    .hero .role { font-size: 16px; margin-bottom: 18px; }
-    .hero .one { font-size: 27px; margin-bottom: 32px; }
-    .tip { display: none; }
+    .hero { margin: 8px 0 0; padding: 0 18px 20px; width: 100%; background: linear-gradient(180deg, var(--win) 86%, transparent); }
+    .hero h1 { font-size: 68px; margin-bottom: 8px; }
+    .hero .role { font-size: 21px; margin-bottom: 18px; }
+    .hero .one { font-size: 26px; margin-bottom: 32px; }
     .page, .doc { padding: 20px 16px 40px; }
     .cards { grid-template-columns: minmax(0, 1fr); }
   }
   @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
 
   /* ===== 세부 문서: 공통 보강 ===== */
-  .doc blockquote { margin: 12px 0 18px; padding: 8px 14px; border-left: 3px solid var(--path); background: #f4f2fb; font-size: 16px; line-height: 1.8; max-width: 860px; }
+  .doc blockquote { margin: 12px 0 18px; padding: 8px 14px; border-left: 3px solid var(--path); background: var(--tint); font-size: 16px; line-height: 1.8; max-width: 860px; }
   .doc blockquote p { margin: 0; }
   .doc .small-note, .doc .note { font-size: 12.5px; line-height: 1.75; color: var(--muted); }
   .doc h3 { margin: 22px 0 8px; font-size: 16px; }
   .doc h4 { margin: 18px 0 6px; font-size: 15px; }
-  .doc details.thesis { margin: 14px 0 24px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  .doc details.thesis { margin: 14px 0 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
   .doc details.thesis > summary { padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 15px; }
   .doc details.thesis[open] > summary { border-bottom: 1px solid var(--line); }
   .doc details.thesis .thesis-body { padding: 4px 18px 14px; }
   .doc ul:not(.feat):not(.cast):not(.steps):not(.log), .doc ol:not(.steps):not(.log) { padding-left: 22px; margin: 0 0 12px; max-width: 820px; }
   .doc li { font-size: 16px; line-height: 1.85; word-break: keep-all; }
   .doc p a, .doc li a { overflow-wrap: anywhere; }
-  .doc code { font: 12.5px var(--mono); background: #eef0ea; padding: 1px 5px; border-radius: 3px; }
+  .doc code { font: 12.5px var(--mono); background: var(--f1); padding: 1px 5px; border-radius: 3px; }
   .doc .table-wrap { overflow-x: auto; margin: 10px 0 16px; max-width: 860px; }
-  .doc table:not(.tbl) { border-collapse: collapse; width: 100%; font-size: 14.5px; line-height: 1.7; background: #fff; }
+  .doc table:not(.tbl) { border-collapse: collapse; width: 100%; font-size: 14.5px; line-height: 1.7; background: var(--card); }
   .doc table:not(.tbl) th, .doc table:not(.tbl) td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; word-break: keep-all; }
-  .doc table:not(.tbl) th { background: #f4f5f0; white-space: nowrap; }
+  .doc table:not(.tbl) th { background: var(--f2); white-space: nowrap; }
   .doc .shot.ascii { display: grid; place-items: center; padding: 18px 0; }
-  .doc .shot.ascii pre { margin: 0; font: 13px/1.25 var(--mono); color: #8d949a; }
+  .doc .shot.ascii pre { margin: 0; font: 13px/1.25 var(--mono); color: var(--dim); }
   .doc .shot.ascii pre b { color: var(--c2); } .doc .shot.ascii pre i { color: var(--c3); font-style: normal; }
 
   /* ===== Overwrite 문서 전용 요소(예전 페이지에서 옮김, 밝은 색) ===== */
   .doc .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 14px; padding: 0; list-style: none; }
   .doc .story .opening { font-size: 20px; font-weight: 600; line-height: 1.6; margin: 0 0 12px; }
   .doc .cast { list-style: none; padding: 0; margin: 14px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 10px; max-width: 860px; }
-  .doc .cast li { border-top: 2px solid var(--path); background: #f4f2fb; padding: 12px 14px; font-size: 13px; line-height: 1.7; color: #50565c; }
+  .doc .cast li { border-top: 2px solid var(--path); background: var(--tint); padding: 12px 14px; font-size: 13px; line-height: 1.7; color: var(--text3); }
   .doc .cast b { display: block; font-size: 16px; color: var(--text); }
   .doc .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 10px; margin: 12px 0; max-width: 860px; }
-  .doc .tile { border-top: 2px solid var(--accent); background: #fff; border-left: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 12px 14px; }
+  .doc .tile { border-top: 2px solid var(--accent); background: var(--card); border-left: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 12px 14px; }
   .doc .tile .v { font-weight: 700; font-size: 30px; line-height: 1.1; color: var(--accent); }
   .doc .tile .v small { font-size: 14px; margin-left: 3px; }
-  .doc .tile .k { margin-top: 6px; font-size: 12.5px; line-height: 1.6; color: #50565c; }
+  .doc .tile .k { margin-top: 6px; font-size: 12.5px; line-height: 1.6; color: var(--text3); }
   .doc .group { border-top: 1px solid var(--line); margin-top: 16px; max-width: 860px; }
   .doc .group > summary { list-style: none; display: flex; align-items: baseline; gap: 10px; padding: 12px 0 12px 12px; border-left: 3px solid var(--accent); cursor: pointer; font-weight: 600; font-size: 15px; }
   .doc .group > summary::-webkit-details-marker { display: none; }
@@ -222,7 +295,7 @@
   .doc .zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
   .doc .gallery img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-bottom: 2px solid var(--accent); background: #fff; }
   .doc .gallery figcaption { margin-top: 6px; font-size: 12.5px; line-height: 1.7; color: var(--muted); }
-  .doc .gallery .label { display: block; font-weight: 600; color: #3b4046; }
+  .doc .gallery .label { display: block; font-weight: 600; color: var(--text2); }
   .doc .steps { counter-reset: step; list-style: none; padding: 0; margin: 12px 0 0; max-width: 860px; }
   .doc .steps li { counter-increment: step; display: grid; grid-template-columns: 46px 1fr; gap: 0 10px; padding: 12px 0; border-top: 1px solid var(--line); }
   .doc .steps li::before { content: counter(step, decimal-leading-zero); font: 600 22px/1.3 var(--mono); color: var(--accent); }
@@ -233,31 +306,31 @@
   .doc .shift td.to::before { content: "\2192"; margin-right: 6px; }
   .doc .sub { margin-top: 26px; }
   .doc .zone { margin: 14px 0 0; max-width: 860px; }
-  .doc .zone-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 8px 12px; border-left: 3px solid var(--accent); background: #f4f5f0; }
+  .doc .zone-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--f2); }
   .doc .zone-no { font: 600 11px var(--mono); color: var(--accent); }
   .doc .zone-head b { font-size: 16px; }
   .doc .zone-role { font-size: 12.5px; color: var(--muted); }
-  .doc .zone-tech { margin-left: auto; font-size: 12px; padding: 3px 9px; border-radius: 4px; background: var(--accent); color: #fff; }
-  .doc .zone-tech.alt { background: #2f3a46; }
+  .doc .zone-tech { margin-left: auto; font-size: 12px; padding: 3px 9px; border-radius: 4px; background: var(--accent-bg); color: #fff; }
+  .doc .zone-tech.alt { background: var(--text3); }
   .doc .zone .steps { margin-top: 0; }
   .doc .dgroup { margin: 24px 0 0; padding-bottom: 6px; border-bottom: 1px solid var(--line); font-weight: 600; font-size: 15px; max-width: 860px; }
   .doc .dgroup span { margin-left: 8px; font-size: 12px; font-weight: 400; color: var(--muted); }
   .doc .decisions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; margin: 12px 0 0; max-width: 860px; }
-  .doc .decision { border: 1px solid var(--line); border-top: 2px solid var(--accent); border-radius: 0 0 8px 8px; background: #fff; padding: 14px 16px 16px; }
+  .doc .decision { border: 1px solid var(--line); border-top: 2px solid var(--accent); border-radius: 0 0 8px 8px; background: var(--card); padding: 14px 16px 16px; }
   .doc .decision .tag { font: 600 11px var(--mono); color: var(--accent); margin: 0 0 4px; }
   .doc .decision h3 { font-size: 16px; line-height: 1.45; margin: 0 0 8px; }
   .doc .decision p { margin: 0; font-size: 13.5px; line-height: 1.8; }
   .doc .decision p + p { margin-top: 6px; }
-  .doc .decision .why { color: #50565c; } .doc .decision .why b { color: var(--accent); }
+  .doc .decision .why { color: var(--text3); } .doc .decision .why b { color: var(--accent); }
   .doc .log { counter-reset: log; list-style: none; padding: 0; margin: 10px 0 0; }
   .doc .log li { counter-increment: log; display: grid; grid-template-columns: 30px 1fr; gap: 0 8px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 13.5px; line-height: 1.8; }
   .doc .log li::before { content: counter(log); font: 600 16px/1.6 var(--mono); color: var(--accent); }
 
   /* ===== 미리보기 / .md 원문 전환 ===== */
-  .pvbar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 70px; background: rgba(251,251,248,.94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); font: 12px var(--mono); }
-  .pvbar .seg { display: inline-flex; border: 1px solid #cfd4ca; border-radius: 6px; overflow: hidden; }
-  .pvbar .seg button { padding: 5px 12px; color: #50565c; }
-  .pvbar .seg button.on { background: var(--text); color: #fff; }
+  .pvbar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 70px; background: var(--win-a); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); font: 12px var(--mono); }
+  .pvbar .seg { display: inline-flex; border: 1px solid var(--line2); border-radius: 6px; overflow: hidden; }
+  .pvbar .seg button { padding: 5px 12px; color: var(--text3); }
+  .pvbar .seg button.on { background: var(--text); color: var(--win); }
   .pvbar .hint { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .view.pv > .gut { display: none; }
   .view.pv .doc { padding: 22px 40px 50px; max-width: 980px; margin: 0 auto; }
@@ -270,29 +343,29 @@
   .view.pv .pv-hero.ascii { display: grid; place-items: center; padding: 26px 0; }
   .view.pv .pv-hero figcaption { display: none; }
   .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 0 0 22px; }
-  .meta div { padding: 12px 14px; background: #fff; border: 1px solid var(--line); border-radius: 8px; }
+  .meta div { padding: 12px 14px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
   .meta small { display: block; font: 600 11px var(--mono); color: var(--path); margin-bottom: 4px; }
   .meta span { font-size: 14px; line-height: 1.55; word-break: keep-all; }
   .meta a { color: var(--accent); }
   .view:not(.pv) .meta, .view:not(.pv) .hero-slot { display: none; }
-  .view.pv .doc .feat li { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+  .view.pv .doc .feat li { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
   .view.pv .doc .shot img, .view.pv .doc .gal img { cursor: zoom-in; }
   @media (max-width: 860px) { .pvbar { padding-left: 16px; } .view.pv .doc { padding: 16px; } .view.pv .doc h1 { font-size: 26px; } }
 
   /* 크게 보기 */
   dialog.lb { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; overflow: visible; }
-  dialog.lb::backdrop { background: rgba(20, 24, 18, 0.86); }
+  dialog.lb::backdrop { background: rgba(10, 20, 36, 0.86); }
   dialog.lb img { display: block; max-width: 96vw; max-height: 84vh; margin: 0 auto; object-fit: contain; cursor: zoom-out; border-radius: 6px; }
   dialog.lb p { margin: 10px 16px 0; text-align: center; font-size: 13px; color: #fff; }
 
   /* ── 자격증 카드 ── */
   .certs { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; max-width: 860px; margin: 0; padding: 0; list-style: none; }
-  .cert { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; background: #fff; border: 1px solid #dfe2d8; border-top: 3px solid var(--accent); border-radius: 8px; }
+  .cert { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 8px; }
   .cert b { font-size: 17px; }
-  .cert .st { align-self: flex-start; padding: 1px 8px; border-radius: 999px; background: #e4efe0; color: #2b6a1f; font: 600 12px var(--mono); }
-  .cert .st.w { background: #eef0f6; color: #4a5470; }
+  .cert .st { align-self: flex-start; padding: 1px 8px; border-radius: 999px; background: var(--tintg); color: var(--greent); font: 600 12px var(--mono); }
+  .cert .st.w { background: var(--f1); color: var(--text3); }
   .cert .mt { font: 13px/1.6 var(--mono); color: var(--muted); word-break: keep-all; }
-  .cert p { margin: 4px 0 0; font-size: 13.5px; line-height: 1.7; color: #50565c; word-break: keep-all; }
+  .cert p { margin: 4px 0 0; font-size: 13.5px; line-height: 1.7; color: var(--text3); word-break: keep-all; }
   .cert a { color: var(--accent); }
   /* ── 이력 타임라인 ── */
   .tl { list-style: none; margin: 0; padding: 0; max-width: 1000px; }
@@ -301,122 +374,63 @@
   .tl .when { font: 600 13px/1.6 var(--mono); color: var(--path); }
   .tl b { display: block; font-size: 18px; line-height: 1.45; word-break: keep-all; }
   .tl .org { margin: 2px 0 8px; font-size: 15px; color: var(--muted); }
-  .tl .row { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 2px 10px; margin-top: 4px; font-size: 15px; line-height: 1.75; color: #3b4046; word-break: keep-all; }
+  .tl .row { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 2px 10px; margin-top: 4px; font-size: 15px; line-height: 1.75; color: var(--text2); word-break: keep-all; }
   .tl .row > span:first-child { font: 600 12px/1.9 var(--mono); color: var(--muted); }
   .tl .row a { color: var(--accent); }
   @media (max-width: 600px) { .tl > li { grid-template-columns: minmax(0, 1fr); } }
 
   /* ── 기술 스택 로고 타일 ── */
-  .legend2 { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 4px; font-size: 12.5px; color: #50565c; }
+  .legend2 { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 4px; font-size: 12.5px; color: var(--text3); }
   .legend2 span { display: inline-flex; align-items: center; gap: 5px; }
   .dt { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
-  .dt.p { background: #2b8a3e; } .dt.c { background: #8c95b0; } .dt.q { background: #1f6feb; }
+  .dt.p { background: #2b8a3e; } .dt.c { background: var(--dim); } .dt.q { background: var(--accent); }
   .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; max-width: 860px; margin: 16px 0 0; }
-  .stile { position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 16px 6px 11px; background: #fff; border: 1px solid #dfe2d8; border-radius: 10px; font-size: 12.5px; font-weight: 600; color: #23272b; text-align: center; cursor: pointer; transition: border-color .15s, box-shadow .15s, transform .15s; }
-  .stile:hover { border-color: #b9c2ad; transform: translateY(-1px); }
+  .stile { position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 16px 6px 11px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; font-size: 12.5px; font-weight: 600; color: var(--text); text-align: center; cursor: pointer; transition: border-color .15s, box-shadow .15s, transform .15s; }
+  .stile:hover { border-color: var(--line2); transform: translateY(-1px); }
   .stile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .stile.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
   .stile img, .stile .tx { width: 36px; height: 36px; object-fit: contain; }
-  .stile .tx { display: grid; place-items: center; border-radius: 9px; background: #eef0ea; font: 700 11px var(--mono); color: #3b4046; }
+  .stile .tx { display: grid; place-items: center; border-radius: 9px; background: var(--f1); font: 700 11px var(--mono); color: var(--text2); }
   .stile .dots { position: absolute; top: 7px; right: 7px; display: flex; gap: 3px; }
   .stile .ev { display: none; }
-  .tdet { max-width: 860px; margin: 12px 0 0; padding: 12px 16px; min-height: 48px; background: #fff; border: 1px solid #dfe2d8; border-radius: 8px; font-size: 14px; line-height: 1.75; color: #3b4046; word-break: keep-all; }
-  .tdet b { display: block; margin-bottom: 2px; color: #23272b; }
+  .tdet { max-width: 860px; margin: 12px 0 0; padding: 12px 16px; min-height: 48px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; font-size: 14px; line-height: 1.75; color: var(--text2); word-break: keep-all; }
+  .tdet b { display: block; margin-bottom: 2px; color: var(--text); }
   .tdet .hint { color: var(--muted); }
   .tdet .src { display: block; margin-top: 4px; font-size: 12.5px; color: var(--muted); }
   .tdet a { color: var(--accent); }
+  :root[data-theme="dark"] .stile img { background: #e8e8e8; border-radius: 8px; padding: 4px; }
   @media (prefers-reduced-motion: reduce) { .stile { transition: none; } }
 
-  /* ── 바탕화면(폭 1440px·높이 800px 이상에서만) ── */
-  html .desk-ui { display: none; }
-  @media (min-width: 1440px) and (min-height: 800px) {
-    :root { --wl: max(112px, calc((100vw - 1240px) / 2 - 210px)); --ew: min(1500px, calc(100vw - var(--wl) - 150px)); --eh: min(940px, calc(100vh - 70px)); }
-    html, body { overflow: hidden; }
-    body { display: block; }
-    .win { position: absolute; z-index: 5; left: var(--wl); width: var(--ew); height: var(--eh); top: calc((100vh - 46px - var(--eh)) / 2); transform: translate(var(--dx, 0px), var(--dy, 0px)); }
-    .bar { cursor: grab; user-select: none; touch-action: none; }
-    .bar.drag, .dwin .wt.drag { cursor: grabbing; }
-    html .dicons, html .taskbar { display: flex; }
-    html .dlayer { display: block; }
-  }
-  .dicons { position: fixed; left: 16px; top: 22px; z-index: 3; display: flex; flex-direction: column; gap: 26px; }
-  .dgrp { display: flex; flex-direction: column; gap: 14px; }
-  .dicon { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 80px; padding: 6px 2px; border-radius: 6px; font: 12px/1.3 var(--sans); color: #22301b; text-decoration: none; text-align: center; }
-  .dicon:hover, .dicon:focus-visible { background: rgba(255, 255, 255, .5); outline: none; }
-  .dicon .ti { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #fff; border: 1px solid #c8cfbf; box-shadow: 0 2px 5px rgba(40, 60, 30, .12); font: 700 14px var(--mono); }
-  .dicon .ti svg { width: 22px; height: 22px; color: #3b4046; }
-  .dgrp.g1 .ti { background: #2b8a3e; border-color: #2b8a3e; color: #fff; }
-  .dgrp.g1 .ti.sym { font-size: 18px; }
-  .dgrp.g3 .ti { background: #7048e8; border-color: #7048e8; color: #fff; }
-  .dgrp.g3 .ti svg { color: #fff; }
-  .dgrp.g2 .ti.flag svg { width: 26px; height: 26px; }
-  @media (max-height: 1000px) {
-    .dicons { gap: 18px; }
-    .dgrp { gap: 6px; }
-    .dicon { gap: 3px; padding: 4px 2px; }
-    .dicon .ti { width: 40px; height: 40px; }
-  }
-  @media (max-height: 860px) {
-    .dicons { gap: 12px; }
-    .dgrp { gap: 3px; }
-    .dicon { padding: 3px 2px; }
-    .dicon .ti { width: 36px; height: 36px; }
-  }
-  .dlayer { position: fixed; left: 0; top: 0; right: 0; bottom: 46px; overflow: hidden; pointer-events: none; z-index: 4; }
-  .dlayer.front { z-index: 20; }
-  .dwin { position: absolute; left: calc(var(--wl) + var(--ew, 1240px) - 360px); width: 600px; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; pointer-events: auto; cursor: pointer; font-family: var(--mono); transition: left .25s, top .25s, width .25s, height .25s, box-shadow .25s; }
-  .dlayer.front .dwin { transform: translate(var(--dx, 0px), var(--dy, 0px)); cursor: default; left: calc(100vw - min(880px, calc(100vw - 420px)) - 28px); top: 24px; width: min(880px, calc(100vw - 420px)); height: calc(100% - 48px); max-height: 660px; box-shadow: 0 30px 80px rgba(20, 30, 15, .4); }
-  .dlayer.front .dwin .wt { cursor: grab; user-select: none; touch-action: none; }
-  .dwin .wt { flex: none; display: flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; font-size: 12px; }
-  .dwin .wt i { width: 11px; height: 11px; border-radius: 50%; } .dwin .wt i:nth-child(1) { background: #ff5f56; } .dwin .wt i:nth-child(2) { background: #ffbd2e; } .dwin .wt i:nth-child(3) { background: #27c93f; }
-  .dwin .wt .nm { margin-left: auto; }
-  .dwin .wt .x { display: none; margin-left: 10px; width: 22px; height: 22px; border-radius: 4px; font-size: 15px; line-height: 22px; color: inherit; }
-  .dlayer.front .dwin .wt .x { display: block; }
-  .dwin .wt .x:hover { background: rgba(255, 255, 255, .12); }
-  .dwin .wb { flex: 1; min-height: 0; overflow: auto; }
-  .dlayer:not(.front) .dwin .wb { overflow: hidden; }
-  .dwin.tm { top: 40px; height: 430px; background: #1e2227; color: #c9d1d9; font-size: 13px; line-height: 1.75; box-shadow: 0 16px 40px rgba(0, 0, 0, .28); }
-  .dwin.tm .wt { background: #2a2f36; color: #8b949e; }
-  .dwin.tm .wb { padding: 12px 18px 16px; }
-  .dwin.tm pre { margin: 0; font: inherit; white-space: pre; }
-  .tm .g { color: #7ee787; } .tm .y { color: #f2c94c; } .tm .bl { color: #79c0ff; } .tm .m { color: #d2a8ff; } .tm .d { color: #8b949e; } .tm .w { color: #e6edf3; }
-  .tm .tl2 { color: #79c0ff; text-decoration: none; } .tm .tl2:hover { text-decoration: underline; }
-  .tm .cur { display: inline-block; width: 8px; height: 15px; vertical-align: -2px; background: #c9d1d9; animation: blink 1s steps(1) infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  .toast { position: fixed; left: 50%; bottom: 64px; z-index: 60; max-width: calc(100vw - 32px); padding: 10px 16px; border-radius: 8px; background: #23272b; color: #fff; font: 14px/1.5 var(--sans); text-align: center; opacity: 0; transform: translate(-50%, 8px); pointer-events: none; transition: opacity .2s, transform .2s; }
+  .toast { position: fixed; left: 50%; bottom: 40px; z-index: 60; max-width: calc(100vw - 32px); padding: 10px 16px; border-radius: 8px; background: var(--toast); color: #fff; font: 14px/1.5 var(--sans); text-align: center; opacity: 0; transform: translate(-50%, 8px); pointer-events: none; transition: opacity .2s, transform .2s; }
   .toast.on { opacity: 1; transform: translate(-50%, 0); }
   @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
-  .taskbar { position: fixed; left: 0; right: 0; bottom: 0; height: 46px; z-index: 30; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: rgba(35, 39, 43, .93); font: 12px var(--mono); color: #e9eee3; }
-  .taskbar .st { width: 22px; height: 22px; padding: 0; border-radius: 5px; background: var(--path); display: grid; place-items: center; }
-  .taskbar .st svg { width: 13px; height: 13px; color: #fff; }
-  .taskbar button { padding: 6px 12px; border-radius: 4px; background: rgba(255, 255, 255, .1); color: #e9eee3; font: inherit; }
-  .taskbar button:hover { background: rgba(255, 255, 255, .2); }
-  .taskbar button.on { background: rgba(255, 255, 255, .28); }
-  .taskbar .ck { margin-left: auto; text-align: right; line-height: 1.35; font-size: 11.5px; }
-  @media (prefers-reduced-motion: reduce) { .dwin { transition: none; } .tm .cur { animation: none; } }
   .src-mail { display: none; }
 
-  /* ── 패드(폭 600px 이상, 진짜 바탕화면이 아닌 화면): 작업 표시줄만 둔다. 시작 버튼은 아이콘 창, 터미널 버튼은 터미널 창을 연다 ── */
-  @media (min-width: 600px) and (max-width: 1439px), (min-width: 1440px) and (max-height: 799px) {
-    html .taskbar { display: flex; }
-    body { padding-bottom: 46px; }
-    .win { height: min(780px, calc(100vh - 46px - 64px)); }
-    .taskbar .st { width: 32px; height: 32px; }
-    .taskbar .st svg { width: 16px; height: 16px; }
-    .taskbar button:not(.st) { padding: 9px 14px; }
-    .dicons { top: auto; left: 10px; bottom: 54px; z-index: 31; gap: 6px; padding: 12px; background: #f7f8f2; border: 1px solid #cdd3c4; border-radius: 14px; box-shadow: 0 18px 44px rgba(20, 30, 15, .32); }
-    html .dicons.open { display: flex; }
-    .dicons .dgrp { flex-direction: row; gap: 6px; }
-    .dicons .dicon { width: 76px; padding: 6px 2px; gap: 5px; }
-    .dicons .dicon .ti { width: 44px; height: 44px; }
-    html .dlayer.front { display: block; }
-    .dlayer.front .dwin { left: 50%; top: 50%; width: min(720px, calc(100vw - 32px)); height: min(560px, calc(100% - 32px)); max-height: none; transform: translate(-50%, -50%); cursor: default; }
-    .dlayer.front .dwin .wt { cursor: default; }
-    .dwin.tm pre { white-space: pre-wrap; overflow-wrap: anywhere; }
-  }
+
+
+  /* ── 패드 ── */
   @media (min-width: 600px) and (max-width: 860px) {
-    body { padding-bottom: 0; }
-    .win { height: calc(100vh - 46px); height: calc(100dvh - 46px); }
+    .hero h1 { font-size: 88px; margin-bottom: 12px; }
+    .hero .role { font-size: 28px; margin-bottom: 20px; }
+    .hero .one { font-size: 26px; margin-bottom: 36px; }
+    .belt { margin-top: 40px; }
+    .doc, .page { padding-left: 32px; padding-right: 32px; }
+  }
+  @media (min-width: 861px) and (max-width: 1200px) {
+    .win { grid-template-columns: 44px 232px minmax(0, 1fr); }
+    .stage2 { padding-left: 20px; }
+    .act a, .act button { width: 44px; }
+    .hero h1 { font-size: 76px; }
+    .hero .role { font-size: 25px; }
+    .hero .one { font-size: 24px; }
+  }
+  @media (pointer: coarse) {
+    .it { height: 40px; }
+    .main { grid-template-rows: 40px minmax(0, 1fr) 32px; }
+    .etab { height: 40px; }
+    .etab.on { height: 41px; }
+    .etab .tx { width: 26px; height: 26px; opacity: 1; }
+    .foot button { height: 32px; }
   }
 </style>
 <noscript><style>
@@ -424,10 +438,14 @@
   .win { display: none; }
   #src article { max-width: 960px; margin: 0 auto 48px; }
   #src .src-mail { display: block; margin: 12px 0; font-size: 14px; }
-  #src .tip, #src .go, #src .nav2 button, #src .tabs { display: none; }
-  .desk-ui { display: none !important; }
-  #src .stile { cursor: default; } #src .stile .ev { display: block; font-weight: 400; font-size: 12px; line-height: 1.6; color: #5a6066; } #src .tdet { display: none; }
+  #src .go, #src .nav2 button, #src .tabs { display: none; }
+  #src .stile { cursor: default; } #src .stile .ev { display: block; font-weight: 400; font-size: 12px; line-height: 1.6; color: #4f5d73; } #src .tdet { display: none; }
   #src .hero { margin-left: 0; background: none; }
+  #src .belt { position: static; margin: 16px 0 0; }
+  #src .stage2 { display: block; margin: 0; }
+  #src .fan { display: none; }
+  #src .bk { animation: none; flex: 1 1 0; min-width: 0; flex-wrap: wrap; padding: 10px 0; }
+  #src .bk[aria-hidden] { display: none; }
 </style></noscript>
 </head>
 <body>
@@ -441,11 +459,20 @@
   <symbol id="s-gh" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1a7 7 0 00-2.2 13.6c.35.07.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.03-.78-1.03-.64-.44.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.55-.18-3.19-.78-3.19-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.89.07-1.85 0 0 .59-.19 1.92.72a6.6 6.6 0 013.5 0c1.33-.91 1.92-.72 1.92-.72.38.96.14 1.67.07 1.85.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.45.25.22.47.64.47 1.29v1.92c0 .19.13.41.48.34A7 7 0 008 1z"/></symbol>
   <symbol id="s-notion" viewBox="0 0 24 24"><path fill="currentColor" d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></symbol>
   <symbol id="s-flag" viewBox="0 0 16 16"><path d="M4 2v12.5" fill="none" stroke="#c92a2a" stroke-width="1.5" stroke-linecap="round"/><path d="M4.6 2.6c2.6-1.3 4.2 1.3 7.4 0v5.6c-3.2 1.3-4.8-1.3-7.4 0z" fill="#c92a2a"/></symbol>
+  <symbol id="s-files" viewBox="0 0 24 24"><path d="M15 2H8a1 1 0 00-1 1v3H5a1 1 0 00-1 1v13a1 1 0 001 1h10a1 1 0 001-1v-3h3a1 1 0 001-1V7zM9 4h5v4h4v9h-2V7.4L12.6 4H9zM6 8h6v4h4v8H6z" fill="currentColor" opacity=".9"/></symbol>
+  <symbol id="s-theme" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 2.5v11a5.5 5.5 0 010-11z" fill="currentColor"/></symbol>
   <symbol id="s-check" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="s-file" viewBox="0 0 16 16"><path d="M3.5 1.5h6l3 3v10h-9z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9.5 1.5v3h3" fill="none" stroke="currentColor" stroke-width="1.3"/></symbol>
 </svg>
 
 <div class="win" id="win">
+  <nav class="act" aria-label="활동 막대">
+    <button type="button" class="on" id="actx" aria-label="탐색기" title="탐색기"><svg><use href="#s-files"/></svg></button>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="https://github.com/HTH-0" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub"><svg><use href="#s-gh"/></svg></a>
+    <a href="https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8" target="_blank" rel="noreferrer" aria-label="노션 학습 노트" title="노션 학습 노트"><svg><use href="#s-notion"/></svg></a>
+    <a href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com" aria-label="이메일" title="이메일 주소 복사"><svg><use href="#s-mail"/></svg></a>
+  </nav>
   <aside class="side" aria-label="탐색기">
     <div class="side-head"><svg><use href="#s-lock"/></svg>~/portfolio</div>
     <ul class="tree" id="tree"></ul>
@@ -453,70 +480,15 @@
       <div class="cap">contact</div>
       <a class="it" href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com" title="누르면 이메일 주소가 복사됩니다"><svg class="ic-doc"><use href="#s-mail"/></svg>이메일</a>
       <a class="it" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><svg class="ic-doc"><use href="#s-gh"/></svg>github</a>
+      <a class="it" href="https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8" target="_blank" rel="noreferrer"><svg class="ic-doc"><use href="#s-notion"/></svg>노션 학습 노트</a>
     </div>
   </aside>
 
   <section class="main">
-    <div class="bar"><button class="burger" id="burger" type="button" aria-label="탐색기 열기">&#9776;</button><span class="buf" id="buf">home</span><span class="fps" id="fps"></span></div>
+    <div class="bar"><button class="burger" id="burger" type="button" aria-label="탐색기 열기">&#9776;</button><div class="etabs" id="etabs" role="tablist" aria-label="열린 파일"></div></div>
     <div class="view" id="view"></div>
-    <div class="foot"><span class="mode" id="mode">NORMAL</span><span id="where">~/portfolio</span><span class="r" id="pos">백엔드 · 보안 인프라</span></div>
+    <div class="foot"><span class="mode" id="mode">NORMAL</span><span id="where">~/portfolio</span><span class="r" id="pos">Security &amp; Infra</span><button type="button" id="theme" aria-label="테마 전환"><svg><use href="#s-theme"/></svg><span id="themeN">Dark+</span></button></div>
   </section>
-</div>
-
-<!-- ===== 바탕화면(넓은 화면 전용): 아이콘, 편집기 뒤 창 두 개, 작업 표시줄 ===== -->
-<nav class="desk-ui dicons" aria-label="바탕화면 바로가기">
-  <div class="dgrp g1">
-    <a class="dicon" href="#" data-open="hm"><span class="ti">HM</span>HealthMe</a>
-    <a class="dicon" href="#" data-open="ow"><span class="ti">OW</span>Overwrite</a>
-    <a class="dicon" href="#" data-open="t13"><span class="ti sym">♪</span>사운드워크</a>
-    <a class="dicon" href="#" data-open="t07"><span class="ti">PP</span>PinPoint</a>
-  </div>
-  <div class="dgrp g2">
-    <a class="dicon" href="https://github.com/HTH-0" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-gh"/></svg></span>GitHub</a>
-    <a class="dicon" href="https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8" target="_blank" rel="noreferrer"><span class="ti"><svg><use href="#s-notion"/></svg></span>노션</a>
-    <a class="dicon" href="https://app.notion.com/p/4076b9a58d7a80268ed4e30ee2f1b48e" target="_blank" rel="noreferrer"><span class="ti flag"><svg><use href="#s-flag"/></svg></span>CTF</a>
-  </div>
-  <div class="dgrp g3">
-    <a class="dicon" href="#" data-open="history"><span class="ti"><svg><use href="#s-file"/></svg></span>이력</a>
-    <a class="dicon" href="#" data-open="certs"><span class="ti"><svg><use href="#s-check"/></svg></span>자격증</a>
-    <a class="dicon" href="mailto:xogud17931@gmail.com" data-copy="xogud17931@gmail.com" title="누르면 이메일 주소가 복사됩니다"><span class="ti"><svg><use href="#s-mail"/></svg></span>메일</a>
-  </div>
-</nav>
-
-<div class="desk-ui dlayer" data-w="tm">
-  <section class="dwin tm" aria-label="터미널: 보안·인프라 소개">
-    <div class="wt"><i></i><i></i><i></i><span class="nm">hth@lab: ~</span><button class="x" type="button" aria-label="창 닫기">×</button></div>
-    <div class="wb"><pre><span class="g">$</span> whoami
-<span class="w">hth</span>  <span class="d"># 하태형 · 백엔드 + 보안·인프라</span>
-<span class="g">$</span> history
-  <span class="d">1</span>  <span class="y">2020.02   </span>  영남대학교 기계공학부 졸업
-  <span class="d">2</span>  <span class="y">2024.12   </span>  정보처리산업기사 취득과정 시작 · Java, Spring, DB
-  <span class="d">3</span>  <span class="y">2025.04   </span>  HealthMe 팀 프로젝트 · 로그인·소셜 로그인·추천 담당
-  <span class="d">4</span>  <span class="y">2025.06   </span>  SQLD 취득
-  <span class="d">5</span>  <span class="y">2026.08   </span>  SKT ALEPH K-뉴딜 아카데미 시작 · 네트워크·보안 실습
-  <span class="d">6</span>  <span class="y">2026.10   </span>  리눅스마스터 2급 합격 · 팀 CTF 머신 Overwrite
-<span class="g">$</span> cat sites.txt
-<span class="y">notion</span>  <a class="tl2" href="https://app.notion.com/p/ALEPH-1926b9a58d7a83469d35814f590858d8" target="_blank" rel="noreferrer">직접 정리한 학습 노트 37개 ↗</a>
-        네트워크 16 · 시스템 13 · 탐지 3 · DB 3 · 기타 2
-<span class="y">github</span>  <a class="tl2" href="https://github.com/HTH-0" target="_blank" rel="noreferrer">github.com/HTH-0 ↗</a>
-        프로젝트와 과정 실습 저장소
-<span class="g">$</span> cat projects.txt
-<span class="m">HealthMe</span>  팀 쇼핑몰 · 로그인·소셜 로그인, 설문 결과·추천
-<span class="m">Overwrite</span>  팀 CTF 머신 · 취약점 5단계 설계, 서버 구성
-<span class="m">사운드 워크</span>  논문 규칙으로 만든 3D 소리 길찾기 앱
-<span class="m">Full-Security Labs</span>  VLAN 설계 · 보안 서비스 8개 구축
-<span class="m">PinPoint</span>  목표 관리 앱 재설계 · 로그인, 코르크보드·픽셀 테마
-<span class="g">$</span> cat certs.txt
-리눅스마스터 2급 · SQLD
-<span class="g">$</span> <span class="cur"></span></pre></div>
-  </section>
-</div>
-
-<div class="desk-ui taskbar" aria-label="작업 표시줄">
-  <button type="button" class="st" aria-label="바로가기 열기" aria-expanded="false"><svg><use href="#s-lock"/></svg></button>
-  <button type="button" class="on" data-task="code">portfolio — VS Code</button>
-  <button type="button" data-task="tm">hth@lab: ~</button>
-  <span class="ck" id="clock"></span>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -525,10 +497,11 @@
 <div id="src">
 
 <article data-id="home" data-kind="home" data-title="home" data-path="~/portfolio">
+  <div class="stage2">
   <div class="hero">
     <div class="ln"><span class="k">const</span> whoami = </div>
     <h1>하태형</h1>
-    <p class="role">Backend Developer · Security &amp; Infra</p>
+    <p class="role">Security &amp; Infra Engineer</p>
     <p class="one">모르는 것은 그날 찾아보고, 만들어서 확인한 사람</p>
     <div class="go">
       <button class="pri" type="button" data-open="projects">프로젝트 보기 →</button>
@@ -537,32 +510,58 @@
       <button type="button" data-open="history">이력</button>
     </div>
   </div>
+  <div class="fan" role="group" aria-label="대표 프로젝트">
+    <button class="fc f1" type="button" data-open="fsl">
+      <span class="fh"><b>Full-Security Labs</b><span>VLAN 설계 · 보안 서비스 8개 구축</span></span>
+      <img src="assets/home/fsl.webp" alt="GNS3로 구현한 네트워크 토폴로지" width="480" height="300" />
+      <span class="fd">서비스마다 동작을 확인한 방법을 기록한 종합 실습입니다.<em>문서 열기 →</em></span>
+    </button>
+    <button class="fc f2" type="button" data-open="ow">
+      <span class="fh"><b>Overwrite</b><span>취약점 5단계 CTF 머신 (팀)</span></span>
+      <img src="assets/home/overwrite.webp" alt="Overwrite 병원 사이트 화면" width="480" height="300" />
+      <span class="fd">수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 머신입니다.<em>문서 열기 →</em></span>
+    </button>
+    <button class="fc f3" type="button" data-open="curtain">
+      <span class="fh"><b>Curtain</b><span>탐지율 98.1% · 오탐 0/106</span></span>
+      <img src="assets/home/curtain.webp" alt="Curtain 첫 화면" width="480" height="300" />
+      <span class="fd">외부 AI로 나가는 문장의 민감한 값을 가리거나 막는 게이트웨이입니다.<em>문서 열기 →</em></span>
+    </button>
+  </div>
+  </div>
+  <div class="belt" role="group" aria-label="보안·인프라에서 배운 기술"><div class="bt">
+    <ul class="bk"><li>Cisco ASA</li><li>pfSense</li><li>VLAN</li><li>OSPF</li><li>ACL · NAT</li><li>IPsec VPN</li><li>Snort 3</li><li>Suricata</li><li>Wazuh</li><li>OSSEC</li><li>Zabbix</li><li>Kali Linux</li><li>CTF</li><li>Linux</li><li>Rocky Linux</li><li>BIND9 DNS</li><li>rsyslog</li><li>Docker</li><li>VirtualBox</li><li>GNS3</li><li>Packet Tracer</li></ul>
+    <ul class="bk" aria-hidden="true"><li>Cisco ASA</li><li>pfSense</li><li>VLAN</li><li>OSPF</li><li>ACL · NAT</li><li>IPsec VPN</li><li>Snort 3</li><li>Suricata</li><li>Wazuh</li><li>OSSEC</li><li>Zabbix</li><li>Kali Linux</li><li>CTF</li><li>Linux</li><li>Rocky Linux</li><li>BIND9 DNS</li><li>rsyslog</li><li>Docker</li><li>VirtualBox</li><li>GNS3</li><li>Packet Tracer</li></ul>
+  </div></div>
   <p class="src-mail">이메일 <a href="mailto:xogud17931@gmail.com">xogud17931@gmail.com</a></p>
-  <div class="tip" aria-hidden="true">마우스를 움직여 보세요</div>
 </article>
 
 <article data-id="projects" data-kind="page" data-title="프로젝트" data-path="~/portfolio/프로젝트">
   <div class="kick">~/portfolio/프로젝트</div>
   <h1>프로젝트</h1>
-  <p class="intro">코리아IT아카데미의 (과정평가형) 정보처리산업기사 취득과정(2024.12 – 2025.06)과 SKT ALEPH K-뉴딜 아카데미(2026.08.11 – 11.13)에서 만든 프로젝트입니다. 인증 기능을 맡은 팀 프로젝트 HealthMe, 팀에서 제작 전반을 맡은 CTF 머신, 실험 도구를 직접 만든 논문과 그 규칙으로 만든 앱을 하나로 묶은 사운드 워크, 네트워크와 보안 서비스를 직접 구축한 종합 실습 Full-Security Labs를 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
+  <p class="intro">SKT ALEPH K-뉴딜 아카데미(2026.08.11 – 11.13)와 코리아IT아카데미의 (과정평가형) 정보처리산업기사 취득과정(2024.12 – 2025.06)에서 만든 프로젝트입니다. 네트워크와 보안 서비스를 직접 구축한 종합 실습 Full-Security Labs, 팀에서 제작 전반을 맡은 CTF 머신 Overwrite, 외부 AI로 나가는 민감한 값을 가리거나 막는 게이트웨이 Curtain, 로그인과 인증을 맡은 팀 프로젝트 HealthMe를 대표로 앞에 두었습니다. 카드를 누르면 화면과 설명이 문서로 열립니다. AI와 함께 만든 프로젝트의 코드는 AI가 작성했고, 구상과 요구, 선택과 확인은 직접 했습니다.</p>
   <h2>// 대표</h2>
   <ul class="cards">
-    <li><button class="card" type="button" data-open="hm">
-      <span class="thumb"><img src="assets/healthme/result.png" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">대표 · 팀 백엔드<span class="tag">Spring Boot</span></span><b>HealthMe</b><p>설문으로 영양 성향을 분석해 식품을 추천하는 쇼핑몰입니다. 로그인·회원가입, 소셜 로그인, 추천 로직을 맡았습니다.</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="ow">
-      <span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">대표 · 팀 CTF<span class="tag">Hard</span></span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span></button></li>
-    <li><button class="card" type="button" data-open="t13">
-      <span class="thumb"><img src="assets/soundwalk/home.png" alt="" loading="lazy" /></span>
-      <span class="cb"><span class="top">대표 · 앱<span class="tag">2026.10</span></span><b>사운드 워크</b><p>논문에서 쓴 소리 랜드마크 규칙으로 만든, 실제 서울·대구 지도 위의 3D 소리 길찾기 게임입니다.</p><span class="more">문서 열기 →</span></span></button></li>
     <li><button class="card" type="button" data-open="fsl">
       <span class="thumb dia"><img src="assets/fsl/topology-built.webp" alt="" loading="lazy" /></span>
       <span class="cb"><span class="top">대표 · 개인 실습<span class="tag">보안·인프라</span></span><b>Full-Security Labs</b><p>VLAN을 설계·구현하고 보안 서비스 8개를 가상머신에 구축해 확인한 종합 실습입니다.</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="ow">
+      <span class="thumb"><img src="assets/overwrite/ui-start.gif" alt="" loading="lazy" /></span>
+      <span class="cb"><span class="top">대표 · 팀 CTF<span class="tag">Hard</span></span><b>Overwrite</b><p>수술기록이 고쳐 쓰였다는 제보에서 시작하는 웹게임형 CTF 머신입니다. 취약점 다섯 단계를 한 줄로 이었습니다.</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="curtain">
+      <span class="thumb"><img src="assets/curtain/hero.webp" alt="" loading="lazy" /></span>
+      <span class="cb"><span class="top">대표 · 개인 프로젝트<span class="tag">Spring Boot</span></span><b>Curtain</b><p>외부 AI로 보내는 문장에서 전화번호, 비밀번호 같은 민감한 값을 가리거나 막는 정보 유출 방지 게이트웨이입니다.</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="hm">
+      <span class="thumb"><img src="assets/healthme/result.png" alt="" loading="lazy" /></span>
+      <span class="cb"><span class="top">대표 · 팀 백엔드<span class="tag">Spring Boot</span></span><b>HealthMe</b><p>설문으로 영양 성향을 분석해 식품을 추천하는 쇼핑몰입니다. 로그인·회원가입, 소셜 로그인(OAuth2)과 토큰 인증, 추천 로직을 맡았습니다.</p><span class="more">문서 열기 →</span></span></button></li>
   </ul>
-  <h2>// AI를 활용한 개인 과제</h2>
+  <h2>// 그 밖의 프로젝트</h2>
   <ul class="cards">
-    <li><button class="card" type="button" data-open="t07"><span class="thumb"><img src="assets/pinpoint/cork-dashboard.webp" alt="" loading="lazy" /></span><span class="cb"><span class="top">개인 · AI 활용<span class="tag">STEP 3·4</span></span><b>PinPoint 재설계</b><p>로그인과 전체 재설계</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="t13">
+      <span class="thumb"><img src="assets/soundwalk/home.png" alt="" loading="lazy" /></span>
+      <span class="cb"><span class="top">앱<span class="tag">2026.10</span></span><b>사운드 워크</b><p>논문에서 쓴 소리 랜드마크 규칙으로 만든, 실제 서울·대구 지도 위의 3D 소리 길찾기 게임입니다.</p><span class="more">문서 열기 →</span></span></button></li>
+    <li><button class="card" type="button" data-open="t07">
+      <span class="thumb"><img src="assets/pinpoint/cork-dashboard.webp" alt="" loading="lazy" /></span>
+      <span class="cb"><span class="top">개인 프로젝트</span><b>PinPoint</b><p>목표를 꽂아 두고 매일 할 일을 체크하며 연속 기록을 채우는 목표 관리 앱입니다.</p><span class="more">문서 열기 →</span></span></button></li>
   </ul>
   <div class="note toy">
     <ul>
@@ -579,22 +578,20 @@
   <h1>기술 스택</h1>
   <p class="intro">자격증, 저장소, 프로젝트, 과정 실습으로 확인할 수 있는 기술만 적었습니다. 타일 모서리의 점은 근거의 종류입니다.</p>
   <div class="legend2"><span><i class="dt p"></i>프로젝트에 적용</span><span><i class="dt c"></i>과정 실습(가상머신 구축)</span><span><i class="dt q"></i>자격증</span></div>
-  <div class="tabs" role="tablist" aria-label="분야"><button type="button" role="tab" data-tab="be">백엔드</button><button type="button" role="tab" data-tab="infra">인프라 · 서버</button><button type="button" role="tab" data-tab="net">네트워크 · 보안</button></div>
-  <section class="tabp" data-panel="be" role="tabpanel">
-    <h2>// 백엔드</h2>
+  <div class="tabs" role="tablist" aria-label="분야"><button type="button" role="tab" data-tab="net">네트워크 · 보안</button><button type="button" role="tab" data-tab="infra">인프라 · 서버</button><button type="button" role="tab" data-tab="be">백엔드</button></div>
+  <section class="tabp" data-panel="net" role="tabpanel">
+    <h2>// 네트워크 · 보안</h2>
     <div class="tiles">
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i><i class="dt c"></i></span><img src="assets/stack/java.svg" alt="" loading="lazy" />Java<span class="ev">객체지향, 예외 처리, 컬렉션을 사용해 Java로 서버 코드를 작성할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>(Java 21) · GitHub 저장소 <a href="https://github.com/HTH-0/JAVA" target="_blank" rel="noreferrer">JAVA</a> · <a href="https://github.com/HTH-0/CodingTest" target="_blank" rel="noreferrer">CodingTest</a> (2025)</span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i><i class="dt c"></i></span><img src="assets/stack/spring.svg" alt="" loading="lazy" />Spring Boot<span class="ev">Spring Boot로 프로젝트 구조를 설계하고 기능을 붙여 웹 서비스를 만들 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>(Spring Boot 3.4) · GitHub 저장소 <a href="https://github.com/HTH-0/Spring" target="_blank" rel="noreferrer">Spring</a> · <a href="https://github.com/HTH-0/Springboot" target="_blank" rel="noreferrer">Springboot</a> (2025)</span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/springsecurity.svg" alt="" loading="lazy" />Spring Security<span class="ev">로그인·회원가입을 만들고, URL별 권한(공개 / USER / ADMIN)을 나눠 설정할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>에서 인증과 권한을 맡았습니다.</span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/jsonwebtokens.svg" alt="" loading="lazy" />JWT · OAuth2<span class="ev">JWT(Access·Refresh)를 발급해 HttpOnly 쿠키에 담고, 카카오·네이버·구글 소셜 로그인을 하나의 흐름으로 통합할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/hibernate.svg" alt="" loading="lazy" />JPA<span class="ev">Spring Data JPA로 데이터 접근 계층을 구성할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><span class="tx">MB</span>MyBatis<span class="ev">MyBatis로 SQL을 매핑해 데이터 접근 계층을 구성할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">JSP</span>JSP / Servlet<span class="ev">JSP와 Servlet으로 요청을 받아 처리하는 웹 페이지를 만들 수 있습니다. <span class="src">근거: 정보처리산업기사 과정 실습 · GitHub 저장소 <a href="https://github.com/HTH-0/JSP_SERVLET" target="_blank" rel="noreferrer">JSP_SERVLET</a> (2025)</span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/mysql.svg" alt="" loading="lazy" />MySQL<span class="ev">MySQL을 연결해 서비스의 데이터를 저장하고 조회할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>의 데이터베이스</span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/mariadb.svg" alt="" loading="lazy" />MariaDB<span class="ev">계정과 권한을 관리하고, Master-Slave 복제를 구성하고, mysqldump로 백업할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/4506b9a58d7a82c88fb201f507ef6923" target="_blank" rel="noreferrer">MariaDB 계정·권한 관리</a> · <a href="https://app.notion.com/p/50d6b9a58d7a83ee89760117f7db8506" target="_blank" rel="noreferrer">MariaDB Replication &amp; 백업</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt q"></i></span><span class="tx">SQL</span>SQL<span class="ev">JOIN, 서브쿼리, 트랜잭션을 사용해 SQL을 작성할 수 있습니다. <span class="src">근거: SQLD 취득 (2025.06.27) · 정보처리산업기사 과정 · 노션 노트 <a href="https://app.notion.com/p/48e6b9a58d7a833fbdca812f842772be" target="_blank" rel="noreferrer">SQL 기초 &amp; CRUD</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i><i class="dt c"></i></span><img src="assets/stack/git.svg" alt="" loading="lazy" />Git<span class="ev">브랜치를 나눠 협업하고, 병합 충돌을 해결할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a> 팀 협업 · 정보처리산업기사 과정</span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/github.svg" alt="" loading="lazy" />GitHub<span class="ev">저장소를 만들어 과제와 프로젝트를 관리할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0" target="_blank" rel="noreferrer">github.com/HTH-0</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">ACL</span>ACL · NAT<span class="ev">표준 · 확장 · Reflexive · Dynamic ACL과 NAT · PAT을 설정해 트래픽을 제어할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/1e46b9a58d7a822cbe718112dc01c540" target="_blank" rel="noreferrer">ACL</a> · <a href="https://app.notion.com/p/da86b9a58d7a82789b4601424ba14b1c" target="_blank" rel="noreferrer">NAT &amp; PAT</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/cisco.svg" alt="" loading="lazy" />Cisco ASA<span class="ev">Cisco ASAv에서 Active/Standby Failover와 Zone-Based Firewall을 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/a5c6b9a58d7a82a3b48b8166527ba289" target="_blank" rel="noreferrer">ASAv 방화벽</a> · <a href="https://app.notion.com/p/f366b9a58d7a826abab6811fcec90140" target="_blank" rel="noreferrer">ASA Failover</a> · <a href="https://app.notion.com/p/a686b9a58d7a83b0b88b01a9e82ab120" target="_blank" rel="noreferrer">Zone-Based Firewall</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/pfsense.svg" alt="" loading="lazy" />pfSense<span class="ev">GNS3에서 pfSense로 라우팅과 방화벽 룰을 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/24a6b9a58d7a826a8ba18179dafd2cf0" target="_blank" rel="noreferrer">pfSense 방화벽</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">VPN</span>IPsec VPN<span class="ev">GRE over IPsec 터널을 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/2536b9a58d7a8382bb948174763c8027" target="_blank" rel="noreferrer">GRE over IPsec VPN</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/snort.svg" alt="" loading="lazy" />Snort3<span class="ev">소스에서 빌드하고, 커스텀 룰을 작성하고, Inline Snort(NIPS)로 동작시킬 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/3d56b9a58d7a830f8174813d931d6ca7" target="_blank" rel="noreferrer">IDS/IPS 구축(Snort3 &amp; Suricata)</a> · <a href="https://app.notion.com/p/67a6b9a58d7a83a3b013814ea8a6fc9b" target="_blank" rel="noreferrer">HIDS(OSSEC) &amp; NIPS(Inline Snort)</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">SUR</span>Suricata<span class="ev">ET Open 룰셋을 적용하고 eve.json 로그를 분석할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/3d56b9a58d7a830f8174813d931d6ca7" target="_blank" rel="noreferrer">IDS/IPS 구축(Snort3 &amp; Suricata)</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">WZ</span>Wazuh<span class="ev">Wazuh 서버를 구축하고 Linux · Windows 에이전트를 연결할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/5966b9a58d7a8344ac95818c85afeba6" target="_blank" rel="noreferrer">SOC·SIEM 개념 &amp; Wazuh 구축</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">HIDS</span>OSSEC<span class="ev">호스트 기반 침입 탐지(HIDS)를 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/67a6b9a58d7a83a3b013814ea8a6fc9b" target="_blank" rel="noreferrer">HIDS(OSSEC) &amp; NIPS(Inline Snort)</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/kalilinux.svg" alt="" loading="lazy" />Kali Linux<span class="ev">hping3로 공격 트래픽을 만들어 IDS가 탐지하는지 확인할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/3d56b9a58d7a830f8174813d931d6ca7" target="_blank" rel="noreferrer">IDS/IPS 구축(Snort3 &amp; Suricata)</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">PT</span>Packet Tracer · GNS3<span class="ev">Packet Tracer와 GNS3로 라우터 · 스위치 · 방화벽 실습 환경을 직접 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/3be6b9a58d7a836a8f4b013390efe2c2" target="_blank" rel="noreferrer">Cisco CLI &amp; 장비 기본·보안 설정</a> · <a href="https://app.notion.com/p/1656b9a58d7a8365a278016d4c8aeb02" target="_blank" rel="noreferrer">VLAN &amp; Inter-VLAN &amp; DHCP</a></span></span></div>
     </div>
     <div class="tdet" aria-live="polite"><span class="hint">타일을 누르면 할 수 있는 것과 근거가 여기에 보입니다.</span></div>
   </section>
@@ -612,19 +609,21 @@
     </div>
     <div class="tdet" aria-live="polite"><span class="hint">타일을 누르면 할 수 있는 것과 근거가 여기에 보입니다.</span></div>
   </section>
-  <section class="tabp" data-panel="net" role="tabpanel">
-    <h2>// 네트워크 · 보안</h2>
+  <section class="tabp" data-panel="be" role="tabpanel">
+    <h2>// 백엔드</h2>
     <div class="tiles">
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">ACL</span>ACL · NAT<span class="ev">표준 · 확장 · Reflexive · Dynamic ACL과 NAT · PAT을 설정해 트래픽을 제어할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/1e46b9a58d7a822cbe718112dc01c540" target="_blank" rel="noreferrer">ACL</a> · <a href="https://app.notion.com/p/da86b9a58d7a82789b4601424ba14b1c" target="_blank" rel="noreferrer">NAT &amp; PAT</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/cisco.svg" alt="" loading="lazy" />Cisco ASA<span class="ev">Cisco ASAv에서 Active/Standby Failover와 Zone-Based Firewall을 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/a5c6b9a58d7a82a3b48b8166527ba289" target="_blank" rel="noreferrer">ASAv 방화벽</a> · <a href="https://app.notion.com/p/f366b9a58d7a826abab6811fcec90140" target="_blank" rel="noreferrer">ASA Failover</a> · <a href="https://app.notion.com/p/a686b9a58d7a83b0b88b01a9e82ab120" target="_blank" rel="noreferrer">Zone-Based Firewall</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/pfsense.svg" alt="" loading="lazy" />pfSense<span class="ev">GNS3에서 pfSense로 라우팅과 방화벽 룰을 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/24a6b9a58d7a826a8ba18179dafd2cf0" target="_blank" rel="noreferrer">pfSense 방화벽</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">VPN</span>IPsec VPN<span class="ev">GRE over IPsec 터널을 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/2536b9a58d7a8382bb948174763c8027" target="_blank" rel="noreferrer">GRE over IPsec VPN</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/snort.svg" alt="" loading="lazy" />Snort3<span class="ev">소스에서 빌드하고, 커스텀 룰을 작성하고, Inline Snort(NIPS)로 동작시킬 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/3d56b9a58d7a830f8174813d931d6ca7" target="_blank" rel="noreferrer">IDS/IPS 구축(Snort3 &amp; Suricata)</a> · <a href="https://app.notion.com/p/67a6b9a58d7a83a3b013814ea8a6fc9b" target="_blank" rel="noreferrer">HIDS(OSSEC) &amp; NIPS(Inline Snort)</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">SUR</span>Suricata<span class="ev">ET Open 룰셋을 적용하고 eve.json 로그를 분석할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/3d56b9a58d7a830f8174813d931d6ca7" target="_blank" rel="noreferrer">IDS/IPS 구축(Snort3 &amp; Suricata)</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">WZ</span>Wazuh<span class="ev">Wazuh 서버를 구축하고 Linux · Windows 에이전트를 연결할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/5966b9a58d7a8344ac95818c85afeba6" target="_blank" rel="noreferrer">SOC·SIEM 개념 &amp; Wazuh 구축</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">HIDS</span>OSSEC<span class="ev">호스트 기반 침입 탐지(HIDS)를 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/67a6b9a58d7a83a3b013814ea8a6fc9b" target="_blank" rel="noreferrer">HIDS(OSSEC) &amp; NIPS(Inline Snort)</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/kalilinux.svg" alt="" loading="lazy" />Kali Linux<span class="ev">hping3로 공격 트래픽을 만들어 IDS가 탐지하는지 확인할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/3d56b9a58d7a830f8174813d931d6ca7" target="_blank" rel="noreferrer">IDS/IPS 구축(Snort3 &amp; Suricata)</a></span></span></div>
-      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">PT</span>Packet Tracer · GNS3<span class="ev">Packet Tracer와 GNS3로 라우터 · 스위치 · 방화벽 실습 환경을 직접 구성할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/3be6b9a58d7a836a8f4b013390efe2c2" target="_blank" rel="noreferrer">Cisco CLI &amp; 장비 기본·보안 설정</a> · <a href="https://app.notion.com/p/1656b9a58d7a8365a278016d4c8aeb02" target="_blank" rel="noreferrer">VLAN &amp; Inter-VLAN &amp; DHCP</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i><i class="dt c"></i></span><img src="assets/stack/java.svg" alt="" loading="lazy" />Java<span class="ev">객체지향, 예외 처리, 컬렉션을 사용해 Java로 서버 코드를 작성할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>(Java 21) · GitHub 저장소 <a href="https://github.com/HTH-0/JAVA" target="_blank" rel="noreferrer">JAVA</a> · <a href="https://github.com/HTH-0/CodingTest" target="_blank" rel="noreferrer">CodingTest</a> (2025)</span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i><i class="dt c"></i></span><img src="assets/stack/spring.svg" alt="" loading="lazy" />Spring Boot<span class="ev">Spring Boot로 프로젝트 구조를 설계하고 기능을 붙여 웹 서비스를 만들 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>(Spring Boot 3.4) · GitHub 저장소 <a href="https://github.com/HTH-0/Spring" target="_blank" rel="noreferrer">Spring</a> · <a href="https://github.com/HTH-0/Springboot" target="_blank" rel="noreferrer">Springboot</a> (2025)</span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/springsecurity.svg" alt="" loading="lazy" />Spring Security<span class="ev">로그인·회원가입을 만들고, URL별 권한(공개 / USER / ADMIN)을 나눠 설정할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>에서 인증과 권한을 맡았습니다.</span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/jsonwebtokens.svg" alt="" loading="lazy" />JWT · OAuth2<span class="ev">JWT(Access·Refresh)를 발급해 HttpOnly 쿠키에 담고, 카카오·네이버·구글 소셜 로그인을 하나의 흐름으로 통합할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/hibernate.svg" alt="" loading="lazy" />JPA<span class="ev">Spring Data JPA로 데이터 접근 계층을 구성할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><span class="tx">MB</span>MyBatis<span class="ev">MyBatis로 SQL을 매핑해 데이터 접근 계층을 구성할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><span class="tx">JSP</span>JSP / Servlet<span class="ev">JSP와 Servlet으로 요청을 받아 처리하는 웹 페이지를 만들 수 있습니다. <span class="src">근거: 정보처리산업기사 과정 실습 · GitHub 저장소 <a href="https://github.com/HTH-0/JSP_SERVLET" target="_blank" rel="noreferrer">JSP_SERVLET</a> (2025)</span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/mysql.svg" alt="" loading="lazy" />MySQL<span class="ev">MySQL을 연결해 서비스의 데이터를 저장하고 조회할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a>의 데이터베이스</span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt c"></i></span><img src="assets/stack/mariadb.svg" alt="" loading="lazy" />MariaDB<span class="ev">계정과 권한을 관리하고, Master-Slave 복제를 구성하고, mysqldump로 백업할 수 있습니다. <span class="src">근거: Aleph 과정 실습 · 노션 노트 <a href="https://app.notion.com/p/4506b9a58d7a82c88fb201f507ef6923" target="_blank" rel="noreferrer">MariaDB 계정·권한 관리</a> · <a href="https://app.notion.com/p/50d6b9a58d7a83ee89760117f7db8506" target="_blank" rel="noreferrer">MariaDB Replication &amp; 백업</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt q"></i></span><span class="tx">SQL</span>SQL<span class="ev">JOIN, 서브쿼리, 트랜잭션을 사용해 SQL을 작성할 수 있습니다. <span class="src">근거: SQLD 취득 (2025.06.27) · 정보처리산업기사 과정 · 노션 노트 <a href="https://app.notion.com/p/48e6b9a58d7a833fbdca812f842772be" target="_blank" rel="noreferrer">SQL 기초 &amp; CRUD</a></span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i><i class="dt c"></i></span><img src="assets/stack/git.svg" alt="" loading="lazy" />Git<span class="ev">브랜치를 나눠 협업하고, 병합 충돌을 해결할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0/Project_HealthMe" data-open="hm">HealthMe</a> 팀 협업 · 정보처리산업기사 과정</span></span></div>
+      <div class="stile" role="button" tabindex="0"><span class="dots"><i class="dt p"></i></span><img src="assets/stack/github.svg" alt="" loading="lazy" />GitHub<span class="ev">저장소를 만들어 과제와 프로젝트를 관리할 수 있습니다. <span class="src">근거: <a href="https://github.com/HTH-0" target="_blank" rel="noreferrer">github.com/HTH-0</a></span></span></div>
     </div>
     <div class="tdet" aria-live="polite"><span class="hint">타일을 누르면 할 수 있는 것과 근거가 여기에 보입니다.</span></div>
   </section>
@@ -649,7 +648,7 @@
   <ol class="tl">
     <li><span class="when">2026.08 – 2026.11</span><div><b>SKT ALEPH K-뉴딜 아카데미</b><p class="org">코리아IT아카데미 · 2026.08.11 – 11.13 · 수강 중</p>
       <div class="row"><span>배운 것</span><span>네트워크·방화벽(Cisco IOS, ASA, pfSense, IPsec VPN), 리눅스 서버(Apache, DNS, 로그·모니터링), 보안관제(Snort3, Suricata, Wazuh), DB 운영(MariaDB 복제·백업), AI 활용 개발</span></div>
-      <div class="row"><span>만든 것</span><span><a href="#" data-open="ow">Overwrite</a>(팀 CTF 머신) · <a href="#" data-open="t13">사운드 워크</a>(논문 포함) · <a href="#" data-open="fsl">Full-Security Labs</a>(종합 실습) · <a href="#" data-open="t07">PinPoint</a> · <a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">The Day Before ↗</a></span></div></div></li>
+      <div class="row"><span>만든 것</span><span><a href="#" data-open="ow">Overwrite</a>(팀 CTF 머신) · <a href="#" data-open="t13">사운드 워크</a>(논문 포함) · <a href="#" data-open="fsl">Full-Security Labs</a>(종합 실습) · <a href="#" data-open="curtain">Curtain</a>(AI 유출 방지 게이트웨이) · <a href="#" data-open="t07">PinPoint</a> · <a href="https://aleph-the-day-before.vercel.app/" target="_blank" rel="noreferrer">The Day Before ↗</a></span></div></div></li>
     <li><span class="when">2024.12 – 2025.06</span><div><b>(과정평가형) 정보처리산업기사 취득과정 A</b><p class="org">코리아IT아카데미 · 수료</p>
       <div class="row"><span>배운 것</span><span>Java(객체지향, 예외 처리, 컬렉션), Database(SQL, JOIN, 트랜잭션), Linux(계정·권한), Git(브랜치 전략, 병합 충돌 해결), HTML·CSS·JavaScript</span></div>
       <div class="row"><span>만든 것</span><span><a href="#" data-open="hm">HealthMe</a>(팀 프로젝트, 로그인·소셜 로그인·추천 담당)</span></div></div></li>
@@ -663,7 +662,7 @@
 
 <!-- ===== 세부 문서(.md) ===== -->
 <article data-id="t07" data-kind="md" data-title="PinPoint.md" data-path="~/portfolio/프로젝트/PinPoint.md" data-parent="projects">
-  <h1><span class="md">#</span>PinPoint 재설계</h1>
+  <h1><span class="md">#</span>PinPoint</h1>
   <div class="fm"><span class="dl">---</span><br />
     <span class="key">AI 사용</span>: <span class="val">STEP 3·4 · 폴더 안 명세, 외부 도구(MCP) 연결</span><br />
     <span class="key">한 일</span>: <span class="val">로그인 구현, 전체 재설계, Document PiP 구현</span><br />
@@ -814,6 +813,124 @@
   </ul>
   <h2><span class="md">##</span>하지 않은 것</h2>
   <p>GNS3에서는 네트워크 토폴로지만 구현했고, 보안 서비스는 가상머신에 직접 구축해 Kali 리눅스 한 대에서 설정했습니다. 그래서 가상머신의 IP 주소는 토폴로지에 적힌 대로 구성하지 못했습니다.</p>
+  <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button></div>
+</article>
+
+<article data-id="curtain" data-kind="md" data-title="Curtain.md" data-path="~/portfolio/프로젝트/Curtain.md" data-parent="projects">
+  <h1><span class="md">#</span>Curtain · 외부 AI 정보 유출 방지 게이트웨이</h1>
+  <div class="fm"><span class="dl">---</span><br />
+    <span class="key">시기</span>: <span class="val">2026.09 주제 탐색과 초기 설계, 2026.10.29 – 11.03 지금 주제로 구현 · 개인 프로젝트</span><br />
+    <span class="key">맡은 일</span>: <span class="val">주제와 범위 결정, 탐지·가림·복원 규칙 설계, 서버와 시연 화면 구현, 측정과 검증</span><br />
+    <span class="key">기술</span>: <span class="val">Java 25, Spring Boot 4.1, Maven, Python 3(측정 도구), HTML/CSS/JavaScript, Docker, Render, Gemini API</span><br />
+    <span class="key">링크</span>: <span class="val"><a href="https://curtain-h8id.onrender.com/" target="_blank" rel="noreferrer">공개 시연 ↗</a> · <a href="https://github.com/HTH-0/Curtain" target="_blank" rel="noreferrer">GitHub ↗</a></span><br />
+    <span class="dl">---</span></div>
+  <p>직원이 ChatGPT 같은 외부 AI에 문장을 보내면, 나가기 전에 개인정보, 비밀번호, 회사 기밀을 코드 규칙으로 탐지해 허용, 가림, 경고, 차단 중 하나로 처리하는 게이트웨이입니다. 전화번호 같은 값은 <code>[전화1]</code> 같은 가명으로 바꿔 보내고, 돌아온 답에서 원래 값으로 되돌립니다. AI는 실제 값을 보지 못해도 업무는 계속 이어집니다. OpenAI 호환 입구를 만들어 Chatbox 같은 기존 앱이 서버 주소만 바꾸면 그대로 쓸 수 있고, 공개 사이트에서는 설치 없이 시연과 실제 사용(방문자 본인의 Gemini 키)을 모두 해 볼 수 있습니다.</p>
+  <figure class="shot"><img src="assets/curtain/hero.webp" alt="Curtain 첫 화면: 외부 AI에 이 내용을 보내도 될까요? 문구와 커튼 캐릭터, 세 개의 시작 버튼" width="1200" height="700" loading="lazy" /><figcaption>첫 화면입니다. 설치 없이 체험하는 버튼, 방문자 키로 쓰는 버튼, 내 앱에 연결하는 버튼이 있습니다.</figcaption></figure>
+  <section>
+    <h2><span class="md">##</span>기본 정보</h2>
+    <div class="table-wrap"><table>
+      <tr><th>구분</th><th>내용</th></tr>
+      <tr><td>처리 4가지</td><td>허용(탐지 없음), 가림(개인정보와 회사 코드명을 가명으로), 경고(개인정보 20개 이상, 확인 뒤 가림), 차단(자격증명과 보안 등급 표시)</td></tr>
+      <tr><td>탐지</td><td>정규식, 검증 숫자(카드 번호 등), 회사 사전으로 14개 항목(주민번호, 외국인등록번호, 카드, 휴대전화, 이메일, 계좌, 개인 키, 접속 정보, API 키, 토큰, 비밀번호, 보안 등급 표시, 프로젝트 코드명, 고객사 이름)을 찾습니다.</td></tr>
+      <tr><td>입구</td><td>포털 화면(<code>/api/chat</code>)과 OpenAI 호환(<code>/v1/chat/completions</code>, <code>/v1/models</code>) 두 가지입니다.</td></tr>
+      <tr><td>응답 모델</td><td>서버 키 Gemini, 방문자 키 Gemini, 시연용(외부 호출 없음)</td></tr>
+      <tr><td>로그</td><td>처리 결과, 항목별 개수, 길이, 해시, 지연만 남기고 원문, 값, 가명 대응표, 키는 남기지 않습니다.</td></tr>
+      <tr><td>배포</td><td>Docker 이미지로 Render 무료 등급에 올렸고, <code>main</code>에 푸시하면 자동 배포됩니다. 무료 서버라 한동안 접속이 없으면 잠들어 첫 접속은 1분쯤 걸립니다.</td></tr>
+      <tr><td>규모</td><td>커밋 129개, 서버 Java 55개 파일(약 2,300줄), 시험 Java 29개 파일(약 2,850줄, 서버 코드보다 많음), 자동 시험 Java 183건과 Python 79건, 기능 요구 12개</td></tr>
+      <tr><td>AI 사용</td><td>Claude Code로 구현했습니다. 서버와 화면 코드는 대부분 AI가 작성했고, 주제와 설계 방향, 동작 확인은 직접 했습니다.</td></tr>
+    </table></div>
+  </section>
+  <section>
+    <h2><span class="md">##</span>화면</h2>
+    <p>화면을 누르면 크게 볼 수 있습니다.</p>
+    <div class="gallery">
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: 흐름도"><img src="assets/curtain/flow.webp" alt="흐름도: 나, 닫힌 커튼(가림), AI는 가명만, 걷힌 커튼(복원), 나 순서" width="1200" height="700" loading="lazy" /></button>
+        <figcaption><span class="label">흐름도</span>원문이 커튼에서 가려져 AI에는 가명만 가고, 돌아온 답에서 원래 값으로 복원됩니다. 비밀번호와 키는 커튼에서 차단합니다.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" class="zoom" aria-label="크게 보기: 포털과 커튼 기록"><img src="assets/curtain/portal.webp" alt="사내 AI 포털의 커튼 기록: 내가 쓴 문장은 취소선, AI가 받은 문장은 가명, 답에서 되돌린 값은 밑줄" width="1200" height="700" loading="lazy" /></button>
+        <figcaption><span class="label">포털과 커튼 기록</span>내가 쓴 문장(취소선), AI가 받은 문장(가명), 답에서 되돌린 값(밑줄)을 나란히 보여 줍니다.</figcaption>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2><span class="md">##</span>측정 결과</h2>
+    <p>측정 전에 평가 세트와 탐지 설정을 해시로 동결하고, 결과를 보고 규칙을 고치지 않았습니다. 평가 세트는 생성형 AI 3종이 만든 업무 요청 틀에 코드가 만든 가짜 값을 채운 합성 문장 596개이고, 윌슨 95% 구간을 함께 적었습니다.</p>
+    <div class="table-wrap"><table>
+      <tr><th>지표</th><th>결과</th></tr>
+      <tr><td>개인정보 탐지율</td><td>98.1% (97.0~98.8%)</td></tr>
+      <tr><td>자격증명 탐지율</td><td>81.7% (75.4~86.6%)</td></tr>
+      <tr><td>정상 문장 오탐</td><td>0 / 106 (0~3.5%)</td></tr>
+      <tr><td>지연</td><td>서버 중앙값 0ms, 95백분위 1ms 이하</td></tr>
+      <tr><td>가림 뒤 답의 쓸모</td><td>사람이 45쌍을 판정했습니다. 원문으로 쓸 수 있던 답 36개 중 33개는 가려서 보내도 쓸 수 있었습니다(91.7%).</td></tr>
+      <tr><td>우회 시험</td><td>변형한 96문장 중 25개만 탐지했습니다(26%). 변형하지 않은 대조는 24/24입니다.</td></tr>
+    </table></div>
+  </section>
+  <h2><span class="md">##</span>진행 과정</h2>
+  <p>처음 주제는 지금과 달랐습니다. 9월에 정한 "프롬프트 인젝션 방어 게이트웨이"에서 시작해 HR 헬프데스크 가드레일을 거쳤고, 10월 29일에 주제를 외부 AI로 나가는 정보의 유출 방지로 다시 정했습니다.</p>
+  <div class="table-wrap"><table>
+    <tr><th>시기</th><th>한 일</th></tr>
+    <tr><td>9월 중순 이전</td><td>AI, 백엔드, 보안 후보를 난이도와 기간으로 비교하고 "LLM 프롬프트 인젝션 방어 게이트웨이(AI 방화벽)"로 정했습니다.</td></tr>
+    <tr><td>9월 16~17일</td><td>범위를 입력 방어로 좁히고 Spring Boot를 골랐으며, 모델을 OpenAI에서 무료 Gemini로 바꿨습니다. 데이터셋 560행과 개발 환경, 프록시 골격을 만들었습니다.</td></tr>
+    <tr><td>10월 26~28일</td><td>HR 헬프데스크 도메인 정책과 명세 v1을 확정하고, 판정 모델(Jev)의 한국어 PoC, 합격 기준과 점검 문장 65개를 만들었습니다. AI가 제안한 룰 32개는 채택하지 않았습니다.</td></tr>
+    <tr><td>10월 29일</td><td>주제를 HR 가드레일에서 정보 유출 방지 게이트웨이로 다시 정했습니다. 이날 커밋이 52개였습니다.</td></tr>
+    <tr><td>10월 29일 – 11월 3일</td><td>지금의 Curtain을 구현하고, 측정과 배포를 마친 뒤 시연 사이트를 만들었습니다.</td></tr>
+  </table></div>
+  <h2><span class="md">##</span>설계와 판단</h2>
+  <div class="table-wrap"><table>
+    <tr><th>판단</th><th>고른 것과 이유</th></tr>
+    <tr><td>탐지 방식</td><td>외부 판정 서비스(LLM) 대신 코드 규칙을 골랐습니다. 민감한 문장을 검사하려고 다시 외부로 보내면 제품의 목적과 맞지 않고, 지연도 1ms 이하입니다.</td></tr>
+    <tr><td>처리 4가지</td><td>비밀번호와 키 같은 자격증명은 가명으로도 보내지 않고 차단했습니다. 개인정보와 사내 코드명은 가려서 보내 업무를 이어 가게 했습니다.</td></tr>
+    <tr><td>가명 방식</td><td>지우지 않고 가명(<code>[전화1]</code>)으로 바꿨습니다. AI가 "여기에 전화번호가 있었다"는 구조를 알아야 자연스러운 답을 쓰고, 돌아온 답을 복원할 수 있습니다.</td></tr>
+    <tr><td>서버 상태</td><td>대화를 저장하지 않습니다. 클라이언트가 매 턴 대화 전체를 보내므로 매번 처음부터 가립니다. 같은 값은 같은 가명이 되게 해서 앞부분이 턴마다 같습니다.</td></tr>
+    <tr><td>적용 방식</td><td>브라우저 확장이나 전용 앱 대신 OpenAI 호환 입구를 골랐습니다. 기존 도구가 주소만 바꾸면 서버를 거치게 됩니다.</td></tr>
+    <tr><td>사용자 키</td><td>서버 키를 공유하지 않고 방문자 본인의 Gemini 키를 받습니다. 서버에 키가 없어 비용과 남용 위험이 없고, 키는 탭에만 보관하며 서버는 저장하지 않습니다.</td></tr>
+    <tr><td>자동 채점</td><td>AI 채점(Jev)은 사람 판정과 일치율이 48.9%라 채택하지 않고, 사람 판정을 주 결과로 썼습니다. 이 사실도 보고서에 적었습니다.</td></tr>
+  </table></div>
+  <p>구현 방법은 명세(수용 기준)를 먼저 쓰고, 실패하는 시험을 먼저 만든 뒤 구현하는 순서로 했습니다. 구현 중 명세의 빈칸이 드러나면 코드보다 명세를 먼저 고쳤습니다.</p>
+  <h2><span class="md">##</span>막혔던 일과 해결</h2>
+  <div class="table-wrap"><table>
+    <tr><th>증상</th><th>원인</th><th>해결</th></tr>
+    <tr>
+      <td>Chatbox에서 답에 <code>전화1</code>만 남고 번호가 복원되지 않았습니다.</td>
+      <td>모델이 가명의 대괄호를 떼고 답했습니다.</td>
+      <td>이 요청에서 실제로 발급한 가명에 한해 대괄호 없는 형태도 복원하게 했습니다. <code>휴대전화1</code>, <code>전화12</code>는 제외했습니다.</td>
+    </tr>
+    <tr>
+      <td>단위 시험은 통과하는데 실제 호출에서만 어긋났습니다.</td>
+      <td>실제 HTTP에서만 드러난 결함 3개였습니다: 같은 값을 여러 번 세어 개수가 부풂, 잘못된 Content-Type이 500 오류, 이전 답의 안내 줄이 외부 AI로 나감.</td>
+      <td>시험부터 쓰고 고쳤습니다. 공식 OpenAI SDK와 가짜 Gemini 서버로 전송 본문을 확인했습니다.</td>
+    </tr>
+    <tr>
+      <td>Gemini 키가 로그로 샐 수 있는 구조였습니다.</td>
+      <td>키를 요청 주소(<code>?key=</code>)에 붙여 보냈고, 주소는 오류 메시지에 그대로 실립니다.</td>
+      <td>헤더(<code>x-goog-api-key</code>)로 바꿨습니다. 키를 일부러 오류 본문에 섞어 모든 경로에서 로그에 없음을 시험했습니다.</td>
+    </tr>
+    <tr>
+      <td>화면의 한글이 깨져 보였습니다.</td>
+      <td>코드 영역의 한글이 굴림체로 그려졌습니다.</td>
+      <td>글꼴 목록을 정리하고, 브라우저로 글자마다 실제 글꼴을 조사해 굴림체가 0건임을 확인했습니다.</td>
+    </tr>
+    <tr>
+      <td>공개 서버가 잠든 뒤 첫 접속에서 화면이 멈춘 것처럼 보였습니다.</td>
+      <td>무료 서버는 약 15분 뒤 잠들고 깨우는 데 1분쯤 걸립니다.</td>
+      <td>대기 말풍선을 보여 주고, 8초가 넘으면 이유를 안내하게 했습니다.</td>
+    </tr>
+    <tr>
+      <td>가림이 일어났는지 사용자가 확인할 수 없었습니다.</td>
+      <td>증거가 접힌 작은 글씨에만 있었습니다.</td>
+      <td>"커튼 기록" 카드로 바꿨습니다(내가 쓴 문장, AI가 받은 문장, 되돌린 값).</td>
+    </tr>
+  </table></div>
+  <h2><span class="md">##</span>한계</h2>
+  <ul class="feat">
+    <li><b>우회에 약함</b>전각 숫자, 한글 숫자, 띄어쓰기, 보이지 않는 문자를 넣은 변형은 대부분 통과합니다(26% 탐지). 입력 정규화가 다음 과제입니다.</li>
+    <li><b>못 잡는 것</b>문맥어가 없는 비밀번호와 계좌번호는 규칙으로 값 모양만 보고 구분할 수 없습니다.</li>
+    <li><b>합성 문장</b>실제 직원 문장보다 탐지율이 높게 나왔을 수 있습니다. 회사 기밀 100%는 사전과 같은 값을 넣어 나온 결과입니다.</li>
+    <li><b>인증 없음</b>사용자 인증과 요청 수 제한이 없는 시연 범위입니다.</li>
+    <li><b>공개 서버</b>원문과 방문자 키가 서버를 한 번 거칩니다(저장과 기록은 하지 않습니다). 그래서 화면에 실제 정보를 넣지 말라고 안내하며, 실제 사용은 회사 안에 설치하는 것을 전제로 합니다.</li>
+  </ul>
   <div class="nav2"><button type="button" data-open="projects">← 프로젝트 목록</button></div>
 </article>
 
@@ -1521,14 +1638,11 @@
 
 <script>
 (function () {
-  /* 첫 화면 효과: ?for=security 이면 소용돌이가 사라진 뒤 자물쇠, 그 밖(기본, ?for=backend)은 소용돌이만 */
-  var MODE = /(?:^|[?&])for=security(?:&|$)/.test(location.search) ? 'security' : 'backend';
-  document.documentElement.setAttribute('data-mode', MODE);
   var TREE = [
     { id: 'home', icon: 'home', label: 'home' },
     { id: 'projects', icon: 'grid', label: '프로젝트/', kids: [
-      { id: 'hm', icon: 'doc', label: 'HealthMe.md' }, { id: 'ow', icon: 'doc', label: 'Overwrite.md' },
-      { id: 't13', icon: 'doc', label: '사운드워크.md' }, { id: 'fsl', icon: 'doc', label: 'FullSecurityLabs.md' }, { id: 't07', icon: 'doc', label: 'PinPoint.md' } ] },
+      { id: 'fsl', icon: 'doc', label: 'FullSecurityLabs.md' }, { id: 'ow', icon: 'doc', label: 'Overwrite.md' }, { id: 'curtain', icon: 'doc', label: 'Curtain.md' },
+      { id: 'hm', icon: 'doc', label: 'HealthMe.md' }, { id: 't13', icon: 'doc', label: '사운드워크.md' }, { id: 't07', icon: 'doc', label: 'PinPoint.md' } ] },
     { id: 'stack', icon: 'grid', label: '기술스택' },
     { id: 'certs', icon: 'grid', label: '자격증' },
     { id: 'history', icon: 'grid', label: '이력' }
@@ -1539,7 +1653,7 @@
   src.style.display = 'none';
 
   var win = document.getElementById('win'), view = document.getElementById('view');
-  var buf = document.getElementById('buf'), where = document.getElementById('where'), mode = document.getElementById('mode');
+  var where = document.getElementById('where'), mode = document.getElementById('mode');
   var tree = document.getElementById('tree');
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
@@ -1563,10 +1677,55 @@
     return '<div class="gut" aria-hidden="true">' + s + '</div>';
   }
 
-  var stopArt = null;
+  /* ── 편집기 탭 줄: 연 파일이 탭으로 쌓이고, ×로 닫는다. home 탭은 닫지 않는다 ── */
+  var openTabs = ['home'], curTab = 'home', etabs = document.getElementById('etabs');
+  function tabIcon(a) { return a.dataset.kind === 'home' ? 'home' : a.dataset.kind === 'md' ? 'doc' : 'grid'; }
+  function renderTabs() {
+    etabs.innerHTML = '';
+    openTabs.forEach(function (id) {
+      var a = arts[id], on = id === curTab;
+      var t = el('div', 'etab' + (on ? ' on' : '') + (id === 'home' ? ' first' : ''));
+      t.setAttribute('role', 'tab'); t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; t.dataset.tab = id;
+      t.innerHTML = '<svg class="ic-' + tabIcon(a) + '"><use href="#s-' + tabIcon(a) + '"/></svg><span>' + a.dataset.title + '</span><button class="tx" type="button" aria-label="' + a.dataset.title + ' 닫기" data-close="' + id + '">&times;</button>';
+      etabs.appendChild(t);
+      if (on) t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    });
+  }
+  function closeTab(id) {
+    var i = openTabs.indexOf(id); if (i < 0 || id === 'home') return;
+    openTabs.splice(i, 1);
+    if (id === curTab) open(openTabs[Math.min(i, openTabs.length - 1)]); else renderTabs();
+  }
+  etabs.addEventListener('click', function (e) {
+    var x = e.target.closest('[data-close]');
+    if (x) { e.stopPropagation(); closeTab(x.dataset.close); return; }
+    var t = e.target.closest('.etab'); if (t && t.dataset.tab !== curTab) open(t.dataset.tab);
+  });
+  etabs.addEventListener('auxclick', function (e) { if (e.button !== 1) return; var t = e.target.closest('.etab'); if (t) { e.preventDefault(); closeTab(t.dataset.tab); } });
+  etabs.addEventListener('keydown', function (e) {
+    var t = e.target.closest('.etab'); if (!t) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(t.dataset.tab); }
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      var i = openTabs.indexOf(t.dataset.tab) + (e.key === 'ArrowRight' ? 1 : -1);
+      var n = openTabs[(i + openTabs.length) % openTabs.length]; open(n);
+      var nt = etabs.querySelector('[data-tab="' + n + '"]'); if (nt) nt.focus();
+    }
+  });
+
+  /* ── 테마: 다크(기본)와 라이트, 고른 값은 브라우저에 기억한다 ── */
+  var themeBtn = document.getElementById('theme'), themeN = document.getElementById('themeN');
+  function setTheme(t, save) {
+    if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); else document.documentElement.removeAttribute('data-theme');
+    themeN.textContent = t === 'dark' ? 'Dark+' : 'Light+';
+    themeBtn.setAttribute('aria-pressed', t === 'dark');
+    if (save) { try { localStorage.setItem('theme', t); } catch (e) {} }
+  }
+  var savedTheme = 'light'; try { savedTheme = localStorage.getItem('theme') || 'light'; } catch (e) {}
+  setTheme(savedTheme, false);
+  themeBtn.addEventListener('click', function () { setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true); });
+
   function open(id) {
     var a = arts[id]; if (!a) return;
-    if (stopArt) { stopArt(); stopArt = null; }
     var kind = a.dataset.kind;
     view.innerHTML = '';
     view.scrollTop = 0;
@@ -1576,21 +1735,20 @@
     var h = view.clientHeight, rows = Math.ceil(h / 24) + 2;
     if (kind === 'home') {
       // 넓은 화면에서는 소개 글을 세로 가운데 쪽으로 내리고, 비워 둔 줄에도 줄 번호를 붙인다
-      var cv = el('canvas'); cv.id = 'art'; cv.setAttribute('aria-hidden', 'true');
-      wrap.insertBefore(cv, wrap.firstChild);
       view.appendChild(wrap);
-      var hn = Math.ceil((wrap.querySelector('.hero').offsetHeight + 14) / 24);
-      var skip = Math.max(0, Math.min(innerWidth > 860 ? 12 : 8, Math.floor((rows - hn) / 2) - 2));
+      var bl = wrap.querySelector('.belt'), inFlow = bl && getComputedStyle(bl).position !== 'absolute';
+      var hn = Math.ceil((wrap.querySelector('.stage2').offsetHeight + (inFlow ? bl.offsetHeight + 52 : 0) + 14) / 24);
+      var skip = Math.max(0, Math.min(innerWidth >= 600 ? 12 : 8, Math.floor((rows - hn - (inFlow ? 0 : 5)) / 2) - (inFlow ? 1 : 2)));
       wrap.style.paddingTop = (14 + skip * 24) + 'px';
       view.insertAdjacentHTML('afterbegin', gutter(hn + skip, rows));
-      stopArt = startArt(cv, wrap);
     } else {
       view.appendChild(wrap);
       var lines = Math.round(wrap.scrollHeight / 24);
       view.insertAdjacentHTML('afterbegin', gutter(kind === 'md' ? lines : 0, Math.max(rows, lines + 4)));
       if (kind !== 'md') view.querySelector('.gut').style.display = 'none';
     }
-    buf.textContent = a.dataset.title + (kind === 'md' ? '  [md]' : '');
+    if (openTabs.indexOf(id) < 0) openTabs.push(id);
+    curTab = id; renderTabs();
     where.textContent = a.dataset.path;
     mode.textContent = kind === 'md' ? 'READ' : 'NORMAL';
     if (kind === 'md') preview(id);
@@ -1710,307 +1868,6 @@
     if (g && doc && g.style.display !== 'none') { var n = Math.round(doc.scrollHeight / 24); g.outerHTML = gutter(n, n + 4); }
   }, true);
   document.getElementById('burger').addEventListener('click', function () { win.classList.toggle('drawer'); });
-
-  /* ── 첫 화면 ASCII: 패킷이 흐르고, 포인터 근처에서 소용돌이 → 멈추면 자물쇠 ── */
-  function startArt(cv, host) {
-    var ctx = cv.getContext('2d');
-    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var W = 0, H = 0, dpr = 1, CW = 9, CH = 17;
-    var fpsEl = document.getElementById('fps');
-    function size() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = host.clientWidth; H = Math.max(host.clientHeight, view.clientHeight);
-      cv.style.height = H + 'px';
-      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.font = '13px "JetBrains Mono", Consolas, monospace'; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
-    }
-    size();
-    var heroEl = host.querySelector('.hero');
-    function rectOf(e2) { var r = e2.getBoundingClientRect(), b = host.getBoundingClientRect(); return { x: r.left - b.left, y: r.top - b.top, w: r.width, h: r.height }; }
-    var tipEl = host.querySelector('.tip');
-    var hero = rectOf(heroEl), tip = tipEl ? rectOf(tipEl) : { x: -1e4, y: -1e4, w: 0, h: 0 };
-
-    // 패킷(보이드)
-    // 떠다니는 것: Packet Tracer(Cisco IOS) 명령, 리눅스 명령, SQL, Java (색으로 종류 구분)
-    var KINDS = [
-      { c: '#d6336c', w: ['R1> enable', 'R1# conf t', 'int fa0/1', 'no shutdown', 'show ip route', 'show run', 'router ospf 1', 'vlan 10', 'switchport mode access', 'copy run start', 'hostname R1', 'show vlan brief'] },
-      { c: '#2b8a3e', w: ['cd ~', 'ls -al', 'cp a b', 'chmod 600', 'grep -r', 'ssh', 'sudo', 'ps aux', 'tail -f', 'mkdir'] },
-      { c: '#1f6feb', w: ['SELECT *', 'WHERE id=1', 'JOIN', 'COMMIT;', 'INSERT', 'GROUP BY', 'ORDER BY'] },
-      { c: '#e8590c', w: ['@Override', 'try {', 'new HashMap<>()', 'System.out', 'void main', 'catch (e)'] }
-    ];
-    function pick() { var k = KINDS[(Math.random() * KINDS.length) | 0]; return { t: k.w[(Math.random() * k.w.length) | 0], c: k.c }; }
-    var TW = {}; // 문자열 폭 캐시
-    function tw(t) { if (TW[t] == null) { ctx.font = '12px "JetBrains Mono", Consolas, monospace'; TW[t] = ctx.measureText(t).width; } return TW[t]; }
-    var B = [];
-    var NB = Math.round(Math.max(22, Math.min(46, W * H / 17000)));
-    for (var i = 0; i < NB; i++) { var pk = pick(); B.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * 2, vy: (Math.random() - .5) * 2, t: pk.t, c: pk.c }); }
-
-    // 포인터: 실제 마우스가 없으면 자동으로 움직이는 유령 포인터
-    var P = { x: W * .68, y: H * .55, real: false, last: 0 }, still = 0, lockAmt = 0;
-    function onMove(e) {
-      var r = cv.getBoundingClientRect(), pt = e.touches ? e.touches[0] : e;
-      var nx = pt.clientX - r.left, ny = pt.clientY - r.top;
-      if (Math.hypot(nx - P.x, ny - P.y) > 2) still = 0;
-      P.x = nx; P.y = ny; P.real = true; P.last = performance.now();
-    }
-    host.addEventListener('mousemove', onMove);
-    host.addEventListener('touchmove', onMove, { passive: true });
-    window.addEventListener('resize', onResize);
-    function onResize() { size(); hero = rectOf(heroEl); if (tipEl) tip = rectOf(tipEl); gutW = W > 860 ? 60 : 0; }
-
-    /* 명암 문자로 만든 자물쇠: 고리는 원통처럼, 몸통은 = 바탕에 + 테두리, 열쇠 구멍은 #과 X */
-    var LCW = 6, LCH = 11, LC = 26, LR = 19, KX = (LC - 1) / 2, KY = LCH / LCW;
-    var LOCK = [];
-    (function buildLock() {
-      // 소용돌이와 같은 선 문자(- / | \)로 그린다. 입체감은 진하기로 낸다.
-      var Ro = 10, Ri = 6.2, ARC = 5.7, yc = ARC * KY, top = 8, bot = LR - 1, KR = top + 3;
-      var DIR = ['-', '\\', '|', '/'];
-      function tang(dx, dy) { var a = Math.atan2(dy, dx) + Math.PI / 2; return DIR[((Math.round(a / (Math.PI / 4)) % 4) + 4) % 4]; }
-      for (var r = 0; r < LR; r++) for (var c = 0; c < LC; c++) {
-        var dx = c - KX, ch = '', kind = 0, al = 1;
-        if (r < top) { // 고리
-          var t = -1, dyv = r * KY - yc;
-          if (r <= ARC) { var d = Math.hypot(dx, dyv); if (d >= Ri && d <= Ro) { t = (d - Ri) / (Ro - Ri); ch = tang(dx, dyv); } }
-          else if (Math.abs(dx) >= Ri && Math.abs(dx) <= Ro) { t = (Math.abs(dx) - Ri) / (Ro - Ri); ch = '|'; }
-          if (t >= 0) al = [.55, 1, 1, .5][Math.min(3, (t * 4) | 0)];
-        } else { // 몸통(모서리는 둥글게)
-          var cx2 = Math.max(0, Math.max(2 - c, c - (LC - 3))), cy2 = Math.max(0, Math.max(top + 1 - r, r - (bot - 1)));
-          if (Math.hypot(cx2, cy2 * KY * .9) > 2.2) continue;
-          var edgeC = Math.min(c, LC - 1 - c), edgeR = Math.min(r - top, bot - r);
-          if (edgeR === 0) { ch = '-'; al = 1; }
-          else if (edgeC === 0) { ch = '|'; al = 1; }
-          else if (edgeC <= 2) { ch = '|'; al = .8; }
-          else { ch = '/'; al = .55; }
-          // 열쇠 구멍: 0과 1, 주변은 한 칸 비운다
-          var kd = Math.hypot(dx, (r - KR) * KY), slot = r >= KR + 1 && r <= KR + 4 && Math.abs(dx) < 1.1;
-          var inK = kd < 2.3 || slot;
-          var nearK = kd < 3.4 || (r >= KR && r <= KR + 5 && Math.abs(dx) < 2.1);
-          if (inK) { ch = (c + r) % 2 ? '1' : '0'; kind = 1; al = 1; }
-          else if (nearK && edgeR > 0) continue;
-        }
-        if (!ch) continue;
-        LOCK.push({ ox: (c - KX) * LCW, oy: (r - (LR - 1) / 2) * LCH, ch: ch, k: kind, a: al,
-                    thr: Math.random() * .5, rr: 60 + Math.random() * 150, a0: Math.random() * 6.283 });
-      }
-    })();
-    var LBW = LC * LCW, LBH = LR * LCH;
-    var Lc = { x: 0, y: 0 }, LS = 1;
-
-    var gutW = W > 860 ? 60 : 0;
-    function blocked(x, y) { // 글자 영역과 줄 번호 위에는 그리지 않는다
-      return x < gutW || (x > hero.x - 6 && x < hero.x + hero.w && y > hero.y - 6 && y < hero.y + hero.h + 4) ||
-             (tip.w > 0 && x > tip.x - 8 && x < tip.x + tip.w + 8 && y > tip.y - 8 && y < tip.y + tip.h + 8);
-    }
-    // 자물쇠가 글자를 가리지 않는 위치: 넓으면 소개 글 오른쪽, 좁으면 소개 글 아래
-    function safeSpot(px, py) {
-      var wide = W - (hero.x + hero.w) > LBW * .75 + 30;
-      var aw = wide ? W - (hero.x + hero.w) - 16 : W - 16, ah = wide ? H - 16 : H - 16 - (hero.y + hero.h) - 16;
-      LS = Math.max(.6, Math.min(1, aw / LBW, ah / LBH));
-      var hw = LBW * LS / 2 + 8, hh = LBH * LS / 2 + 8, x0, x1, y0, y1;
-      if (wide) { x0 = hero.x + hero.w + hw; x1 = W - hw; y0 = hh; y1 = H - hh; }
-      else { x0 = x1 = W / 2; y0 = hero.y + hero.h + hh; y1 = H - 16 - hh; }
-      if (y1 < y0) y0 = y1 = (y0 + y1) / 2;
-      if (x1 < x0) x0 = x1 = (x0 + x1) / 2;
-      return { x: Math.min(x1, Math.max(x0, px)), y: Math.min(y1, Math.max(y0, py)), cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 };
-    }
-    Lc = safeSpot(P.x, P.y);
-
-    // 자물쇠 상자가 글자, 줄 번호와 겹치지 않는 무작위 자리
-    function overlap(ax, ay, aw, ah, b, pad) { return ax < b.x + b.w + pad && ax + aw > b.x - pad && ay < b.y + b.h + pad && ay + ah > b.y - pad; }
-    function randomSpot() {
-      safeSpot(0, 0); // LS 갱신
-      var w = LBW * LS, h = LBH * LS;
-      for (var n = 0; n < 40; n++) {
-        var x = gutW + w / 2 + 10 + Math.random() * Math.max(0, W - gutW - w - 20);
-        var y = h / 2 + 10 + Math.random() * Math.max(0, H - h - 20);
-        if (!overlap(x - w / 2, y - h / 2, w, h, hero, 10)) return { x: x, y: y };
-      }
-      var c = safeSpot(0, 0); return { x: c.cx, y: c.cy };
-    }
-    var G = { mode: 'move', until: 0, tx: W * .7, ty: H * .5, vx: 0, vy: 0 };
-    function ghostStep(t) {
-      if (G.mode === 'move') {
-        if (Math.hypot(G.tx - P.x, G.ty - P.y) < 30) { G.tx = gutW + Math.random() * (W - gutW); G.ty = Math.random() * H; }
-        if (!G.until) G.until = t + 2.5 + Math.random() * 2;
-        if (t > G.until) { var sp = randomSpot(); G.tx = sp.x; G.ty = sp.y; G.mode = 'land'; }
-      } else if (G.mode === 'land' && Math.hypot(G.tx - P.x, G.ty - P.y) < 4) { P.x = G.tx; P.y = G.ty; G.mode = 'stop'; G.until = t + 3.6; G.vx = G.vy = 0; return; }
-      else if (G.mode === 'stop' && t > G.until) { G.mode = 'move'; G.until = 0; G.tx = gutW + Math.random() * (W - gutW); G.ty = Math.random() * H; }
-      if (G.mode === 'stop') return;
-      var dx = G.tx - P.x, dy = G.ty - P.y, d = Math.hypot(dx, dy) || 1;
-      var spd = G.mode === 'land' ? Math.min(3, d * .05) : 3;
-      var ease = 1 - Math.pow(.95, fk);
-      G.vx += (dx / d * spd - G.vx) * ease; G.vy += (dy / d * spd - G.vy) * ease;
-      P.x += G.vx * fk; P.y += G.vy * fk; still = 0;
-    }
-
-    // 움직임은 60Hz 한 프레임을 기준으로 정했다. fk는 실제 프레임 간격을 그 기준에 맞춘 배율이라
-    // 화면 주사율(60Hz, 144Hz 등)과 상관없이 같은 속도로 움직인다. SPEED를 낮추면 전체가 느려진다.
-    var SPEED = 1, fk = 1;
-    var raf = 0, t0 = performance.now(), frames = 0, fpsT = t0, prev = t0, clock = 0;
-    function frame(now) {
-      raf = requestAnimationFrame(frame);
-      var dt = Math.min(50, now - prev); prev = now; // 탭 전환 뒤 큰 간격은 50ms로 자른다
-      fk = dt / (1000 / 60) * SPEED;
-      clock += dt * SPEED;
-      var t = clock / 1000;
-      if (!P.real || now - P.last > 3500) { // 유령 포인터: 흘러 다니다가 무작위 자리에 멈춘다
-        P.real = false;
-        ghostStep(t);
-      }
-      still += fk / 60;
-      lockAmt += ((still > .8 ? 1 : 0) - lockAmt) * (1 - Math.pow(still > .8 ? .965 : .91, fk));
-      var tgt = P.real ? safeSpot(P.x, P.y) : { x: P.x, y: P.y };
-      var follow = 1 - Math.pow(.8, fk);
-      if (lockAmt < .05 || still > .8) { Lc.x += (tgt.x - Lc.x) * follow; Lc.y += (tgt.y - Lc.y) * follow; } // 흩어지는 동안에는 제자리
-      draw(t);
-      frames++;
-      if (now - fpsT > 500) { if (fpsEl) fpsEl.textContent = Math.round(frames * 1000 / (now - fpsT)) + ' FPS'; frames = 0; fpsT = now; }
-    }
-    function inLockBox(x, y) { return Math.abs(x - Lc.x) < LBW * LS / 2 && Math.abs(y - Lc.y) < LBH * LS / 2; }
-    function draw(t) {
-      ctx.clearRect(0, 0, W, H);
-      // 1) 포인터 주변의 문자 소용돌이. 멈추면 반지름이 줄어 한 점으로 사라진다. 보안 링크(?for=security)에서는 그다음 자물쇠가 나타난다
-      var R = Math.min(190, Math.max(120, W * .17));
-      var Rs = R * (1 - Math.min(1, lockAmt / .4));
-      var c0 = Math.max(0, Math.floor((P.x - Rs) / CW)), c1 = Rs < 2 ? -1 : Math.ceil((P.x + Rs) / CW);
-      var r0 = Math.max(0, Math.floor((P.y - Rs) / CH)), r1 = Math.ceil((P.y + Rs) / CH);
-      var SW = '/|\\-';
-      ctx.font = '13px "JetBrains Mono", Consolas, monospace';
-      for (var r = r0; r <= r1; r++) for (var c = c0; c <= c1; c++) {
-        var x = c * CW + CW / 2, y = r * CH + CH / 2;
-        if (x > W || y > H || blocked(x, y)) continue;
-        var dx = x - P.x, dy = y - P.y, d = Math.hypot(dx, dy);
-        if (d > Rs) continue;
-        var f = 1 - d / Rs, al = f, col;
-        if (al < .03) continue;
-        var ang = Math.atan2(dy, dx) + Math.PI / 2 + t * 1.2 + d * .02;
-        var ch = SW[(((ang / (Math.PI / 4)) % 4) + 4 | 0) % 4];
-        if (f > .55 && ((c * 7 + r * 13 + (t * 3 | 0)) % 23 === 0)) { ch = '01#&%'[(c + r) % 5]; col = ['#d6336c', '#e8590c', '#7048e8'][(c + r) % 3]; }
-        else col = '#7d858d';
-        ctx.globalAlpha = Math.min(1, al * 1.1); ctx.fillStyle = col; ctx.fillText(ch, x, y);
-      }
-      // 2) 자물쇠: 문자들이 나선을 그리며 제자리로 모인다
-      if (MODE === 'security' && lockAmt > .01) {
-        ctx.font = '600 ' + (10 * LS).toFixed(2) + 'px "JetBrains Mono", Consolas, monospace';
-        for (var i = 0; i < LOCK.length; i++) {
-          var L = LOCK[i], k = Math.min(1, Math.max(0, (lockAmt - L.thr) / .5));
-          if (k <= 0) continue;
-          var e = 1 - Math.pow(1 - k, 3), m = 1 - e, a = L.a0 + t * 2.2 + m * 5;
-          var lx = Lc.x + L.ox * LS + Math.cos(a) * L.rr * m, ly = Lc.y + L.oy * LS + Math.sin(a) * L.rr * m;
-          if (blocked(lx, ly)) continue;
-          ctx.globalAlpha = e * L.a;
-          ctx.fillStyle = L.k ? '#7048e8' : '#2f3a46';
-          ctx.fillText(L.ch, lx, ly);
-        }
-        ctx.font = '13px "JetBrains Mono", Consolas, monospace';
-      }
-      // 3) 패킷 떼
-      for (var i2 = 0; i2 < B.length; i2++) {
-        var b = B[i2], sx = 0, sy = 0, ax2 = 0, ay2 = 0, cx = 0, cy = 0, n = 0;
-        for (var j = 0; j < B.length; j++) {
-          if (i2 === j) continue;
-          var o = B[j], ddx = o.x - b.x, ddy = o.y - b.y, dd = ddx * ddx + ddy * ddy;
-          if (dd < 6400) { n++; ax2 += o.vx; ay2 += o.vy; cx += o.x; cy += o.y; if (dd < 2500) { sx -= ddx; sy -= ddy; } }
-        }
-        if (n) { b.vx += ((ax2 / n - b.vx) * .04 + (cx / n - b.x) * .0008) * fk; b.vy += ((ay2 / n - b.vy) * .04 + (cy / n - b.y) * .0008) * fk; }
-        b.vx += sx * .004 * fk; b.vy += sy * .004 * fk;
-        var pdx = b.x - P.x, pdy = b.y - P.y, pd = Math.hypot(pdx, pdy) || 1;
-        var VR = Math.min(R * 1.8, W * .3), pull = still > .3 ? 1.6 : .7, inV = pd < VR;
-        if (inV) { // 소용돌이: 돌면서 중심으로 끌려간다
-          var fz = 1 - pd / VR;
-          b.vx += (-pdy / pd * 1.1 - pdx / pd * .9) * fz * pull * fk;
-          b.vy += (pdx / pd * 1.1 - pdy / pd * .9) * fz * pull * fk;
-        }
-        if (pd < 14) { // 빨려 들어가면 가장자리에서 다시 나타난다
-          var side = (Math.random() * 4) | 0;
-          b.x = side === 0 ? -15 : side === 1 ? W + 15 : Math.random() * W;
-          b.y = side === 2 ? -15 : side === 3 ? H + 15 : Math.random() * H;
-          b.vx = (W / 2 - b.x) / W * 2; b.vy = (H / 2 - b.y) / H * 2;
-          var np = pick(); b.t = np.t; b.c = np.c;
-          continue;
-        }
-        b.vx += Math.cos(t * .3 + i2) * .02 * fk; b.vy += Math.sin(t * .27 + i2 * 1.3) * .02 * fk;
-        var vmax = inV ? 4.5 : 2.2, sp = Math.hypot(b.vx, b.vy) || 1, lim = sp > vmax ? vmax / sp : sp < .8 ? .8 / sp : 1;
-        b.vx *= lim; b.vy *= lim; b.h2x = b.h1x; b.h2y = b.h1y; b.h1x = b.x; b.h1y = b.y; b.x += b.vx * fk; b.y += b.vy * fk;
-        if (b.x < -20) b.x = W + 20; if (b.x > W + 20) b.x = -20; if (b.y < -20) b.y = H + 20; if (b.y > H + 20) b.y = -20;
-        var hw2 = tw(b.t) / 2;
-        if (blocked(b.x, b.y) || blocked(b.x - hw2, b.y) || blocked(b.x + hw2, b.y) || (MODE === 'security' && lockAmt > .3 && inLockBox(b.x, b.y))) continue;
-        ctx.font = '12px "JetBrains Mono", Consolas, monospace';
-        ctx.fillStyle = b.c;
-        if (inV && b.h2x != null) { // 끌려 들어가는 궤적
-          var tx = b.x - b.vx * 4, ty = b.y - b.vy * 4, ux = b.x - b.vx * 8, uy = b.y - b.vy * 8;
-          if (!blocked(tx - hw2, ty) && !blocked(tx + hw2, ty)) { ctx.globalAlpha = .25 * Math.min(1, pd / 70); ctx.fillText(b.t, tx, ty); }
-          if (!blocked(ux - hw2, uy) && !blocked(ux + hw2, uy)) { ctx.globalAlpha = .12 * Math.min(1, pd / 70); ctx.fillText(b.t, ux, uy); }
-        }
-        ctx.globalAlpha = .7 * Math.min(1, pd / 70); ctx.fillText(b.t, b.x, b.y);
-      }
-      ctx.globalAlpha = 1;
-    }
-    if (reduce) { var sp1 = safeSpot(0, 0); P.x = Lc.x = sp1.cx; P.y = Lc.y = sp1.cy; P.x = -999; still = 9; lockAmt = 1; draw(0); }
-    else raf = requestAnimationFrame(frame);
-    return function () { cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); if (fpsEl) fpsEl.textContent = ''; };
-  }
-
-  /* ── 바탕화면: 뒤에 있는 창을 누르면 앞으로, ×·바탕화면·편집기를 누르면 다시 뒤로 ── */
-  var layers = [].slice.call(document.querySelectorAll('.dlayer'));
-  var tasks = [].slice.call(document.querySelectorAll('.taskbar [data-task]'));
-  function front(name) {
-    layers.forEach(function (l) { if (l.dataset.w !== name) { l.style.removeProperty('--dx'); l.style.removeProperty('--dy'); } });
-    layers.forEach(function (l) { l.classList.toggle('front', l.dataset.w === name); });
-    tasks.forEach(function (t) { t.classList.toggle('on', t.dataset.task === (name || 'code')); });
-  }
-  document.addEventListener('click', function (e) {
-    var tk = e.target.closest('.taskbar [data-task]');
-    if (tk) { var cur = document.querySelector('.dlayer.front'); front(tk.dataset.task === 'code' || (cur && cur.dataset.w === tk.dataset.task) ? null : tk.dataset.task); return; }
-    if (e.target.closest('.dwin .x')) { front(null); return; }
-    if (dragged) { dragged = false; return; }
-    var w = e.target.closest('.dwin');
-    if (w) { front(w.parentNode.dataset.w); return; }
-    if (document.querySelector('.dlayer.front')) front(null);
-  });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.querySelector('.dlayer.front')) front(null); });
-  /* ── 패드: 시작 버튼을 누르면 바로가기 아이콘 창이 열리고, 아이콘·바깥·Esc로 닫힌다 ── */
-  var startBox = document.querySelector('.dicons'), startBtn = document.querySelector('.taskbar .st');
-  function startMenu(on) { if (!startBox) return; startBox.classList.toggle('open', on); if (startBtn) startBtn.setAttribute('aria-expanded', on ? 'true' : 'false'); }
-  document.addEventListener('click', function (e) {
-    if (!startBox) return;
-    if (e.target.closest('.taskbar .st')) { startMenu(!startBox.classList.contains('open')); return; }
-    if (startBox.classList.contains('open') && (e.target.closest('.dicons .dicon') || !e.target.closest('.dicons'))) startMenu(false);
-  });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && startBox && startBox.classList.contains('open')) startMenu(false); });
-  /* ── 바탕화면: 제목 표시줄을 잡고 창 옮기기(앞으로 나온 터미널, 편집기) ── */
-  var deskMQ = window.matchMedia('(min-width: 1440px) and (min-height: 800px)');
-  var dragged = false;
-  document.addEventListener('pointerdown', function (e) {
-    if (!deskMQ.matches || e.button !== 0 || e.target.closest('button, a')) return;
-    var grip = e.target.closest('.bar') || e.target.closest('.dlayer.front .dwin .wt');
-    if (!grip) return;
-    var host = grip.classList.contains('bar') ? document.getElementById('win') : grip.closest('.dwin');
-    var holder = host.id === 'win' ? host : host.parentNode;
-    var r0 = host.getBoundingClientRect();
-    var bx = parseFloat(holder.style.getPropertyValue('--dx')) || 0, by = parseFloat(holder.style.getPropertyValue('--dy')) || 0;
-    var sx = e.clientX, sy = e.clientY, moved = false;
-    function move(ev) {
-      var dx = ev.clientX - sx, dy = ev.clientY - sy;
-      if (!moved && Math.abs(dx) + Math.abs(dy) < 4) return;
-      moved = true; grip.classList.add('drag');
-      var nx = Math.min(Math.max(r0.left + dx, 120 - r0.width), innerWidth - 120) - r0.left;
-      var ny = Math.min(Math.max(r0.top + dy, 0), innerHeight - 46 - 32) - r0.top;
-      holder.style.setProperty('--dx', (bx + nx) + 'px'); holder.style.setProperty('--dy', (by + ny) + 'px');
-    }
-    function up() {
-      document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', up); document.removeEventListener('pointercancel', up);
-      grip.classList.remove('drag'); if (moved) { dragged = true; setTimeout(function () { dragged = false; }, 0); }
-    }
-    document.addEventListener('pointermove', move); document.addEventListener('pointerup', up); document.addEventListener('pointercancel', up);
-  });
-  window.addEventListener('resize', function () { [document.getElementById('win')].concat(layers).forEach(function (h) { if (h) { h.style.removeProperty('--dx'); h.style.removeProperty('--dy'); } }); });
-  var clock = document.getElementById('clock');
-  function tick() {
-    var d = new Date(), p = function (n) { return (n < 10 ? '0' : '') + n; };
-    clock.innerHTML = p(d.getHours()) + ':' + p(d.getMinutes()) + '<br>' + d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
-  }
-  if (clock) { tick(); setInterval(tick, 30000); }
 
   open('home');
 })();
