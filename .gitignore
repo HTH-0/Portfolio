@@ -30,3 +30,7 @@ aleph_thesis_app/
 
 # PinPoint 스크린샷 원본 폴더(가공한 이미지는 site/assets/pinpoint/에 있음)
 pinpoint용 캡쳐/
+
+# Curtain 문서 재료(반영 완료, 올리지 않음)
+Curtain_포트폴리오_전달/
+PORTFOLIO_NOTES.md
